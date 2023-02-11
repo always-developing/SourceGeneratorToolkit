@@ -1,14 +1,14 @@
 ﻿namespace SourceGeneratorToolkit
 {
-    public class InternalModifier : ISourceStatement
+    public class InternalModifier : SourceStatement
     {
-        public string Name => nameof(InternalModifier);
+        public override string Name => nameof(InternalModifier);
 
-        public int Order { get; set; } = 0;
+        public override int Order { get; set; } = 0;
 
-        public string GenerateSource()
+        public InternalModifier()
         {
-            return "internal";
+            SourceText = "internal";
         }
     }
 }

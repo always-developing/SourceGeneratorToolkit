@@ -1,72 +1,49 @@
-﻿using System;
+﻿using SourceGeneratorToolkit.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class MethodContainer : ISourceContainer, ISourceModifier
+    public class MethodContainer : SourceContainer, ISourceModifier, ISourcePost, ISourceParameters
     {
-        public List<ISourceStatement> SourceItems { get; }
+        public override string Name => nameof(MethodContainer);
 
-        public string Name => nameof(MethodContainer);
-
-        public int Order { get; set; } = 10;
-
-        public List<ISourceStatement> Modifiers { get; }
+        public override int Order { get; set; } = 10;
 
         private MethodReturnStatement _returnType;
 
-        public List<ISourceStatement> Parameters { get; }
+        public ModifierContainer Modifiers { get; } = new ModifierContainer();
 
-        public List<ISourceStatement> PostStatements { get; }
+        public ParameterContainer Parameters { get; } = new ParameterContainer();
 
-        private readonly string _methodName;
+        public PostContainer PostStatements { get; } = new PostContainer();
 
         private readonly int _indentLevel;
 
         public MethodContainer(string methodName, int indentLevel)
         {
-            _methodName = methodName;
+            SourceText = methodName;
             _indentLevel = indentLevel;
-
-            SourceItems = new List<ISourceStatement>();
-            Modifiers = new List<ISourceStatement>();
-            Parameters = new List<ISourceStatement>();
-            PostStatements = new List<ISourceStatement>();
         }
 
-        public string GenerateSource()
+        public override string GenerateSource()
         {
             var sb = new StringBuilder();
 
             sb.Append("", _indentLevel);
 
-            foreach (var modifier in Modifiers.OrderBy(m => m.Order))
-            {
-                sb.Append($"{modifier.GenerateSource()} ");
-            }
+            sb.Append(Modifiers.GenerateSource());
+            
             sb.Append(_returnType.GenerateSource());
-            sb.Append($" {_methodName}(");
+            sb.Append($" {SourceText}(");
 
-            foreach (var parameter in Parameters)
-            {
-                sb.Append($"{parameter.GenerateSource()}");
+            sb.Append(Parameters.GenerateSource());
 
-                if(Parameters.Last() != parameter)
-                {
-                    sb.Append($", ");
-                }
-                else
-                {
-                    sb.Append($")");
-                }
-            }
+            sb.Append($")");
 
-            foreach (var statement in PostStatements.OrderBy(m => m.Order))
-            {
-                sb.Append($"{statement.GenerateSource()} ");
-            }
+            sb.Append(PostStatements.GenerateSource());
 
             sb.AppendLine("");
 

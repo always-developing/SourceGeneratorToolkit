@@ -4,15 +4,15 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class ProtectedModifier : ISourceStatement
+    public class ProtectedModifier : SourceStatement
     {
-        public string Name => nameof(ProtectedModifier);
+        public override string Name => nameof(ProtectedModifier);
 
-        public int Order { get; set; } = 0;
+        public override int Order { get; set; } = 0;
 
-        public string GenerateSource()
+        public ProtectedModifier()
         {
-            return "protected";
+            SourceText = "protected";
         }
     }
 }

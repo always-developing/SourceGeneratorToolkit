@@ -1,14 +1,14 @@
 ﻿namespace SourceGeneratorToolkit
 {
-    public class PrivateModifier : ISourceStatement
+    public class PrivateModifier : SourceStatement
     {
-        public string Name => nameof(PrivateModifier);
+        public override string Name => nameof(PrivateModifier);
 
-        public int Order { get; set; } = 0;
+        public override int Order { get; set; } = 0;
 
-        public string GenerateSource()
+        public PrivateModifier()
         {
-            return "private";
+            SourceText = "private"; 
         }
     }
 }

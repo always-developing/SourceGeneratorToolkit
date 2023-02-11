@@ -5,40 +5,32 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class ClassContainer : ISourceContainer, ISourceModifier
+    public class ClassContainer : SourceContainer, ISourceModifier
     {
-        public List<ISourceStatement> SourceItems { get; }
+        public override string Name => nameof(ClassContainer);
 
-        public string Name => nameof(ClassContainer);
+        public override int Order { get; set; } = 10;
 
-        public int Order { get; set; } = 10;
-
-        public List<ISourceStatement> Modifiers { get; }
-
-        private readonly string _className;
+        public ModifierContainer Modifiers { get; } = new ModifierContainer();
 
         private readonly int _indentLevel;
 
         public ClassContainer(string className, int indentLevel)
         {
-            _className = className;
+            SourceText = className;
             _indentLevel = indentLevel;
-
-            SourceItems = new List<ISourceStatement>();
-            Modifiers = new List<ISourceStatement>();
         }
 
-        public string GenerateSource()
+        public override string GenerateSource()
         {
             var sb = new StringBuilder();
 
             sb.Append("", _indentLevel);
 
-            foreach (var modifier in Modifiers.OrderBy(m => m.Order))
-            {
-                sb.Append($"{modifier.GenerateSource()} ");
-            }
-            sb.AppendLine($"class {_className}");
+            sb.Append(Modifiers.GenerateSource());
+
+
+            sb.AppendLine($"class {SourceText}");
             sb.AppendLine("{", _indentLevel);
 
             foreach (var generator in SourceItems.OrderBy(s => s.Order))

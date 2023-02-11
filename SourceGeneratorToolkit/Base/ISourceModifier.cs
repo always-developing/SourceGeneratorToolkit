@@ -4,8 +4,8 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public interface ISourceModifier : ISourceStatement
+    public interface ISourceModifier
     {
-        List<ISourceStatement> Modifiers { get; }
+        ModifierContainer Modifiers { get; } 
     }
 }

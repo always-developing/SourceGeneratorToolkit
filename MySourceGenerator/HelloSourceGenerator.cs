@@ -35,7 +35,7 @@ namespace {mainMethod.ContainingNamespace.ToDisplayString()}
             context.ConfigureGenerator()
                .WithFile(nameof(HelloSourceGenerator), file => file
                     .WithUsing("System")
-                    .WithNamespace(mainMethod.ContainingNamespace.ToDisplayString(), ns => ns
+                    .WithNamespace(mainMethod.ContainingNamespace.ToDisplayString(), ns => ns 
                         .WithClass(mainMethod.ContainingType.Name, cls => cls
                             .AsPublic()
                             .AsPartial()
@@ -47,14 +47,7 @@ namespace {mainMethod.ContainingNamespace.ToDisplayString()}
                                 .WithParameter("string", "name")
                                 .WithExpressionBody(@"Console.WriteLine($""Generator says: Hi from {name}"");")
                             )
-                        )
-    //                    .WithRawSource($@"
-    //public static partial class {mainMethod.ContainingType.Name}
-    //{{
-    //    static partial void HelloFrom(string name) =>
-    //        Console.WriteLine($""Generator says: Hi from 'abc123'"");
-    //}}")
-                    , false)
+                        ), false)
                ).Build();
 
                // .ToSource()

@@ -1,34 +1,33 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    internal class NamespaceBegin : ISourceStatement
+    internal class NamespaceBegin : SourceStatement
     {
-        public string Name => nameof(NamespaceBegin);
+        public override string Name => nameof(NamespaceBegin);
 
-        public int Order { get; set; } = 0;
+        public override int Order { get; set; } = 0;
 
         private bool _fileScoped = true;
-
-        private string _namespace;
 
         public NamespaceBegin(string @namespace, bool fileScoped)
         {
             _fileScoped = fileScoped;
-            _namespace = @namespace;
+            SourceText = @namespace;
         }
 
-        public string GenerateSource()
+        public override string GenerateSource()
         {
             var sb = new StringBuilder();
 
             if (_fileScoped)
             {
-                sb.AppendLine($"namespace {_namespace};");
+                sb.AppendLine($"namespace {SourceText};");
             }
             else
             {
-                sb.AppendLine($"namespace {_namespace}");
+                sb.AppendLine($"namespace {SourceText}");
                 sb.AppendLine("{");
             }
 

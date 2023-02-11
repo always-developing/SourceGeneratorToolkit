@@ -5,32 +5,17 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class FileContainer : ISourceContainer
+    public class FileContainer : SourceContainer
     {
-        public string Name => nameof(FileContainer);
+        public override string Name => nameof(FileContainer);
 
-        public int Order { get; set; } = 0;
-
-        public List<ISourceStatement> SourceItems { get; }
+        public override int Order { get; set; } = 0;
 
         internal string FileName { get; set; }
 
         public FileContainer(string fileName = "")
         {
-            SourceItems = new List<ISourceStatement>();
             SetFileName(fileName);
-        }
-
-        public string GenerateSource()
-        {
-            var sb = new StringBuilder();
-
-            foreach (var generator in SourceItems.OrderBy(s => s.Order))
-            {
-                sb.AppendLine(generator.GenerateSource());
-            }
-
-            return sb.ToString();
         }
 
         internal void SetFileName(string fileName)

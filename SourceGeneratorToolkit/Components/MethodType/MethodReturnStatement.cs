@@ -4,22 +4,15 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class MethodReturnStatement : ISourceStatement
+    public class MethodReturnStatement : SourceStatement
     {
-        public string Name => nameof(MethodReturnStatement);
+        public override string Name => nameof(MethodReturnStatement);
 
-        public int Order { get; set; } = 1;
-
-        private readonly string _returnType;
+        public override int Order { get; set; } = 1;
 
         public MethodReturnStatement(string returnType)
         {
-            _returnType = returnType;
-        }
-
-        public string GenerateSource()
-        {
-            return _returnType;
+            SourceText = returnType;
         }
     }
 }

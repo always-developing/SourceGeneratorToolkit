@@ -1,14 +1,16 @@
 ﻿namespace SourceGeneratorToolkit
 {
-    internal class LambdaStatement : ISourceStatement
+    internal class LambdaStatement : SourceStatement
     {
-        public string Name => nameof(LambdaStatement);
+        public override string Name => nameof(LambdaStatement);
 
-        public int Order { get; set; } = 0;
+        public override int Order { get; set; } = 0;
 
-        public string GenerateSource()
+        private const string _lambda = "=>";
+
+        public LambdaStatement()
         {
-            return " =>";
+            SourceText = _lambda;
         }
     }
 }

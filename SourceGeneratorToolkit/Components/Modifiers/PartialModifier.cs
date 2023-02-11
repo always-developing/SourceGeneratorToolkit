@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace SourceGeneratorToolkit
 {
-    public class PartialModifier : ISourceStatement
+    public class PartialModifier : SourceStatement
     {
-        public string Name => nameof(PartialModifier);
+        public override string Name => nameof(PartialModifier);
 
-        public int Order { get; set; } = 2;
+        public override int Order { get; set; } = 2;
 
-        public string GenerateSource()
+        public PartialModifier()
         {
-            return "partial";
+            SourceText = "partial";
         }
     }
 }

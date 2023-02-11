@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace SourceGeneratorToolkit
 {
-    internal class AsyncModifier : ISourceStatement
+    internal class AsyncModifier : SourceStatement
     {
-        public string Name => nameof(AsyncModifier);
+        public override string Name => nameof(AsyncModifier);
 
-        public int Order { get; set; } = 3;
+        public override int Order { get; set; } = 3;
 
-        public string GenerateSource()
+        public AsyncModifier()
         {
-            return "async";
+            SourceText = "async";
         }
     }
 }

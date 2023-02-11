@@ -1,26 +1,18 @@
-﻿using SourceGeneratorToolkit.Containers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class MethodBodyStatement : ISourceStatement
+    public class MethodBodyStatement : SourceStatement
     {
-        public string Name => nameof(MethodBodyStatement);
+        public override string Name => nameof(MethodBodyStatement);
 
-        public int Order { get; set; } = 1;
-
-        private readonly string _sourceText;
+        public override int Order { get; set; } = 1;
 
         public MethodBodyStatement(string sourceText)
         {
-            _sourceText = sourceText;
-        }
-
-        public string GenerateSource()
-        {
-            return _sourceText;
+            SourceText = sourceText;
         }
     }
 }

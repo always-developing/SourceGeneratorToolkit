@@ -8,14 +8,17 @@ namespace SourceGeneratorToolkit
     {
         public static FileContainer WithUsing(this FileContainer container, string usingStatement)
         {
-            container.SourceItems.Add(new UsingContainer(usingStatement));
+            container.SourceItems.Add(new UsingStatement(usingStatement));
 
             return container;
         }
 
         public static FileContainer WithUsing(this FileContainer container, params string[] usingStatements)
         {
-            container.SourceItems.Add(new UsingContainer(usingStatements));
+            foreach (var @using in usingStatements)
+            {
+                container.SourceItems.Add(new UsingStatement(@using));
+            }
 
             return container;
         }

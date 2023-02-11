@@ -1,14 +1,14 @@
 ﻿namespace SourceGeneratorToolkit
 {
-    public class PublicModifier : ISourceStatement
+    public class PublicModifier : SourceStatement
     {
-        public string Name => nameof(PublicModifier);
+        public override string Name => nameof(PublicModifier);
 
-        public int Order { get; set; } = 0;
+        public override int Order { get; set; } = 0;
 
-        public string GenerateSource()
+        public PublicModifier()
         {
-            return "public";
+            SourceText = "public";
         }
     }
 }

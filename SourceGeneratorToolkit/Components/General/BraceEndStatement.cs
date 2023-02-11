@@ -1,14 +1,18 @@
-﻿namespace SourceGeneratorToolkit
+﻿using System.Reflection.Metadata;
+
+namespace SourceGeneratorToolkit
 {
-    internal class BraceEndStatement : ISourceStatement
+    internal class BraceEndStatement : SourceStatement
     {
-        public string Name => nameof(BraceEndStatement);
+        public override string Name => nameof(BraceEndStatement);
 
-        public int Order { get; set; } = int.MaxValue;
+        public override int Order { get; set; } = int.MaxValue;
 
-        public string GenerateSource()
+        private const string _endBrace = "}";
+
+        public BraceEndStatement()
         {
-            return "}";
+            SourceText = _endBrace;
         }
     }
 }

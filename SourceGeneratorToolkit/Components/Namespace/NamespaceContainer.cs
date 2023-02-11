@@ -4,32 +4,17 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class NamespaceContainer : ISourceContainer
+    public class NamespaceContainer : SourceContainer
     {
-        public string Name => nameof(NamespaceContainer);
+        public override string Name => nameof(NamespaceContainer);
 
-        public int Order { get; set; } = 1;
-
-        public List<ISourceStatement> SourceItems { get; }
+        public override int Order { get; set; } = 1;
 
         public bool FileScoped { get;  }
 
         public NamespaceContainer(bool fileScoped)
         {
-            SourceItems = new List<ISourceStatement>();
             FileScoped = fileScoped;
-        }
-
-        public string GenerateSource()
-        {
-            var sb = new StringBuilder();
-
-            foreach (var generator in SourceItems.OrderBy(s => s.Order))
-            {
-                sb.AppendLine(generator.GenerateSource());
-            }
-
-            return sb.ToString();
         }
     }
 }

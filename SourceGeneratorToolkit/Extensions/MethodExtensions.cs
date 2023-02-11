@@ -25,7 +25,7 @@ namespace SourceGeneratorToolkit.Extensions
         public static MethodContainer WithParameter(this MethodContainer container, string type, string name)
         {
             var parameterStatement = new MethodParameterStatement(type, name);
-            container.Parameters.Add(parameterStatement);
+            container.Parameters.SourceItems.Add(parameterStatement);
 
             return container;
         }
@@ -43,7 +43,7 @@ namespace SourceGeneratorToolkit.Extensions
             var methodBody = new MethodBodyStatement(bodyContent);
             var lambdaStart = new LambdaStatement();
 
-            container.PostStatements.Add(lambdaStart);
+            container.PostStatements.SourceItems.Add(lambdaStart);
             container.SourceItems.Add(methodBody);
 
             return container;
