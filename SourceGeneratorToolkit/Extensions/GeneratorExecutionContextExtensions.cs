@@ -10,7 +10,7 @@ namespace SourceGeneratorToolkit
     {
         public static GeneratorConfiguration ConfigureGenerator(this GeneratorExecutionContext context)
         {
-            return new GeneratorConfiguration(context);
+            return new GeneratorConfiguration();
         }
     }
 }

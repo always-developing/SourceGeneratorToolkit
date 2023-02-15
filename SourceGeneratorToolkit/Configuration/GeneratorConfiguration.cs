@@ -1,27 +1,27 @@
 ﻿using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SourceGeneratorToolkit
 {
     public class GeneratorConfiguration
     {
-        internal GeneratorExecutionContext Context { get; }
+        public List<FileContainer> SourceItems = new List<FileContainer>();
 
-        public List<FileContainer> SourceItems;
-
-        public GeneratorConfiguration(GeneratorExecutionContext context)
+        public GeneratorConfiguration()
         {
-            Context = context;
-
-            SourceItems = new List<FileContainer>();
         }
 
-        public void Build()
+        public string Build()
         {
+            var sb = new StringBuilder();
+
             foreach (var file in SourceItems)
             {
-                Context.AddSource(file.FileName, file.GenerateSource());
+                sb.Append(file.GenerateSource());
             }
+
+            return sb.ToString();
         }
 
         
