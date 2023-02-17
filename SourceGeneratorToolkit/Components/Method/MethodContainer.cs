@@ -12,7 +12,7 @@ namespace SourceGeneratorToolkit
 
         public override int Order { get; set; } = 10;
 
-        private MethodReturnStatement _returnType;
+        private MethodReturnStatement _returnType = new MethodReturnStatement("void");
 
         public ModifierContainer Modifiers { get; } = new ModifierContainer();
 
@@ -45,11 +45,9 @@ namespace SourceGeneratorToolkit
 
             sb.Append(PostStatements.GenerateSource());
 
-            sb.AppendLine("");
-
             foreach (var generator in SourceItems.OrderBy(s => s.Order))
             {
-                sb.AppendLine(generator.GenerateSource(), (_indentLevel + 2));
+                sb.Append(generator.GenerateSource());
             }
 
             return sb.ToString();

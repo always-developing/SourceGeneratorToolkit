@@ -11,7 +11,7 @@ namespace SourceGeneratorToolkit
         {
             for(int i=0; i < indentLevel; i++)
             {
-                sb.Append("\t");
+                sb.Append(Constants.Indent);
             }
 
             sb.Append(value);
@@ -23,7 +23,7 @@ namespace SourceGeneratorToolkit
         {
             for (int i = 0; i < indentLevel; i++)
             {
-                sb.Append("\t");
+                sb.Append(Constants.Indent);
             }
 
             sb.AppendLine(value);

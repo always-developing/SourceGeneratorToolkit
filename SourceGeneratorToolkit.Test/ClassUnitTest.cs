@@ -24,9 +24,8 @@ public class ClassUnitTest
 
 class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -45,9 +44,8 @@ class TestClass
 
 public class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -66,9 +64,8 @@ public class TestClass
 
 private class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -88,9 +85,8 @@ private class TestClass
 
 protected class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -110,9 +106,8 @@ protected class TestClass
 
 internal class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -132,9 +127,8 @@ internal class TestClass
 
 static class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -154,9 +148,8 @@ static class TestClass
 
 partial class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -179,9 +172,8 @@ partial class TestClass
 
 public static class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -202,9 +194,8 @@ public static class TestClass
 
 private static class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -225,9 +216,8 @@ private static class TestClass
 
 protected static class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -248,9 +238,8 @@ protected static class TestClass
 
 internal static class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -271,9 +260,8 @@ internal static class TestClass
 
 static partial class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -295,9 +283,8 @@ static partial class TestClass
 
 public static partial class TestClass
 {
+
 }
-
-
 ", content);
     }
 
@@ -315,15 +302,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    class TestClass
+    {
 
-{"\t"}class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -339,15 +324,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    public class TestClass
+    {
 
-{"\t"}public class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -363,15 +346,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    private class TestClass
+    {
 
-{"\t"}private class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -387,15 +368,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    protected class TestClass
+    {
 
-{"\t"}protected class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -411,15 +390,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    internal class TestClass
+    {
 
-{"\t"}internal class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -435,15 +412,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    static class TestClass
+    {
 
-{"\t"}static class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -459,15 +434,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    partial class TestClass
+    {
 
-{"\t"}partial class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -486,15 +459,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    public static class TestClass
+    {
 
-{"\t"}public static class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -511,15 +482,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    private static class TestClass
+    {
 
-{"\t"}private static class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -536,15 +505,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    protected static class TestClass
+    {
 
-{"\t"}protected static class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -561,15 +528,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    internal static class TestClass
+    {
 
-{"\t"}internal static class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -586,15 +551,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    static partial class TestClass
+    {
 
-{"\t"}static partial class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 
@@ -612,15 +575,13 @@ public static partial class TestClass
                 , false)
             ).Build();
 
-        Assert.AreEqual($@"namespace TestNamespace
-{{
+        Assert.AreEqual(@"namespace TestNamespace
+{
+    public static partial class TestClass
+    {
 
-{"\t"}public static partial class TestClass
-{"\t"}{{
-{"\t"}}}
-
-}}
-
+    }
+}
 ", content);
     }
 

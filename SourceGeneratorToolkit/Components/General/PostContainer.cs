@@ -20,7 +20,7 @@ namespace SourceGeneratorToolkit
                 sb.Append($"{statement.GenerateSource()} ");
             }
 
-            return sb.ToString();
+            return sb.ToString().TrimEnd();
         }
     }
 }

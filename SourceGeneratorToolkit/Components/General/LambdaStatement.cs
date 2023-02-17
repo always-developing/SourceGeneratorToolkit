@@ -6,7 +6,7 @@
 
         public override int Order { get; set; } = 0;
 
-        private const string _lambda = "=>";
+        private const string _lambda = " =>";
 
         public LambdaStatement()
         {

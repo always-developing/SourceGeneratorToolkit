@@ -10,6 +10,8 @@ namespace SourceGeneratorToolkit
 
         public virtual int Order { get; set; }
 
+        public int IndentLevel { get; set; }
+
         public string SourceText { get; set; }
 
         public virtual string GenerateSource()

@@ -13,32 +13,30 @@ namespace SourceGeneratorToolkit
 
         public ModifierContainer Modifiers { get; } = new ModifierContainer();
 
-        private readonly int _indentLevel;
-
-        public ClassContainer(string className, int indentLevel)
+        public ClassContainer(string className, int intendLevel)
         {
             SourceText = className;
-            _indentLevel = indentLevel;
+            IndentLevel = intendLevel;
         }
 
         public override string GenerateSource()
         {
             var sb = new StringBuilder();
 
-            sb.Append("", _indentLevel);
-
+            sb.Append("", IndentLevel);
             sb.Append(Modifiers.GenerateSource());
 
 
             sb.AppendLine($"class {SourceText}");
-            sb.AppendLine("{", _indentLevel);
+            sb.AppendLine("{", IndentLevel);
 
             foreach (var generator in SourceItems.OrderBy(s => s.Order))
             {
-                sb.AppendLine(generator.GenerateSource(), _indentLevel);
+                sb.Append(generator.GenerateSource(), IndentLevel);
             }
 
-            sb.AppendLine("}", _indentLevel);
+            sb.AppendLine("");
+            sb.Append("}", IndentLevel);
             return sb.ToString();
         }
     }

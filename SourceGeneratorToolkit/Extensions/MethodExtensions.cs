@@ -1,6 +1,7 @@
-﻿using System;
+﻿using SourceGeneratorToolkit;
+using System;
 
-namespace SourceGeneratorToolkit.Extensions
+namespace SourceGeneratorToolkit
 {
     public static class MethodExtensions
     {
@@ -33,7 +34,14 @@ namespace SourceGeneratorToolkit.Extensions
         public static MethodContainer WithBody(this MethodContainer container, string bodyContent)
         {
             var methodBody = new MethodBodyStatement(bodyContent);
+
+            container.SourceItems.Add(new BraceStartStatement());
             container.SourceItems.Add(methodBody);
+            container.SourceItems.Add(new EmptyLineStatement
+            {
+                Order = int.MaxValue - 1
+            });
+            container.SourceItems.Add(new BraceEndStatement());
 
             return container;
         }
@@ -42,9 +50,13 @@ namespace SourceGeneratorToolkit.Extensions
         {
             var methodBody = new MethodBodyStatement(bodyContent);
             var lambdaStart = new LambdaStatement();
+            var space = new SpaceStatement(1);
+            var endStatement = new EndStatement();
 
             container.PostStatements.SourceItems.Add(lambdaStart);
+            container.SourceItems.Add(space);
             container.SourceItems.Add(methodBody);
+            container.SourceItems.Add(endStatement);
 
             return container;
         }
