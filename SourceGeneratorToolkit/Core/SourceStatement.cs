@@ -19,7 +19,7 @@ namespace SourceGeneratorToolkit
         {
             StringBuilder sb = IndentedStringBuilder();
 
-            sb.Append(SourceText);
+            sb.AppendLine(SourceText);
 
             return sb.ToString();
         }

@@ -41,8 +41,8 @@ public class UsingTests
         }).Build();
 
         Assert.AreEqual(@"using System;
-using System.Text;
 using System.IO;
+using System.Text;
 
 ", file);
     }

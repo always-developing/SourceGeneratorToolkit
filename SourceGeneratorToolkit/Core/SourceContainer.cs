@@ -15,7 +15,7 @@ namespace SourceGeneratorToolkit
 
             foreach (var item in SourceItems)
             {
-                sb.AppendLine(item.ToSource());
+                sb.Append(item.ToSource());
             }
 
             return sb.ToString();

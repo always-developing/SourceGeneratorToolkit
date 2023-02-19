@@ -8,12 +8,12 @@ namespace SourceGeneratorToolkit
     {
         internal override string Name => nameof(Generator);
 
-        public Generator WithFile(string fileName, Action<FileContainer> file)
+        public Generator WithFile(string fileName, Action<FileContainer> fileBuilder)
         {
             var internalFile = new FileContainer(fileName);
             SourceItems.Add(internalFile);
 
-            file.Invoke(internalFile);
+            fileBuilder.Invoke(internalFile);
 
             return this;
         }

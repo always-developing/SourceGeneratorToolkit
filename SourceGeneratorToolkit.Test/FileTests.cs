@@ -14,8 +14,7 @@ public class FileTests
             });
         }).Build();
 
-        Assert.AreEqual(@"
-", file);
+        Assert.AreEqual(@"", file);
     }
 
     [TestMethod]
@@ -31,9 +30,7 @@ public class FileTests
             });
         }).Build();
 
-        Assert.AreEqual(@"
-
-", file);
+        Assert.AreEqual(@"", file);
     }
 
     [TestMethod]
