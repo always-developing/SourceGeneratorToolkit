@@ -6,9 +6,9 @@ namespace SourceGeneratorToolkit
 {
     public static class NamespaceExtensions
     {
-        public INamespaceMarker WithClass(this INamespaceMarker namespaceContainer, string className)
+        public static NamespaceContainer WithClass(this NamespaceContainer namespaceContainer, string className)
         {
-            return 
+            return namespaceContainer;
         }
     }
 }

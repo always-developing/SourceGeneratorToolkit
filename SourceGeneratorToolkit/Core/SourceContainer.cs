@@ -21,15 +21,16 @@ namespace SourceGeneratorToolkit
             return sb.ToString();
         }
 
-        public override string ToTree()
+        public override string ToTree(int treeLevel)
         {
             var sb = IndentedStringBuilder();
 
+            sb.Append(base.TreePrefix(treeLevel));
             sb.AppendLine(this.GetType().Name);
 
             foreach (var item in SourceItems)
             {
-                sb.AppendLine(item.ToTree());
+                sb.AppendLine(item.ToTree(treeLevel + 1));
             }
 
             return sb.ToString();

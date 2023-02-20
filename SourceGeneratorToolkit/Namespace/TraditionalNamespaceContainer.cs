@@ -5,19 +5,21 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class FilescopedNamespaceContainer : NamespaceContainer
+    public class TraditionalNamespaceContainer : NamespaceContainer
     {
-        internal override string Name => nameof(FilescopedNamespaceContainer);
-
-        public FilescopedNamespaceContainer(string @namespace) : base(@namespace) 
-        { 
+        public TraditionalNamespaceContainer(string @namespace) : base(@namespace)
+        {
         }
 
         public override string ToSource()
         {
             var sb = IndentedStringBuilder();
 
-            sb.AppendLine($"namespace {SourceText};");
+            sb.AppendLine($"namespace {SourceText}");
+
+            this.SourceItems.Insert(0, new BraceStartStatement());
+            this.SourceItems.Add(new BraceEndStatement());
+
             sb.AppendLine(base.ToSource());
 
             return sb.ToString();

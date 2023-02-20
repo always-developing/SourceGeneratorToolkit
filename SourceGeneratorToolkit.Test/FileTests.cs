@@ -44,8 +44,8 @@ public class FileTests
             });
         }).ToTree();
 
-        Assert.AreEqual(@"Generator
--FileContainer (file1)
+        Assert.AreEqual(@"|-Generator
+ |-FileContainer (file1)
 ", tree);
     }
 
@@ -62,9 +62,9 @@ public class FileTests
             });
         }).ToTree();
 
-        Assert.AreEqual(@"Generator
--FileContainer (file1)
--FileContainer (file2)
+        Assert.AreEqual(@"|-Generator
+ |-FileContainer (file1)
+ |-FileContainer (file2)
 ", tree);
     }
 }

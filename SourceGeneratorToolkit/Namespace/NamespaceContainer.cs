@@ -14,18 +14,14 @@ namespace SourceGeneratorToolkit
             SourceText = @namespace;
         }
 
-        public override string ToSource()
+        public NamespaceContainer AddClass(string className, Action<ClassContainer> classBuilder)
         {
-            var sb = IndentedStringBuilder();
+            var ns = new ClassContainer(className);
+            SourceItems.Add(ns);
 
-            sb.AppendLine($"namespace {SourceText}");
+            classBuilder.Invoke(ns);
 
-            this.SourceItems.Insert(0, new BraceStartStatement());
-            this.SourceItems.Add(new BraceEndStatement());
-
-            sb.AppendLine(base.ToSource());
-
-            return sb.ToString();
+            return this;
         }
     }
 }

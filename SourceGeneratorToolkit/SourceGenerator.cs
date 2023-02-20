@@ -31,7 +31,7 @@ namespace SourceGeneratorToolkit
             var gen = new Generator();
             _rootGenerator.Invoke(gen);
 
-            return gen.ToTree();
+            return gen.ToTree(1);
         }
     }
 }

@@ -16,15 +16,17 @@ namespace SourceGeneratorToolkit
             SourceText = fileName;
         }
 
-        public override string ToTree()
+        public override string ToTree(int treeLevel)
         {
             StringBuilder sb = IndentedStringBuilder();
 
-            sb.AppendLine($"-{this.GetType().Name} ({SourceText})");
+            sb.AppendLine($"{TreePrefix(treeLevel)}{this.GetType().Name} ({SourceText})");
+
             foreach (var item in SourceItems)
             {
-                sb.Append(item.ToSource());
+                sb.Append(item.ToTree(treeLevel + 1));
             }
+
             return sb.ToString().TrimEnd();
         }
 
@@ -43,7 +45,7 @@ namespace SourceGeneratorToolkit
 
         public FileContainer WithNamespace(string @namespace, Action<NamespaceContainer> nsBuilder)
         {
-            var ns = new NamespaceContainer(@namespace);
+            var ns = new TraditionalNamespaceContainer(@namespace);
             SourceItems.Add(ns);
 
             nsBuilder.Invoke(ns);
@@ -51,7 +53,7 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public FileContainer WithFilescopedNamespace(string @namespace, Action<FilescopedNamespaceContainer> nsBuilder)
+        public FileContainer WithFilescopedNamespace(string @namespace, Action<NamespaceContainer> nsBuilder)
         {
             var ns = new FilescopedNamespaceContainer(@namespace);
             SourceItems.Add(ns);

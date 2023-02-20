@@ -24,11 +24,11 @@ namespace SourceGeneratorToolkit
             return sb.ToString();
         }
 
-        public virtual string ToTree()
+        public virtual string ToTree(int treeLevel)
         {
             StringBuilder sb = IndentedStringBuilder();
 
-            sb.Append(this.GetType().Name);
+            sb.Append($"{TreePrefix(treeLevel)}{this.GetType().Name}");
 
             return sb.ToString();
         }
@@ -44,6 +44,20 @@ namespace SourceGeneratorToolkit
 
             return sb;
         }
-        
+
+        protected string TreePrefix(int treeLevel)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for(int i = 2 ; i<= treeLevel; i++) 
+            {
+                sb.Append(" ");
+            }
+
+            sb.Append("|-");
+
+            return sb.ToString();
+        }
+
     }
 }
