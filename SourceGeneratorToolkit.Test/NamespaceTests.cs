@@ -23,6 +23,7 @@ public class NamespaceTests
         Assert.AreEqual(@"namespace tstNamespace
 {
 }
+
 ", file);
     }
 
@@ -44,6 +45,7 @@ public class NamespaceTests
 namespace tstNamespace
 {
 }
+
 ", file);
     }
 
@@ -67,6 +69,7 @@ using System.IO;
 namespace tstNamespace
 {
 }
+
 ", file);
     }
 
@@ -143,9 +146,11 @@ namespace tstNamespace;
         Assert.AreEqual(@"namespace tstNamespace
 {
 }
+
 namespace tstNamespace2
 {
 }
+
 ", file);
     }
 

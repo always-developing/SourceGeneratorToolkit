@@ -17,7 +17,7 @@ namespace SourceGeneratorToolkit
 
         public virtual string ToSource()
         {
-            StringBuilder sb = IndentedStringBuilder();
+            var sb = new IndentedStringBuilder(IndentLevel);
 
             sb.AppendLine(SourceText);
 
@@ -26,24 +26,24 @@ namespace SourceGeneratorToolkit
 
         public virtual string ToTree(int treeLevel)
         {
-            StringBuilder sb = IndentedStringBuilder();
+            var sb = new IndentedStringBuilder(IndentLevel);
 
             sb.Append($"{TreePrefix(treeLevel)}{this.GetType().Name}");
 
             return sb.ToString();
         }
 
-        protected StringBuilder IndentedStringBuilder()
-        {
-            var sb = new StringBuilder();
+        //protected StringBuilder IndentedStringBuilder()
+        //{
+        //    var sb = new StringBuilder();
 
-            for (int i = 0; i < IndentLevel; i++)
-            {
-                sb.Append(SourceToolkitSettings.Indent);
-            }
+        //    for (int i = 0; i < IndentLevel; i++)
+        //    {
+        //        sb.Append(SourceToolkitSettings.Indent);
+        //    }
 
-            return sb;
-        }
+        //    return sb;
+        //}
 
         protected string TreePrefix(int treeLevel)
         {

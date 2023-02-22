@@ -13,12 +13,12 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = IndentedStringBuilder();
+            var sb = new IndentedStringBuilder(IndentLevel);
 
             sb.AppendLine($"namespace {SourceText}");
 
             this.SourceItems.Insert(0, new BraceStartStatement());
-            this.SourceItems.Add(new BraceEndStatement());
+            this.SourceItems.Add(new BraceEndStatement(IndentLevel));
 
             sb.AppendLine(base.ToSource());
 

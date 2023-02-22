@@ -16,7 +16,7 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            StringBuilder sb = IndentedStringBuilder();
+            var sb = new IndentedStringBuilder(IndentLevel);
 
             sb.AppendLine($"using {SourceText};");
 

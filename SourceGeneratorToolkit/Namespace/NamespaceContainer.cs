@@ -1,6 +1,7 @@
 ﻿using SourceGeneratorToolkit.Syntax;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SourceGeneratorToolkit
@@ -14,14 +15,16 @@ namespace SourceGeneratorToolkit
             SourceText = @namespace;
         }
 
-        public NamespaceContainer AddClass(string className, Action<ClassContainer> classBuilder)
-        {
-            var ns = new ClassContainer(className);
-            SourceItems.Add(ns);
+        //public NamespaceContainer AddClass(string className, Action<ClassContainer> classBuilder)
+        //{
+        //    ClassContainer ns = this is TraditionalNamespaceContainer ? new ClassContainer(className, this.IndentLevel + 1)
+        //        : new ClassContainer(className, this.IndentLevel);
 
-            classBuilder.Invoke(ns);
+        //    SourceItems.Add(ns);
 
-            return this;
-        }
+        //    classBuilder.Invoke(ns);
+
+        //    return this;
+        //}
     }
 }

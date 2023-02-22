@@ -11,7 +11,7 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = IndentedStringBuilder();
+            var sb = new IndentedStringBuilder(IndentLevel);
 
             foreach (var item in SourceItems)
             {
@@ -23,7 +23,7 @@ namespace SourceGeneratorToolkit
 
         public override string ToTree(int treeLevel)
         {
-            var sb = IndentedStringBuilder();
+            var sb = new IndentedStringBuilder(IndentLevel);
 
             sb.Append(base.TreePrefix(treeLevel));
             sb.AppendLine(this.GetType().Name);

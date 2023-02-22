@@ -18,7 +18,7 @@ namespace SourceGeneratorToolkit
 
         public override string ToTree(int treeLevel)
         {
-            StringBuilder sb = IndentedStringBuilder();
+            var sb = new IndentedStringBuilder(IndentLevel);
 
             sb.AppendLine($"{TreePrefix(treeLevel)}{this.GetType().Name} ({SourceText})");
 
