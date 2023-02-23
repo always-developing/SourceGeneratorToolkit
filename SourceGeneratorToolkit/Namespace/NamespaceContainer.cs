@@ -10,21 +10,37 @@ namespace SourceGeneratorToolkit
     {
         internal override string Name => nameof(NamespaceContainer);
 
+        internal AccessModifierStatement _accessModifier;
+
         public NamespaceContainer(string @namespace)
         {
             SourceText = @namespace;
         }
+        public NamespaceContainer WithClass(string className, Action<ClassContainer> classBuilder)
+        {
+            var classContainer = new ClassContainer(className);
 
-        //public NamespaceContainer AddClass(string className, Action<ClassContainer> classBuilder)
-        //{
-        //    ClassContainer ns = this is TraditionalNamespaceContainer ? new ClassContainer(className, this.IndentLevel + 1)
-        //        : new ClassContainer(className, this.IndentLevel);
+            if (this is TraditionalNamespaceContainer)
+            {
+                classContainer.IndentLevel = this.IndentLevel + 1;
+            }
 
-        //    SourceItems.Add(ns);
+            this.SourceItems.Add(classContainer);
+            classBuilder.Invoke(classContainer);
 
-        //    classBuilder.Invoke(ns);
+            return this;
+        }
 
-        //    return this;
-        //}
+        public NamespaceContainer AsPublic()
+        {
+            _accessModifier = new PublicModifierStatement();
+            return this;
+        }
+
+        public NamespaceContainer AsInternal()
+        {
+            _accessModifier = new InternalModifierStatement();
+            return this;
+        }
     }
 }

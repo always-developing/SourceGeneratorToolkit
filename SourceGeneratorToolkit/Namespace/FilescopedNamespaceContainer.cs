@@ -17,6 +17,7 @@ namespace SourceGeneratorToolkit
         {
             var sb = new IndentedStringBuilder(IndentLevel);
 
+            sb.Append($"{_accessModifier?.ToSource()}");
             sb.AppendLine($"namespace {SourceText};");
             sb.Append(new NewLineStatement().ToSource());
             sb.AppendLine(base.ToSource());

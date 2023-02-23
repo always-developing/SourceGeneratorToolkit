@@ -254,4 +254,104 @@ namespace tstNamespace2;
 ", tree);
     }
 
+
+    [TestMethod]
+    public void Public_Empty_Namespace_One_Using()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file
+                .WithNamespace("tstNamespace", ns => 
+                {
+                    ns.AsPublic();
+                })
+                .WithUsing("System");
+            });
+        }).Build();
+
+        Assert.AreEqual(@"using System;
+
+public namespace tstNamespace
+{
+}
+
+", file);
+    }
+
+    [TestMethod]
+    public void Internal_Empty_Namespace_One_Using()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file
+                .WithNamespace("tstNamespace", ns =>
+                {
+                    ns.AsInternal();
+                })
+                .WithUsing("System");
+            });
+        }).Build();
+
+        Assert.AreEqual(@"using System;
+
+internal namespace tstNamespace
+{
+}
+
+", file);
+    }
+
+    [TestMethod]
+    public void Public_Empty_Filescoped_Namespace_Multi_Using()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file
+                .WithUsing("System.IO")
+                .WithFilescopedNamespace("tstNamespace", ns => 
+                {
+                    ns.AsPublic();
+                })
+                .WithUsing("System");
+            });
+        }).Build();
+
+        Assert.AreEqual(@"using System;
+using System.IO;
+
+public namespace tstNamespace;
+
+", file);
+    }
+
+    [TestMethod]
+    public void Internalc_Empty_Filescoped_Namespace_Multi_Using()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file
+                .WithUsing("System.IO")
+                .WithFilescopedNamespace("tstNamespace", ns =>
+                {
+                    ns.AsInternal();
+                })
+                .WithUsing("System");
+            });
+        }).Build();
+
+        Assert.AreEqual(@"using System;
+using System.IO;
+
+internal namespace tstNamespace;
+
+", file);
+    }
 }

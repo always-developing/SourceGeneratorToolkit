@@ -20,11 +20,20 @@ namespace SourceGeneratorToolkit
 
         public IndentedStringBuilder Append(string value)
         {
-            //if(!string.IsNullOrEmpty(value?.Trim()))
-            //{
-            //    _builder.Append($"{_indentation}{value}");
-            //}
             _builder.Append($"{_indentation}{value}");
+            return this;
+        }
+
+        public IndentedStringBuilder Append(string value, int indentLevel)
+        {
+            string indentation = "";
+
+            for (int i = 0; i < indentLevel; i++)
+            {
+                indentation += SourceToolkitSettings.Indent;
+            }
+
+            _builder.Append($"{indentation}{value}");
             return this;
         }
 
@@ -33,6 +42,24 @@ namespace SourceGeneratorToolkit
             if (!string.IsNullOrEmpty(value?.Trim()))
             {
                 _builder.AppendLine($"{_indentation}{value}");
+                return this;
+            }
+
+            return this;
+        }
+
+        public IndentedStringBuilder AppendLine(string value, int indentLevel)
+        {
+            if (!string.IsNullOrEmpty(value?.Trim()))
+            {
+                string indentation = "";
+
+                for (int i = 0; i < indentLevel; i++)
+                {
+                    indentation += SourceToolkitSettings.Indent;
+                }
+
+                _builder.AppendLine($"{indentation}{value}");
                 return this;
             }
 
