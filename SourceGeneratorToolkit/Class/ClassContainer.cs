@@ -14,6 +14,8 @@ namespace SourceGeneratorToolkit
 
         internal ModifierContainer _generalModifiers = new ModifierContainer();
 
+        internal GenericContainer _genericsContainer = new GenericContainer();
+
         public ClassContainer(string className)
         {
             SourceText = className;
@@ -26,9 +28,12 @@ namespace SourceGeneratorToolkit
             sb.Append($"{_accessModifier?.ToSource()}");
             sb.Append(_generalModifiers.ToSource(), 0);
 
+            sb.Append($"class {SourceText}", 0);
 
-            sb.AppendLine($"class {SourceText}", 0);
+            sb.Append(_genericsContainer.ToSource(), 0);
+            //sb.Append(_genericsContainer.Constraints.ToSource(), 0);
 
+            sb.Append(new NewLineStatement().ToSource(), 0);
             sb.Append(new BraceStartStatement().ToSource());
             sb.AppendLine(base.ToSource());
             sb.Append(new BraceEndStatement(0).ToSource());
@@ -89,5 +94,23 @@ namespace SourceGeneratorToolkit
             _generalModifiers.SourceItems.Add(new SealedModifierStatement());
             return this;
         }
+
+        public ClassContainer AddGeneric(string value)
+        {
+            _genericsContainer.SourceItems.Add(new GenericStatement(value));
+            _genericsContainer.Constraints.AddConstraint(value);
+            return this;
+        }
+
+        public ClassContainer AddGeneric(string value, Action<GenericContainer> builder)
+        {
+            _genericsContainer.SourceItems.Add(new GenericStatement(value));
+            _genericsContainer.Constraints.AddConstraint(value);
+
+            builder.Invoke(_genericsContainer);
+
+            return this;
+        }
+
     }
 }
