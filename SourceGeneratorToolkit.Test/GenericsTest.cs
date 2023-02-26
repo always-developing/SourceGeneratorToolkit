@@ -76,10 +76,9 @@ public class GenericsTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls.AddGeneric("T", gen =>
-                        {
-                            //gen.WithConstraint("abc");
-                        });
+                        cls.AddGeneric("T")
+                            .WithGenericConstraint("T", "new()");
+
                     });
                 });
             });
@@ -87,7 +86,37 @@ public class GenericsTest
 
         Assert.AreEqual(@"namespace testns
 {
-    class myClass<T>
+    class myClass<T> where T : new()
+    {
+    }
+}
+
+", file);
+    }
+
+    [TestMethod]
+    public void Empty_Class_One_Generic_Multi_Coonstraint()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.AddGeneric("T")
+                        .WithGenericConstraint("T", "new()")
+                        .WithGenericConstraint("T", "ITemp");
+
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass<T> where T : new(), ITemp
     {
     }
 }

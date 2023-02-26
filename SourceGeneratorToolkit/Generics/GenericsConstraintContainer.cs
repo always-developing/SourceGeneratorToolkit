@@ -1,21 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 
-namespace SourceGeneratorToolkit 
+namespace SourceGeneratorToolkit
 {
     internal class GenericsConstraintContainer : SourceContainer
     {
         internal override string Name => nameof(GenericsConstraintContainer);
 
-        internal Dictionary<string, List<string>> _constraints = new Dictionary<string, List<string>>();
-
-        internal void AddConstraint(string key)
+        public void AddConstraint(string genericKey, string value)
         {
-            if (!_constraints.ContainsKey(key))
+            SourceText = genericKey;
+
+            var match = SourceItems.FirstOrDefault(g => g.SourceText == genericKey);
+
+            if(match != null && match is GenericConstraintContainer container) 
             {
-                _constraints.Add(key, new List<string>());
+                container.AddConstraint(value);
+
+                return;
             }
+
+            SourceItems.Add(new GenericConstraintContainer(genericKey, value));
+        }
+
+        public override string ToSource()
+        {
+            if(!SourceItems.Any())
+            {
+                return "";
+            }
+
+            var sb = new StringBuilder();
+
+            sb.Append($" where {SourceText} :");
+
+            foreach(var item in SourceItems)
+            {
+                sb.Append($" {item.ToSource()}");
+            }
+
+            return sb.ToString();
         }
     }
 }

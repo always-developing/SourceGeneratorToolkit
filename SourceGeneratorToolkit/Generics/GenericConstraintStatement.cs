@@ -4,21 +4,20 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    internal class BraceEndStatement : SourceStatement
+    internal class GenericConstraintStatement : SourceStatement
     {
-        internal override string Name => nameof(BraceEndStatement);
+        internal override string Name => nameof(GenericConstraintStatement);
 
-        public BraceEndStatement(int intentLevel)
+        public GenericConstraintStatement(string constraints)
         {
-            SourceText = "}";
-            IndentLevel = intentLevel;
+            SourceText = constraints;
         }
 
         public override string ToSource()
         {
             var sb = new IndentedStringBuilder(IndentLevel);
 
-            sb.AppendLine(SourceText);
+            sb.Append(SourceText);
 
             return sb.ToString();
         }

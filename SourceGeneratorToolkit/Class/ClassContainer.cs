@@ -1,5 +1,4 @@
-﻿using SourceGeneratorToolkit.Syntax;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -14,7 +13,9 @@ namespace SourceGeneratorToolkit
 
         internal ModifierContainer _generalModifiers = new ModifierContainer();
 
-        internal GenericContainer _genericsContainer = new GenericContainer();
+        internal GenericsContainer _genericsContainer = new GenericsContainer();
+
+        internal GenericsConstraintContainer _constraintContainer = new GenericsConstraintContainer();
 
         public ClassContainer(string className)
         {
@@ -31,7 +32,7 @@ namespace SourceGeneratorToolkit
             sb.Append($"class {SourceText}", 0);
 
             sb.Append(_genericsContainer.ToSource(), 0);
-            //sb.Append(_genericsContainer.Constraints.ToSource(), 0);
+            sb.Append(_constraintContainer.ToSource(), 0);
 
             sb.Append(new NewLineStatement().ToSource(), 0);
             sb.Append(new BraceStartStatement().ToSource());
@@ -97,20 +98,26 @@ namespace SourceGeneratorToolkit
 
         public ClassContainer AddGeneric(string value)
         {
-            _genericsContainer.SourceItems.Add(new GenericStatement(value));
-            _genericsContainer.Constraints.AddConstraint(value);
+            _genericsContainer.SourceItems.Add(new GenericContainer(value));
             return this;
         }
 
-        public ClassContainer AddGeneric(string value, Action<GenericContainer> builder)
+        public ClassContainer WithGenericConstraint(string generic, string constraint)
         {
-            _genericsContainer.SourceItems.Add(new GenericStatement(value));
-            _genericsContainer.Constraints.AddConstraint(value);
-
-            builder.Invoke(_genericsContainer);
+            _constraintContainer.AddConstraint(generic, constraint);
 
             return this;
         }
+
+        //public ClassContainer AddGeneric(string value, Action<GenericContainer> builder)
+        //{
+        //    var genericContainer = new GenericContainer(value);
+
+        //    _genericsContainer.SourceItems.Add(genericContainer);
+        //    builder.Invoke(genericContainer);
+
+        //    return this;
+        //}
 
     }
 }
