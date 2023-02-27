@@ -362,6 +362,11 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# Ignore any files in /bin and /obj Folders
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
 **/bin/*
 **/obj/*
