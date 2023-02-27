@@ -15,6 +15,13 @@ namespace SourceGeneratorToolkit
 
         internal string SourceText { get; set; }
 
+        public SourceStatement() { }
+
+        public SourceStatement(string statement)
+        {
+            SourceText = statement;
+        }
+
         public virtual string ToSource()
         {
             var sb = new IndentedStringBuilder(IndentLevel);
@@ -32,18 +39,6 @@ namespace SourceGeneratorToolkit
 
             return sb.ToString();
         }
-
-        //protected StringBuilder IndentedStringBuilder()
-        //{
-        //    var sb = new StringBuilder();
-
-        //    for (int i = 0; i < IndentLevel; i++)
-        //    {
-        //        sb.Append(SourceToolkitSettings.Indent);
-        //    }
-
-        //    return sb;
-        //}
 
         protected string TreePrefix(int treeLevel)
         {

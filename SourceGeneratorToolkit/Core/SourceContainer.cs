@@ -9,6 +9,13 @@ namespace SourceGeneratorToolkit
     {
         internal List<SourceStatement> SourceItems { get; } = new List<SourceStatement>();
 
+        public virtual SourceContainer AddStatement(string statement)
+        {
+            SourceItems.Add(new Statement(statement));
+
+            return this;
+        }
+
         public override string ToSource()
         {
             var sb = new IndentedStringBuilder(IndentLevel);

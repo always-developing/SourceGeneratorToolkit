@@ -109,15 +109,21 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        //public ClassContainer AddGeneric(string value, Action<GenericContainer> builder)
-        //{
-        //    var genericContainer = new GenericContainer(value);
+        public ClassContainer WithConstructor()
+        {
+            SourceItems.Add(new ConstructorContainer(SourceText, IndentLevel + 1));
 
-        //    _genericsContainer.SourceItems.Add(genericContainer);
-        //    builder.Invoke(genericContainer);
+            return this;
+        }
 
-        //    return this;
-        //}
+        public ClassContainer WithConstructor(Action<ConstructorContainer> constructorBuilder)
+        {
+            var constructor = new ConstructorContainer(SourceText, IndentLevel + 1);
+            SourceItems.Add(constructor);
 
+            constructorBuilder.Invoke(constructor);
+
+            return this;
+        }
     }
 }
