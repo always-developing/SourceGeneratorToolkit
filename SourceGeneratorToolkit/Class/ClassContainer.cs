@@ -16,7 +16,7 @@ namespace SourceGeneratorToolkit
         internal GenericsContainer _genericsContainer = new GenericsContainer();
 
         internal GenericsConstraintContainer _constraintContainer = new GenericsConstraintContainer();
-
+        
         public ClassContainer(string className)
         {
             SourceText = className;
@@ -122,6 +122,23 @@ namespace SourceGeneratorToolkit
             SourceItems.Add(constructor);
 
             constructorBuilder.Invoke(constructor);
+
+            return this;
+        }
+
+        public ClassContainer WithMethod(string methodName, string returnType)
+        {
+            SourceItems.Add(new MethodContainer(methodName, returnType, IndentLevel + 1));
+
+            return this;
+        }
+
+        public ClassContainer WithMethod(string methodName, string returnType, Action<MethodContainer> builder)
+        {
+            var container = new MethodContainer(methodName, returnType, IndentLevel + 1);
+            SourceItems.Add(container);
+
+            builder.Invoke(container);
 
             return this;
         }

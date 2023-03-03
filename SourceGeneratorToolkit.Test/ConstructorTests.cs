@@ -10,7 +10,7 @@ namespace SourceGeneratorToolkit;
 public class ConstructorTests
 {
     [TestMethod]
-    public void Class_Default_Constructor()
+    public void Default_Constructor()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -42,7 +42,7 @@ public class ConstructorTests
     }
 
     [TestMethod]
-    public void Class_One_Param_Constructor()
+    public void One_Param_Constructor()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -77,7 +77,7 @@ public class ConstructorTests
     }
 
     [TestMethod]
-    public void Class_Multi_Param_Constructor()
+    public void Multi_Param_Constructor()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -114,7 +114,7 @@ public class ConstructorTests
     }
 
     [TestMethod]
-    public void Class_Multi_Param_Public_Constructor()
+    public void Multi_Param_Public_Constructor()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -152,7 +152,7 @@ public class ConstructorTests
     }
 
     [TestMethod]
-    public void Class_One_Param_Protected_Internal_Constructor()
+    public void One_Param_Protected_Internal_Constructor()
     {
         var file = SourceGenerator.Generate(gen =>
         {
