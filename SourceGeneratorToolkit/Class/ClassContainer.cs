@@ -42,23 +42,6 @@ namespace SourceGeneratorToolkit
             SourceItems.Add(new BraceEndStatement());
 
             return base.ToSource();
-
-            //var sb = new  IndentedStringBuilder(IndentLevel);
-
-            //sb.Append($"{_accessModifier?.ToSource()}");
-            //sb.Append(_generalModifiers.ToSource(), 0);
-
-            //sb.Append($"class {SourceText}", 0);
-
-            //sb.Append(_genericsContainer.ToSource(), 0);
-            //sb.Append(_constraintContainer.ToSource(), 0);
-
-            //sb.Append(new NewLineStatement().ToSource(), 0);
-            //sb.Append(new BraceStartStatement().ToSource());
-            //sb.AppendLine(base.ToSource());
-            //sb.Append(new BraceEndStatement(0).ToSource());
-
-            //return sb.ToString();
         }
 
         public ClassContainer AsPublic()

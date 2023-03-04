@@ -16,14 +16,8 @@ namespace SourceGeneratorToolkit
                 return string.Empty;
             }
 
-            var sb = new StringBuilder();
-
-            foreach(var item in SourceItems.OrderBy(i => i.Order))
-            {
-                sb.Append(item.ToSource());
-            }
-
-            return sb.ToString();
+            base.OrderSourceItems();
+            return base.ToSource();
         }
     }
 }

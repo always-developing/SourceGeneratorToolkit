@@ -24,25 +24,23 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new StringBuilder();
+            SourceItems.Add(new NewLineStatement());
 
-            sb.Append(new NewLineStatement().ToSource());
             if (_accessModifier != null)
             {
-                sb.Append($"{_accessModifier?.ToSource()}");
-                sb.Append(_generalModifiers.ToSource());
-                sb.AppendLine($"{_returnType} {SourceText}({_parameterContainer.ToSource()})");
-            }
-            else
-            {
-                sb.Append(_generalModifiers.ToSource());
-                sb.AppendLine($"{_returnType} {SourceText}({_parameterContainer.ToSource()})");
+                SourceItems.Add(_accessModifier);
             }
 
-            sb.Append(new BraceStartStatement().ToSource());
-            sb.Append(new BraceEndStatement().ToSource());
+            SourceItems.Add(_generalModifiers);
+            SourceItems.Add(new Statement($"{_returnType} {SourceText}"));
+            SourceItems.Add(new ParenthesisStartStatement());
+            SourceItems.Add(_parameterContainer);
+            SourceItems.Add(new ParenthesisEndStatement());
 
-            return sb.ToString();
+            SourceItems.Add(new BraceStartStatement());
+            SourceItems.Add(new BraceEndStatement());
+
+            return base.ToSource();
         }
 
         public MethodContainer AsPublic()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SourceGeneratorToolkit
@@ -10,19 +11,18 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new StringBuilder();
-
-            for(int i = 0; i< SourceItems.Count; i++) 
+            if (SourceItems.Any() && SourceItems.Last().GetType() == typeof(CommaStatement))
             {
-                sb.Append(SourceItems[i].ToSource());
-
-                if(i != SourceItems.Count - 1)
-                {
-                    sb.Append(", ");
-                }
+                SourceItems.Remove(SourceItems.Last());
             }
 
-            return sb.ToString();
+            return base.ToSource();
+        }
+
+        public void AddParameter(string type, string name) 
+        {
+            SourceItems.Add(new ParameterStatement(type, name));
+            SourceItems.Add(new CommaStatement());
         }
     }
 }

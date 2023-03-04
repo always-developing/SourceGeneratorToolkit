@@ -19,24 +19,26 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new StringBuilder();
+            SourceItems.Add(new NewLineStatement());
 
-            sb.Append(new NewLineStatement().ToSource());
             if (_accessModifier != null)
             {
-                sb.Append($"{_accessModifier?.ToSource()}");
+                SourceItems.Add(_accessModifier);
             }
 
-            sb.AppendLine($"{SourceText}({_parameterContainer.ToSource()})");
-            sb.Append(new BraceStartStatement().ToSource());
-            sb.Append(new BraceEndStatement().ToSource());
+            SourceItems.Add(new Statement(SourceText));
+            SourceItems.Add(new ParenthesisStartStatement());
+            SourceItems.Add(_parameterContainer);
+            SourceItems.Add(new ParenthesisEndStatement());
+            SourceItems.Add(new BraceStartStatement());
+            SourceItems.Add(new BraceEndStatement());
 
-            return sb.ToString();
+            return base.ToSource();            
         }
 
         public ConstructorContainer AddParameter(string type, string name)
         {
-            _parameterContainer.SourceItems.Add(new ParameterStatement(type, name));
+            _parameterContainer.AddParameter(type, name);
 
             return this;
         }

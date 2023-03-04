@@ -7,7 +7,7 @@ namespace SourceGeneratorToolkit
 {
     public abstract class SourceContainer : SourceStatement
     {
-        internal List<SourceStatement> SourceItems { get; } = new List<SourceStatement>();
+        internal List<SourceStatement> SourceItems { get; private set; } = new List<SourceStatement>();
 
         public virtual SourceContainer AddStatement(string statement)
         {
@@ -48,6 +48,11 @@ namespace SourceGeneratorToolkit
             }
 
             return sb.ToString();
+        }
+
+        public void OrderSourceItems()
+        {
+            SourceItems = SourceItems.OrderBy(item => item.Order).ToList();
         }
     }
 }

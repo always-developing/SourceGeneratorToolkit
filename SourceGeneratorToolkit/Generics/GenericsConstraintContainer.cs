@@ -33,16 +33,9 @@ namespace SourceGeneratorToolkit
                 return "";
             }
 
-            var sb = new StringBuilder();
+            SourceItems.Insert(0, new Statement($" where {SourceText} :"));
 
-            sb.Append($" where {SourceText} :");
-
-            foreach(var item in SourceItems)
-            {
-                sb.Append($" {item.ToSource()}");
-            }
-
-            return sb.ToString();
+            return base.ToSource();
         }
     }
 }
