@@ -12,5 +12,10 @@ namespace SourceGeneratorToolkit
         {
             SourceText = statement;
         }
+
+        public override string ToSource()
+        {
+            return SourceText;
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SourceGeneratorToolkit;
+namespace SourceGeneratorToolkit.Test;
 
 [TestClass]
 public class ConstructorTests
@@ -30,15 +30,11 @@ public class ConstructorTests
 {
     class myClass
     {
-                
         myClass()
         {
         }
-
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -65,15 +61,11 @@ public class ConstructorTests
 {
     class myClass
     {
-                
         myClass(int abc)
         {
         }
-
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -102,15 +94,11 @@ public class ConstructorTests
 {
     class myClass
     {
-                
         myClass(int abc, string stringValue)
         {
         }
-
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -140,15 +128,11 @@ public class ConstructorTests
 {
     class myClass
     {
-                
         public myClass(int abc, Type testType)
         {
         }
-
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -177,14 +161,10 @@ public class ConstructorTests
 {
     class myClass
     {
-                
         protected internal myClass(Class<T> @class)
         {
         }
-
     }
-}
-
-", file);
+}", file);
     }
 }

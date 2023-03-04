@@ -30,15 +30,11 @@ public class MethodTest
 {
     class myClass
     {
-                
         void HelloWorld()
         {
         }
-
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -66,14 +62,10 @@ public class MethodTest
 {
     class myClass
     {
-                
         public void HelloWorld()
         {
         }
-
     }
-}
-
-", file);
+}", file);
     }
 }

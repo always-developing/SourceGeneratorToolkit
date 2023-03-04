@@ -12,29 +12,24 @@ namespace SourceGeneratorToolkit
 
         internal AccessModifierStatement _accessModifier;
 
-        public ConstructorContainer(string className, int indentLevel)
+        public ConstructorContainer(string className)
         {
             SourceText = className;
-            IndentLevel = indentLevel;
         }
 
         public override string ToSource()
         {
-            var sb = new IndentedStringBuilder(IndentLevel);
+            var sb = new StringBuilder();
 
             sb.Append(new NewLineStatement().ToSource());
             if (_accessModifier != null)
             {
                 sb.Append($"{_accessModifier?.ToSource()}");
-                sb.AppendLine($"{SourceText}({_parameterContainer.ToSource()})", 0);
-            }
-            else
-            {
-                sb.AppendLine($"{SourceText}({_parameterContainer.ToSource()})");
             }
 
+            sb.AppendLine($"{SourceText}({_parameterContainer.ToSource()})");
             sb.Append(new BraceStartStatement().ToSource());
-            sb.Append(new BraceEndStatement(0).ToSource());
+            sb.Append(new BraceEndStatement().ToSource());
 
             return sb.ToString();
         }

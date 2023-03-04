@@ -22,9 +22,7 @@ public class NamespaceTests
 
         Assert.AreEqual(@"namespace tstNamespace
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -44,9 +42,7 @@ public class NamespaceTests
 
 namespace tstNamespace
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -68,9 +64,7 @@ using System.IO;
 
 namespace tstNamespace
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -84,9 +78,7 @@ namespace tstNamespace
             });
         }).Build();
 
-        Assert.AreEqual(@"namespace tstNamespace;
-
-", file);
+        Assert.AreEqual(@"namespace tstNamespace;", file);
     }
 
     [TestMethod]
@@ -104,9 +96,7 @@ namespace tstNamespace
 
         Assert.AreEqual(@"using System;
 
-namespace tstNamespace;
-
-", file);
+namespace tstNamespace;", file);
     }
 
     [TestMethod]
@@ -126,9 +116,7 @@ namespace tstNamespace;
         Assert.AreEqual(@"using System;
 using System.IO;
 
-namespace tstNamespace;
-
-", file);
+namespace tstNamespace;", file);
     }
 
     [TestMethod]
@@ -149,9 +137,7 @@ namespace tstNamespace;
 
 namespace tstNamespace2
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -167,10 +153,7 @@ namespace tstNamespace2
         }).Build();
 
         Assert.AreEqual(@"namespace tstNamespace;
-
-namespace tstNamespace2;
-
-", file);
+namespace tstNamespace2;", file);
     }
 
     [TestMethod]
@@ -275,9 +258,7 @@ namespace tstNamespace2;
 
 public namespace tstNamespace
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -300,9 +281,7 @@ public namespace tstNamespace
 
 internal namespace tstNamespace
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -325,9 +304,7 @@ internal namespace tstNamespace
         Assert.AreEqual(@"using System;
 using System.IO;
 
-public namespace tstNamespace;
-
-", file);
+public namespace tstNamespace;", file);
     }
 
     [TestMethod]
@@ -350,8 +327,6 @@ public namespace tstNamespace;
         Assert.AreEqual(@"using System;
 using System.IO;
 
-internal namespace tstNamespace;
-
-", file);
+internal namespace tstNamespace;", file);
     }
 }

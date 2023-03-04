@@ -16,11 +16,13 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new IndentedStringBuilder(IndentLevel);
+            //var sb = new IndentedStringBuilder(IndentLevel);
 
-            sb.AppendLine($"using {SourceText};");
+            //sb.AppendLine($"using {SourceText};");
 
-            return sb.ToString();
+            //return sb.ToString();
+
+            return $"using {SourceText};";
         }
     }
 }

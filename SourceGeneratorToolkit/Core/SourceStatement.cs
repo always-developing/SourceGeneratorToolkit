@@ -11,8 +11,6 @@ namespace SourceGeneratorToolkit
 
         internal int Order { get; set; } = 0;
 
-        internal int IndentLevel { get; set; } = 0;
-
         internal string SourceText { get; set; }
 
         public SourceStatement() { }
@@ -24,16 +22,12 @@ namespace SourceGeneratorToolkit
 
         public virtual string ToSource()
         {
-            var sb = new IndentedStringBuilder(IndentLevel);
-
-            sb.AppendLine(SourceText);
-
-            return sb.ToString();
+            return SourceText;
         }
 
         public virtual string ToTree(int treeLevel)
         {
-            var sb = new IndentedStringBuilder(IndentLevel);
+            var sb = new StringBuilder();
 
             sb.Append($"{TreePrefix(treeLevel)}{this.GetType().Name}");
 

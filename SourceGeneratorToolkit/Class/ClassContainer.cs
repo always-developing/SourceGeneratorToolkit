@@ -24,22 +24,41 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new  IndentedStringBuilder(IndentLevel);
+            var tempList = new List<SourceStatement>();
 
-            sb.Append($"{_accessModifier?.ToSource()}");
-            sb.Append(_generalModifiers.ToSource(), 0);
+            if(_accessModifier != null)
+            {
+                tempList.Add(_accessModifier);
+            }
+            tempList.Add(_generalModifiers);
+            tempList.Add(new Statement($"class {SourceText}"));
+            tempList.Add(_genericsContainer);
+            tempList.Add(_constraintContainer);
+            tempList.Add(new NewLineStatement());
+            tempList.Add(new BraceStartStatement());
 
-            sb.Append($"class {SourceText}", 0);
+            SourceItems.InsertRange(0, tempList);
 
-            sb.Append(_genericsContainer.ToSource(), 0);
-            sb.Append(_constraintContainer.ToSource(), 0);
+            SourceItems.Add(new BraceEndStatement());
 
-            sb.Append(new NewLineStatement().ToSource(), 0);
-            sb.Append(new BraceStartStatement().ToSource());
-            sb.AppendLine(base.ToSource());
-            sb.Append(new BraceEndStatement(0).ToSource());
+            return base.ToSource();
 
-            return sb.ToString();
+            //var sb = new  IndentedStringBuilder(IndentLevel);
+
+            //sb.Append($"{_accessModifier?.ToSource()}");
+            //sb.Append(_generalModifiers.ToSource(), 0);
+
+            //sb.Append($"class {SourceText}", 0);
+
+            //sb.Append(_genericsContainer.ToSource(), 0);
+            //sb.Append(_constraintContainer.ToSource(), 0);
+
+            //sb.Append(new NewLineStatement().ToSource(), 0);
+            //sb.Append(new BraceStartStatement().ToSource());
+            //sb.AppendLine(base.ToSource());
+            //sb.Append(new BraceEndStatement(0).ToSource());
+
+            //return sb.ToString();
         }
 
         public ClassContainer AsPublic()
@@ -111,14 +130,14 @@ namespace SourceGeneratorToolkit
 
         public ClassContainer WithConstructor()
         {
-            SourceItems.Add(new ConstructorContainer(SourceText, IndentLevel + 1));
+            SourceItems.Add(new ConstructorContainer(SourceText));
 
             return this;
         }
 
         public ClassContainer WithConstructor(Action<ConstructorContainer> constructorBuilder)
         {
-            var constructor = new ConstructorContainer(SourceText, IndentLevel + 1);
+            var constructor = new ConstructorContainer(SourceText);
             SourceItems.Add(constructor);
 
             constructorBuilder.Invoke(constructor);
@@ -128,14 +147,14 @@ namespace SourceGeneratorToolkit
 
         public ClassContainer WithMethod(string methodName, string returnType)
         {
-            SourceItems.Add(new MethodContainer(methodName, returnType, IndentLevel + 1));
+            SourceItems.Add(new MethodContainer(methodName, returnType));
 
             return this;
         }
 
         public ClassContainer WithMethod(string methodName, string returnType, Action<MethodContainer> builder)
         {
-            var container = new MethodContainer(methodName, returnType, IndentLevel + 1);
+            var container = new MethodContainer(methodName, returnType);
             SourceItems.Add(container);
 
             builder.Invoke(container);

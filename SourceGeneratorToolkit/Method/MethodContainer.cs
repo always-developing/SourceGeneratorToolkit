@@ -16,32 +16,31 @@ namespace SourceGeneratorToolkit
 
         internal string _returnType;
 
-        public MethodContainer(string methodName, string returnType, int indentLevel)
+        public MethodContainer(string methodName, string returnType)
         {
             SourceText = methodName;
             _returnType = returnType;
-            IndentLevel = indentLevel;
         }
 
         public override string ToSource()
         {
-            var sb = new IndentedStringBuilder(IndentLevel);
+            var sb = new StringBuilder();
 
             sb.Append(new NewLineStatement().ToSource());
             if (_accessModifier != null)
             {
                 sb.Append($"{_accessModifier?.ToSource()}");
-                sb.Append(_generalModifiers.ToSource(), 0);
-                sb.AppendLine($"{_returnType} {SourceText}({_parameterContainer.ToSource()})", 0);
+                sb.Append(_generalModifiers.ToSource());
+                sb.AppendLine($"{_returnType} {SourceText}({_parameterContainer.ToSource()})");
             }
             else
             {
-                sb.Append(_generalModifiers.ToSource(), 0);
+                sb.Append(_generalModifiers.ToSource());
                 sb.AppendLine($"{_returnType} {SourceText}({_parameterContainer.ToSource()})");
             }
 
             sb.Append(new BraceStartStatement().ToSource());
-            sb.Append(new BraceEndStatement(0).ToSource());
+            sb.Append(new BraceEndStatement().ToSource());
 
             return sb.ToString();
         }

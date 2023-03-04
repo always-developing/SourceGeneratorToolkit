@@ -8,19 +8,14 @@ namespace SourceGeneratorToolkit
     {
         internal override string Name => nameof(BraceEndStatement);
 
-        public BraceEndStatement(int intentLevel)
+        public BraceEndStatement()
         {
             SourceText = "}";
-            IndentLevel = intentLevel;
         }
 
         public override string ToSource()
         {
-            var sb = new IndentedStringBuilder(IndentLevel);
-
-            sb.AppendLine(SourceText);
-
-            return sb.ToString();
+            return SourceText;
         }
     }
 }

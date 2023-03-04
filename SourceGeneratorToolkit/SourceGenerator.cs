@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Formatting;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,7 +27,8 @@ namespace SourceGeneratorToolkit
             var gen = new Generator();
             _rootGenerator.Invoke(gen);
 
-            return gen.ToSource();
+            return CSharpSyntaxTree.ParseText(gen.ToSource()).GetRoot().NormalizeWhitespace().SyntaxTree.GetText().ToString();
+
         }
 
         public string ToTree()

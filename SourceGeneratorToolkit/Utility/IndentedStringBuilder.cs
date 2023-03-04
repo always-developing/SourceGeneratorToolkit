@@ -20,12 +20,22 @@ namespace SourceGeneratorToolkit
 
         public IndentedStringBuilder Append(string value)
         {
+            if(string.IsNullOrEmpty(value))
+            {
+                return this;
+            }
+
             _builder.Append($"{_indentation}{value}");
             return this;
         }
 
         public IndentedStringBuilder Append(string value, int indentLevel)
         {
+            //if (string.IsNullOrEmpty(value))
+            //{
+            //    return this;
+            //}
+
             string indentation = "";
 
             for (int i = 0; i < indentLevel; i++)

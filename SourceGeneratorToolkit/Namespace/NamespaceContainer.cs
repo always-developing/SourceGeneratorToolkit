@@ -19,11 +19,6 @@ namespace SourceGeneratorToolkit
         {
             var classContainer = new ClassContainer(className);
 
-            if (this is TraditionalNamespaceContainer)
-            {
-                classContainer.IndentLevel = this.IndentLevel + 1;
-            }
-
             this.SourceItems.Add(classContainer);
             classBuilder.Invoke(classContainer);
 

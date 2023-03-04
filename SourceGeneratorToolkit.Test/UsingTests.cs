@@ -21,9 +21,7 @@ public class UsingTests
             });
         }).Build();
 
-        Assert.AreEqual(@"using System;
-
-", file);
+        Assert.AreEqual(@"using System;", file);
     }
 
     [TestMethod]
@@ -42,9 +40,7 @@ public class UsingTests
 
         Assert.AreEqual(@"using System;
 using System.IO;
-using System.Text;
-
-", file);
+using System.Text;", file);
     }
 
     [TestMethod]

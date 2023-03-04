@@ -31,9 +31,7 @@ public class GenericsTest
     class myClass<T>
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -60,9 +58,7 @@ public class GenericsTest
     class myClass<T, T2>
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -86,12 +82,11 @@ public class GenericsTest
 
         Assert.AreEqual(@"namespace testns
 {
-    class myClass<T> where T : new()
+    class myClass<T>
+        where T : new()
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -116,11 +111,10 @@ public class GenericsTest
 
         Assert.AreEqual(@"namespace testns
 {
-    class myClass<T> where T : new(), ITemp
+    class myClass<T>
+        where T : new(), ITemp
     {
     }
-}
-
-", file);
+}", file);
     }
 }

@@ -14,22 +14,13 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            //var sb = new IndentedStringBuilder(IndentLevel);
 
-            //sb.Append($"{_accessModifier?.ToSource()}");
-            //sb.AppendLine($"namespace {SourceText};");
-            //sb.Append(new NewLineStatement().ToSource());
-            //sb.AppendLine(base.ToSource());
-
-            //return sb.ToString();
+            SourceItems.Insert(0, new NewLineStatement($"namespace {SourceText};"));
 
             if (_accessModifier != null)
             {
-                SourceItems.Add(_accessModifier);
+                SourceItems.Insert(0, _accessModifier);
             }
-
-            SourceItems.Add(new Statement($"namespace {SourceText};"));
-            SourceItems.Add(new NewLineStatement());
 
             return base.ToSource();
         }

@@ -11,7 +11,7 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new IndentedStringBuilder(IndentLevel);
+            var sb = new StringBuilder();
 
             if (!SourceItems.Any())
             {

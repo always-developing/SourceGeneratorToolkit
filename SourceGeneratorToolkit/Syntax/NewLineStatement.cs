@@ -13,6 +13,11 @@ namespace SourceGeneratorToolkit
             SourceText = "";
         }
 
+        public NewLineStatement(string statement)
+        {
+            SourceText = statement;
+        }
+
         public override string ToSource()
         {
             StringBuilder sb = new StringBuilder();

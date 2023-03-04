@@ -12,17 +12,22 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new IndentedStringBuilder(IndentLevel);
+            var tempList = new List<SourceStatement>();
 
-            sb.Append($"{_accessModifier?.ToSource()}");
-            sb.AppendLine($"namespace {SourceText}");
+            if (_accessModifier != null)
+            {
+                tempList.Add(_accessModifier);
+            }
 
-            this.SourceItems.Insert(0, new BraceStartStatement());
-            this.SourceItems.Add(new BraceEndStatement(IndentLevel));
+            tempList.Add(new NewLineStatement($"namespace {SourceText}"));
+            tempList.Add(new BraceStartStatement());
 
-            sb.AppendLine(base.ToSource());
+            SourceItems.InsertRange(0, tempList);
 
-            return sb.ToString();
+            SourceItems.Add(new BraceEndStatement());
+            SourceItems.Add(new NewLineStatement());
+
+            return base.ToSource();
         }
     }
 }

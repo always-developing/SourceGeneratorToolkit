@@ -11,11 +11,11 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new IndentedStringBuilder(IndentLevel);
+            var sb = new StringBuilder();
 
             foreach (var item in SourceItems.OrderBy(s => s.SourceText)) 
             {
-                sb.Append(item.ToSource());
+                sb.AppendLine(item.ToSource());
             }
 
             sb.Append(new NewLineStatement().ToSource());

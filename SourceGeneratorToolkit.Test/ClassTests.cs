@@ -28,9 +28,7 @@ public class ClassTests
     class myClass
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -48,12 +46,9 @@ public class ClassTests
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
-
 class myClass
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -78,9 +73,7 @@ class myClass
     public class myClass
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -105,9 +98,7 @@ class myClass
     private class myClass
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -132,9 +123,7 @@ class myClass
     internal class myClass
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -159,9 +148,7 @@ class myClass
     protected class myClass
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -186,9 +173,7 @@ class myClass
     file class myClass
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -209,12 +194,9 @@ class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
-
 public class myClass
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -235,12 +217,9 @@ public class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
-
 private class myClass
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -263,12 +242,9 @@ private class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
-
 private abstract class myClass
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -295,9 +271,7 @@ private abstract class myClass
     public abstract class myClass
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -324,9 +298,7 @@ private abstract class myClass
     public static class myClass
     {
     }
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -350,12 +322,9 @@ private abstract class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
-
 protected partial static class myClass
 {
-}
-
-", file);
+}", file);
     }
 
     [TestMethod]
@@ -380,11 +349,8 @@ protected partial static class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
-
 protected partial sealed static class myClass
 {
-}
-
-", file);
+}", file);
     }
 }

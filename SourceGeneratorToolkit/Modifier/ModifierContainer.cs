@@ -11,7 +11,12 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new IndentedStringBuilder(IndentLevel);
+            if(!SourceItems.Any())
+            {
+                return string.Empty;
+            }
+
+            var sb = new StringBuilder();
 
             foreach(var item in SourceItems.OrderBy(i => i.Order))
             {
