@@ -29,6 +29,8 @@ namespace SourceGeneratorToolkit
                 SourceItems.Remove(SourceItems.Last());
             }
 
+            SourceItems.Insert(0, new Statement($" where {SourceText} :"));
+
             return base.ToSource();
         }
     }

@@ -14,6 +14,10 @@ namespace SourceGeneratorToolkit
 
         internal AccessModifierStatement _accessModifier;
 
+        internal GenericsContainer _genericsContainer = new GenericsContainer();
+
+        internal GenericsConstraintContainer _constraintContainer = new GenericsConstraintContainer();
+
         internal string _returnType;
 
         public MethodContainer(string methodName, string returnType)
@@ -24,20 +28,26 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            SourceItems.Add(new NewLineStatement());
+            var tempList = new List<SourceStatement>();
+
+            tempList.Add(new NewLineStatement());
 
             if (_accessModifier != null)
             {
-                SourceItems.Add(_accessModifier);
+                tempList.Add(_accessModifier);
             }
 
-            SourceItems.Add(_generalModifiers);
-            SourceItems.Add(new Statement($"{_returnType} {SourceText}"));
-            SourceItems.Add(new ParenthesisStartStatement());
-            SourceItems.Add(_parameterContainer);
-            SourceItems.Add(new ParenthesisEndStatement());
+            tempList.Add(_generalModifiers);
+            tempList.Add(new Statement($"{_returnType} {SourceText}"));
+            tempList.Add(_genericsContainer);
+            tempList.Add(new ParenthesisStartStatement());
+            tempList.Add(_parameterContainer);
+            tempList.Add(new ParenthesisEndStatement());
+            tempList.Add(_constraintContainer);
+            tempList.Add(new BraceStartStatement());
 
-            SourceItems.Add(new BraceStartStatement());
+            SourceItems.InsertRange(0, tempList);
+
             SourceItems.Add(new BraceEndStatement());
 
             return base.ToSource();
@@ -82,6 +92,19 @@ namespace SourceGeneratorToolkit
         public MethodContainer AsPartial()
         {
             _generalModifiers.SourceItems.Add(new PartialModifierStatement());
+            return this;
+        }
+
+        public MethodContainer AddGeneric(string value)
+        {
+            _genericsContainer.SourceItems.Add(new GenericContainer(value));
+            return this;
+        }
+
+        public MethodContainer WithGenericConstraint(string generic, string constraint)
+        {
+            _constraintContainer.AddConstraint(generic, constraint);
+
             return this;
         }
     }

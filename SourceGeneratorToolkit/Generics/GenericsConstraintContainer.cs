@@ -12,8 +12,6 @@ namespace SourceGeneratorToolkit
 
         public void AddConstraint(string genericKey, string value)
         {
-            SourceText = genericKey;
-
             var match = SourceItems.FirstOrDefault(g => g.SourceText == genericKey);
 
             if(match != null && match is GenericConstraintContainer container) 
@@ -32,8 +30,6 @@ namespace SourceGeneratorToolkit
             {
                 return "";
             }
-
-            SourceItems.Insert(0, new Statement($" where {SourceText} :"));
 
             return base.ToSource();
         }
