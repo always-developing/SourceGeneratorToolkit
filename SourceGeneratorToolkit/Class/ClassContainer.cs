@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -16,6 +18,10 @@ namespace SourceGeneratorToolkit
         internal GenericsContainer _genericsContainer = new GenericsContainer();
 
         internal GenericsConstraintContainer _constraintContainer = new GenericsConstraintContainer();
+
+        internal InheritenceStatement _inheritenceStatement;
+
+        internal ImplementsContainer _implementsContainer = new ImplementsContainer();
         
         public ClassContainer(string className)
         {
@@ -33,6 +39,23 @@ namespace SourceGeneratorToolkit
             tempList.Add(_generalModifiers);
             tempList.Add(new Statement($"class {SourceText}"));
             tempList.Add(_genericsContainer);
+
+            if(_inheritenceStatement != null || _implementsContainer.SourceItems.Any())
+            {
+                tempList.Add(new SemiColonStatement());
+            }
+
+            if (_inheritenceStatement != null)
+            {
+                tempList.Add(_inheritenceStatement);
+
+                if(_implementsContainer.SourceItems.Any())
+                {
+                    tempList.Add(new CommaStatement());
+                }
+            }
+
+            tempList.Add(_implementsContainer);
             tempList.Add(_constraintContainer);
             tempList.Add(new NewLineStatement());
             tempList.Add(new BraceStartStatement());
@@ -141,6 +164,21 @@ namespace SourceGeneratorToolkit
             SourceItems.Add(container);
 
             builder.Invoke(container);
+
+            return this;
+        }
+
+        public ClassContainer Inherits(string baseClassName)
+        {
+            _inheritenceStatement = new InheritenceStatement(baseClassName);
+
+            return this;
+        }
+
+        public ClassContainer Implements(string implementsInterface)
+        {
+            _implementsContainer.SourceItems.Add(new ImplementStatement(implementsInterface));
+            _implementsContainer.SourceItems.Add(new CommaStatement());
 
             return this;
         }

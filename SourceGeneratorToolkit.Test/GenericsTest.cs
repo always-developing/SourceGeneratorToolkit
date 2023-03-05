@@ -179,6 +179,66 @@ public class GenericsTest
     }
 
     [TestMethod]
+    public void Empty_Class_One_Generic_Multi_Constraint_Inherits()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.AddGeneric("T")
+                        .Inherits("StringBuilder")
+                        .WithGenericConstraint("T", "new()")
+                        .WithGenericConstraint("T", "ITemp");
+
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass<T> : StringBuilder where T : new(), ITemp
+    {
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Empty_Class_Multi_Generic_Multi_Constraint_Inherits()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .AddGeneric("T")
+                        .AddGeneric("T1")
+                        .WithGenericConstraint("T", "new()")
+                        .WithGenericConstraint("T1", "new()")
+                        .Inherits("Task")
+                        .WithGenericConstraint("T", "ITemp");
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass<T, T1> : Task where T : new(), ITemp where T1 : new()
+    {
+    }
+}", file);
+    }
+
+    [TestMethod]
     public void Empty_Method_One_Generic()
     {
         var file = SourceGenerator.Generate(gen =>
