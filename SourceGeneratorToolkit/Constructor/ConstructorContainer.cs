@@ -69,7 +69,7 @@ namespace SourceGeneratorToolkit
 
         public ConstructorContainer AsProtectedInternal()
         {
-            _accessModifier = new ProtectedInternalStatement();
+            _accessModifier = new ProtectedInternalModifierStatement();
             return this;
         }
 

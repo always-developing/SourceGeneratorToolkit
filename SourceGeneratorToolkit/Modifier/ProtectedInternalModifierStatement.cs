@@ -4,11 +4,11 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class ProtectedInternalStatement : AccessModifierStatement
+    public class ProtectedInternalModifierStatement : AccessModifierStatement
     {
-        internal override string Name => nameof(ProtectedInternalStatement);
+        internal override string Name => nameof(ProtectedInternalModifierStatement);
 
-        public ProtectedInternalStatement()
+        public ProtectedInternalModifierStatement()
         {
             SourceText = "protected internal ";
         }

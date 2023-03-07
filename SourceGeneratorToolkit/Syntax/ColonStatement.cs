@@ -4,13 +4,13 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    internal class SemiColonStatement : SourceStatement
+    internal class ColonStatement : SourceStatement
     {
-        internal override string Name => nameof(SemiColonStatement);
+        internal override string Name => nameof(ColonStatement);
 
-        public SemiColonStatement()
+        public ColonStatement()
         {
-            SourceText = ";";
+            SourceText = ":";
         }
 
         public override string ToSource()

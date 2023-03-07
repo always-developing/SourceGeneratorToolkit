@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace SourceGeneratorToolkit.Test;
 public class Temp<T> : Task, IDisposable where T : new()
 {
+    public static readonly int myint = 100;
+
     public Temp(Action action) : base(action)
     {
     }

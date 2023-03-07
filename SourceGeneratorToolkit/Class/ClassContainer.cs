@@ -22,7 +22,7 @@ namespace SourceGeneratorToolkit
         internal InheritenceStatement _inheritenceStatement;
 
         internal ImplementsContainer _implementsContainer = new ImplementsContainer();
-        
+
         public ClassContainer(string className)
         {
             SourceText = className;
@@ -42,7 +42,7 @@ namespace SourceGeneratorToolkit
 
             if(_inheritenceStatement != null || _implementsContainer.SourceItems.Any())
             {
-                tempList.Add(new SemiColonStatement());
+                tempList.Add(new ColonStatement());
             }
 
             if (_inheritenceStatement != null)
@@ -179,6 +179,16 @@ namespace SourceGeneratorToolkit
         {
             _implementsContainer.SourceItems.Add(new ImplementStatement(implementsInterface));
             _implementsContainer.SourceItems.Add(new CommaStatement());
+
+            return this;
+        }
+
+        public ClassContainer AddField(string type, string name, Action<FieldContainer> builder = null)
+        {
+            var fieldStatement = new FieldContainer(type, name);
+            SourceItems.Add(fieldStatement);
+
+            builder?.Invoke(fieldStatement);
 
             return this;
         }
