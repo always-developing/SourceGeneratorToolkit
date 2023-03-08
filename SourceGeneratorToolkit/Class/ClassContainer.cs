@@ -185,10 +185,20 @@ namespace SourceGeneratorToolkit
 
         public ClassContainer AddField(string type, string name, Action<FieldContainer> builder = null)
         {
-            var fieldStatement = new FieldContainer(type, name);
-            SourceItems.Add(fieldStatement);
+            var fieldContainer = new FieldContainer(type, name);
+            SourceItems.Add(fieldContainer);
 
-            builder?.Invoke(fieldStatement);
+            builder?.Invoke(fieldContainer);
+
+            return this;
+        }
+
+        public ClassContainer AddProperty(string type, string name, Action<PropertyContainer> builder = null)
+        {
+            var propertyContainer = new PropertyContainer(type, name);
+            SourceItems.Add(propertyContainer);
+
+            builder?.Invoke(propertyContainer);
 
             return this;
         }
