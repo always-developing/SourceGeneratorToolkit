@@ -88,6 +88,24 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
+        public PropertyContainer AsVirtual()
+        {
+            _generalModifiers.SourceItems.Add(new VirtualModifierStatement());
+            return this;
+        }
+
+        public PropertyContainer AsOverride()
+        {
+            _generalModifiers.SourceItems.Add(new OverrideModifierStatement());
+            return this;
+        }
+
+        public PropertyContainer AsStatic()
+        {
+            _generalModifiers.SourceItems.Add(new StaticModifierStatement());
+            return this;
+        }
+
         public PropertyContainer WithValue(string value)
         {
             _defaultValue = value;
@@ -128,10 +146,6 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public PropertyContainer AsStatic()
-        {
-            _generalModifiers.SourceItems.Add(new StaticModifierStatement());
-            return this;
-        }
+        
     }
 }

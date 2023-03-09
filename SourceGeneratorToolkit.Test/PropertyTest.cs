@@ -187,4 +187,35 @@ public class PropertyTest
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Class_Public_Virtual_Property()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.AddProperty("int", "myIntField", builder =>
+                        {
+                            builder
+                            .AsPublic()
+                            .AsVirtual();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public virtual int myIntField { get; set; }
+    }
+}", file);
+    }
 }
