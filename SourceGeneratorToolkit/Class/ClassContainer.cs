@@ -207,7 +207,7 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public ClassContainer WithAttribute(string attributeName, Action<AttributeStatement> builder = null)
+        public ClassContainer AddAttribute(string attributeName, Action<AttributeStatement> builder = null)
         {
             var attribute = _attributeList.AddAttribute(attributeName);
             builder?.Invoke(attribute);
