@@ -14,7 +14,7 @@ namespace SourceGeneratorToolkit
 
         internal AccessModifierStatement _accessModifier;
 
-        internal GenericsContainer _genericsContainer = new GenericsContainer();
+        internal GenericList _genericsContainer = new GenericList();
 
         internal GenericsConstraintContainer _constraintContainer = new GenericsConstraintContainer();
 

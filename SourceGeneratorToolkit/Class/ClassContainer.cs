@@ -15,7 +15,9 @@ namespace SourceGeneratorToolkit
 
         internal ModifierContainer _generalModifiers = new ModifierContainer();
 
-        internal GenericsContainer _genericsContainer = new GenericsContainer();
+        internal GenericList _genericList = new GenericList();
+
+        internal AttributeList _attributeList = new AttributeList();
 
         internal GenericsConstraintContainer _constraintContainer = new GenericsConstraintContainer();
 
@@ -32,13 +34,15 @@ namespace SourceGeneratorToolkit
         {
             var tempList = new List<SourceStatement>();
 
-            if(_accessModifier != null)
+            tempList.Add(_attributeList);
+
+            if (_accessModifier != null)
             {
                 tempList.Add(_accessModifier);
             }
             tempList.Add(_generalModifiers);
             tempList.Add(new Statement($"class {SourceText}"));
-            tempList.Add(_genericsContainer);
+            tempList.Add(_genericList);
 
             if(_inheritenceStatement != null || _implementsContainer.SourceItems.Any())
             {
@@ -123,7 +127,7 @@ namespace SourceGeneratorToolkit
 
         public ClassContainer AddGeneric(string value)
         {
-            _genericsContainer.SourceItems.Add(new GenericContainer(value));
+            _genericList.SourceItems.Add(new GenericContainer(value));
             return this;
         }
 
@@ -199,6 +203,16 @@ namespace SourceGeneratorToolkit
             SourceItems.Add(propertyContainer);
 
             builder?.Invoke(propertyContainer);
+
+            return this;
+        }
+
+        public ClassContainer WithAttribute(string attributeName, Action<AttributeContainer> builder = null)
+        {
+            var attribute = new AttributeContainer(attributeName);
+            _attributeList.SourceItems.Add(attribute);
+
+            builder?.Invoke(attribute);
 
             return this;
         }

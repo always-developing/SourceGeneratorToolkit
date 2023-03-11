@@ -5,9 +5,9 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class GenericsContainer : SourceContainer
+    public class GenericList : SourceContainer
     {
-        internal override string Name => nameof(GenericsContainer);
+        internal override string Name => nameof(GenericList);
 
         public override string ToSource()
         {
