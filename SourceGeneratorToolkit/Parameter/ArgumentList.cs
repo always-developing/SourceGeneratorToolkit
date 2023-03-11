@@ -13,10 +13,10 @@ namespace SourceGeneratorToolkit
         {
             if(SourceItems.Any())
             {
-                SourceItems.Add(new CommaStatement());
+                _sourceItems.Add(new CommaStatement());
             }
 
-            SourceItems.Add(argument);
+            _sourceItems.Add(argument);
 
             return this;
         }

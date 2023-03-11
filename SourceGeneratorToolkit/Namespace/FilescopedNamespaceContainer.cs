@@ -14,12 +14,11 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-
-            SourceItems.Insert(0, new NewLineStatement($"namespace {SourceText};"));
+            _sourceItems.Insert(0, new NewLineStatement($"namespace {SourceText};"));
 
             if (_accessModifier != null)
             {
-                SourceItems.Insert(0, _accessModifier);
+                _sourceItems.Insert(0, _accessModifier);
             }
 
             return base.ToSource();

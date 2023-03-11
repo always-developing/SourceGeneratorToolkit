@@ -12,24 +12,24 @@ namespace SourceGeneratorToolkit
         public GenericConstraintContainer(string genericKey, string value)
         {
             SourceText = genericKey;
-            SourceItems.Add(new GenericConstraintStatement(value));
-            SourceItems.Add(new CommaStatement());
+            _sourceItems.Add(new GenericConstraintStatement(value));
+            _sourceItems.Add(new CommaStatement());
         }
 
         public void AddConstraint(string value)
         {
-            SourceItems.Add(new GenericConstraintStatement(value));
-            SourceItems.Add(new CommaStatement());
+            _sourceItems.Add(new GenericConstraintStatement(value));
+            _sourceItems.Add(new CommaStatement());
         }
 
         public override string ToSource()
         {
             if(SourceItems.Last().GetType() == typeof(CommaStatement)) 
             {
-                SourceItems.Remove(SourceItems.Last());
+                _sourceItems.Remove(SourceItems.Last());
             }
 
-            SourceItems.Insert(0, new Statement($" where {SourceText} :"));
+            _sourceItems.Insert(0, new Statement($" where {SourceText} :"));
 
             return base.ToSource();
         }

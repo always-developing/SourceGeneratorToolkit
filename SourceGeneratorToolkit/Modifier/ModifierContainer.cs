@@ -19,5 +19,12 @@ namespace SourceGeneratorToolkit
             base.OrderSourceItems();
             return base.ToSource();
         }
+
+        public SourceStatement AddModifier(SourceStatement modifier)
+        {
+            _sourceItems.Add(modifier);
+
+            return modifier;
+        }
     }
 }

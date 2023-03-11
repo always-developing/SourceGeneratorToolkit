@@ -19,19 +19,19 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            SourceItems.Add(new NewLineStatement());
+            _sourceItems.Add(new NewLineStatement());
 
             if (_accessModifier != null)
             {
-                SourceItems.Add(_accessModifier);
+                _sourceItems.Add(_accessModifier);
             }
 
-            SourceItems.Add(new Statement(SourceText));
-            SourceItems.Add(new ParenthesisStartStatement());
-            SourceItems.Add(_parameterContainer);
-            SourceItems.Add(new ParenthesisEndStatement());
-            SourceItems.Add(new BraceStartStatement());
-            SourceItems.Add(new BraceEndStatement());
+            _sourceItems.Add(new Statement(SourceText));
+            _sourceItems.Add(new ParenthesisStartStatement());
+            _sourceItems.Add(_parameterContainer);
+            _sourceItems.Add(new ParenthesisEndStatement());
+            _sourceItems.Add(new BraceStartStatement());
+            _sourceItems.Add(new BraceEndStatement());
 
             return base.ToSource();            
         }

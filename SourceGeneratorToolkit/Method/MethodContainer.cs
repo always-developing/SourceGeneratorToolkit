@@ -14,9 +14,9 @@ namespace SourceGeneratorToolkit
 
         internal AccessModifierStatement _accessModifier;
 
-        internal GenericList _genericsContainer = new GenericList();
+        internal GenericList _genericsList = new GenericList();
 
-        internal GenericsConstraintContainer _constraintContainer = new GenericsConstraintContainer();
+        internal GenericConstraintList _constraintContainer = new GenericConstraintList();
 
         internal string _returnType;
 
@@ -28,27 +28,27 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var tempList = new List<SourceStatement>();
-
-            tempList.Add(new NewLineStatement());
+            var builderList = new List<SourceStatement>
+            {
+                new NewLineStatement()
+            };
 
             if (_accessModifier != null)
             {
-                tempList.Add(_accessModifier);
+                builderList.Add(_accessModifier);
             }
 
-            tempList.Add(_generalModifiers);
-            tempList.Add(new Statement($"{_returnType} {SourceText}"));
-            tempList.Add(_genericsContainer);
-            tempList.Add(new ParenthesisStartStatement());
-            tempList.Add(_parameterContainer);
-            tempList.Add(new ParenthesisEndStatement());
-            tempList.Add(_constraintContainer);
-            tempList.Add(new BraceStartStatement());
+            builderList.Add(_generalModifiers);
+            builderList.Add(new Statement($"{_returnType} {SourceText}"));
+            builderList.Add(_genericsList);
+            builderList.Add(new ParenthesisStartStatement());
+            builderList.Add(_parameterContainer);
+            builderList.Add(new ParenthesisEndStatement());
+            builderList.Add(_constraintContainer);
+            builderList.Add(new BraceStartStatement());
 
-            SourceItems.InsertRange(0, tempList);
-
-            SourceItems.Add(new BraceEndStatement());
+            _sourceItems.InsertRange(0, builderList);
+            _sourceItems.Add(new BraceEndStatement());
 
             return base.ToSource();
         }
@@ -79,25 +79,25 @@ namespace SourceGeneratorToolkit
 
         public MethodContainer AsAbstract()
         {
-            _generalModifiers.SourceItems.Add(new AbstractModifierStatement());
+            _generalModifiers.AddModifier(new AbstractModifierStatement());
             return this;
         }
 
         public MethodContainer AsStatic()
         {
-            _generalModifiers.SourceItems.Add(new StaticModifierStatement());
+            _generalModifiers.AddModifier(new StaticModifierStatement());
             return this;
         }
 
         public MethodContainer AsPartial()
         {
-            _generalModifiers.SourceItems.Add(new PartialModifierStatement());
+            _generalModifiers.AddModifier(new PartialModifierStatement());
             return this;
         }
 
         public MethodContainer AddGeneric(string value)
         {
-            _genericsContainer.SourceItems.Add(new GenericContainer(value));
+            _genericsList.AddGeneric(value);
             return this;
         }
 

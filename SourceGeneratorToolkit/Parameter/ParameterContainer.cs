@@ -9,20 +9,13 @@ namespace SourceGeneratorToolkit
     {
         internal override string Name => nameof(ParameterContainer);
 
-        public override string ToSource()
-        {
-            if (SourceItems.Any() && SourceItems.Last().GetType() == typeof(CommaStatement))
-            {
-                SourceItems.Remove(SourceItems.Last());
-            }
-
-            return base.ToSource();
-        }
-
         public void AddParameter(string type, string name) 
         {
-            SourceItems.Add(new ParameterStatement(type, name));
-            SourceItems.Add(new CommaStatement());
+            if(_sourceItems.Any())
+            {
+                _sourceItems.Add(new CommaStatement());
+            }
+            _sourceItems.Add(new ParameterStatement(type, name));
         }
     }
 }

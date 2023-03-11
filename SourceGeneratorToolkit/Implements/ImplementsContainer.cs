@@ -9,14 +9,16 @@ namespace SourceGeneratorToolkit
     {
         internal override string Name => nameof(ImplementsContainer);
 
-        public override string ToSource()
+        public ImplementsContainer AddImplements(string implementsInterface)
         {
-            if (SourceItems.Any() && SourceItems.Last().GetType() == typeof(CommaStatement))
+            if(_sourceItems.Any())
             {
-                SourceItems.Remove(SourceItems.Last());
+                _sourceItems.Add(new CommaStatement());
             }
 
-            return base.ToSource();
+            _sourceItems.Add(new ImplementStatement(implementsInterface));
+
+            return this;
         }
     }
 }

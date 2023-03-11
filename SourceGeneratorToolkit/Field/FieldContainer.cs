@@ -23,20 +23,20 @@ namespace SourceGeneratorToolkit
         {
             if(_accessModifier != null)
             {
-                SourceItems.Add(_accessModifier);
+                _sourceItems.Add(_accessModifier);
             }
 
-            SourceItems.Add(_generalModifiers);
-            SourceItems.Add(new Statement(SourceText));
+            _sourceItems.Add(_generalModifiers);
+            _sourceItems.Add(new Statement(SourceText));
 
             if(_defaultValue != null)
             {
-                SourceItems.Add(new EqualsStatement());
-                SourceItems.Add(new Statement(_defaultValue));
+                _sourceItems.Add(new EqualsStatement());
+                _sourceItems.Add(new Statement(_defaultValue));
             }
 
-            SourceItems.Add(new SemiColonStatement());
-            SourceItems.Add(new NewLineStatement());
+            _sourceItems.Add(new SemiColonStatement());
+            _sourceItems.Add(new NewLineStatement());
 
             return base.ToSource();
         }
@@ -73,13 +73,13 @@ namespace SourceGeneratorToolkit
 
         public FieldContainer AsReadOnnly()
         {
-            _generalModifiers.SourceItems.Add(new ReadOnlyModifierStatement());
+            _generalModifiers.AddModifier(new ReadOnlyModifierStatement());
             return this;
         }
 
         public FieldContainer AsStatic()
         {
-            _generalModifiers.SourceItems.Add(new StaticModifierStatement());
+            _generalModifiers.AddModifier(new StaticModifierStatement());
             return this;
         }
     }

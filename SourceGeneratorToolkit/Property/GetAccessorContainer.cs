@@ -13,8 +13,8 @@ namespace SourceGeneratorToolkit
         {
             if (!SourceItems.Any())
             {
-                SourceItems.Add(new Statement("get"));
-                SourceItems.Add(new SemiColonStatement());
+                _sourceItems.Add(new Statement("get"));
+                _sourceItems.Add(new SemiColonStatement());
             }
 
             return base.ToSource();

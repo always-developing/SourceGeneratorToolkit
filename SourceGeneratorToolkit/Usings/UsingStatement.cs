@@ -5,11 +5,11 @@ using System.Threading;
 
 namespace SourceGeneratorToolkit
 {
-    public class UsingStatemment : SourceStatement
+    public class UsingStatement : SourceStatement
     {
-        internal override string Name => nameof(UsingStatemment);
+        internal override string Name => nameof(UsingStatement);
 
-        public UsingStatemment(string @using)
+        public UsingStatement(string @using)
         {
             SourceText = @using;
         }

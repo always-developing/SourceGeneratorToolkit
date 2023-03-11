@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -7,11 +8,19 @@ namespace SourceGeneratorToolkit
 {
     public abstract class SourceContainer : SourceStatement
     {
-        internal List<SourceStatement> SourceItems { get; private set; } = new List<SourceStatement>();
+        protected List<SourceStatement> _sourceItems = new List<SourceStatement>();
+
+        internal ReadOnlyCollection<SourceStatement> SourceItems
+        {
+            get
+            {
+                return _sourceItems.AsReadOnly();
+            }
+        }
 
         public virtual SourceContainer AddStatement(string statement)
         {
-            SourceItems.Add(new Statement(statement));
+            _sourceItems.Add(new Statement(statement));
 
             return this;
         }
@@ -52,7 +61,7 @@ namespace SourceGeneratorToolkit
 
         public void OrderSourceItems()
         {
-            SourceItems = SourceItems.OrderBy(item => item.Order).ToList();
+            _sourceItems = _sourceItems.OrderBy(item => item.Order).ToList();
         }
     }
 }

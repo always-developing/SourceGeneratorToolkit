@@ -11,10 +11,10 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            if (!SourceItems.Any())
+            if (!_sourceItems.Any())
             {
-                SourceItems.Add(new Statement("init"));
-                SourceItems.Add(new SemiColonStatement());
+                _sourceItems.Add(new Statement("init"));
+                _sourceItems.Add(new SemiColonStatement());
             }
 
             return base.ToSource();

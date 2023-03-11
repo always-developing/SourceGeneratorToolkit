@@ -11,27 +11,27 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new StringBuilder();
-
             if (!SourceItems.Any())
             {
                 return "";
             }
 
-            sb.Append(new ChevronStartStatement().ToSource());
+            _sourceItems.Insert(0, new ChevronStartStatement());
+            _sourceItems.Add(new ChevronEndStatement());
 
-            for (int i = 0; i < SourceItems.Count; i++)
+            return base.ToSource();
+        }
+
+        public GenericList AddGeneric(string value)
+        {
+            if(_sourceItems.Any())
             {
-                sb.Append(SourceItems[i].ToSource());
-
-                if (i != SourceItems.Count - 1)
-                {
-                    sb.Append(", ");
-                }
+                _sourceItems.Add(new CommaStatement());
             }
 
-            sb.Append(new ChevronEndStatement().ToSource());
-            return sb.ToString();
+            _sourceItems.Add(new GenericContainer(value));
+
+            return this;
         }
     }
 }

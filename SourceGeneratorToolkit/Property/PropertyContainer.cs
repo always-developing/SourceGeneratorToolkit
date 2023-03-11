@@ -27,39 +27,39 @@ namespace SourceGeneratorToolkit
         {
             if (_accessModifier != null)
             {
-                SourceItems.Add(_accessModifier);
+                _sourceItems.Add(_accessModifier);
             }
 
-            SourceItems.Add(_generalModifiers);
-            SourceItems.Add(new Statement(SourceText));
+            _sourceItems.Add(_generalModifiers);
+            _sourceItems.Add(new Statement(SourceText));
 
-            SourceItems.Add(new BraceStartStatement());
+            _sourceItems.Add(new BraceStartStatement());
 
             if(_getter != null)
             {
-                SourceItems.Add(_getter);
+                _sourceItems.Add(_getter);
             }
 
             if (_setter != null)
             {
-                SourceItems.Add(_setter);
+                _sourceItems.Add(_setter);
             }
 
             if (_initer != null)
             {
-                SourceItems.Add(_initer);
+                _sourceItems.Add(_initer);
             }
 
-            SourceItems.Add(new BraceEndStatement());
+            _sourceItems.Add(new BraceEndStatement());
 
             if (_defaultValue != null)
             {
-                SourceItems.Add(new EqualsStatement());
-                SourceItems.Add(new Statement(_defaultValue));
-                SourceItems.Add(new SemiColonStatement());
+                _sourceItems.Add(new EqualsStatement());
+                _sourceItems.Add(new Statement(_defaultValue));
+                _sourceItems.Add(new SemiColonStatement());
             }
-            
-            SourceItems.Add(new NewLineStatement());
+
+            _sourceItems.Add(new NewLineStatement());
 
             return base.ToSource();
         }
@@ -90,19 +90,19 @@ namespace SourceGeneratorToolkit
 
         public PropertyContainer AsVirtual()
         {
-            _generalModifiers.SourceItems.Add(new VirtualModifierStatement());
+            _generalModifiers.AddModifier(new VirtualModifierStatement());
             return this;
         }
 
         public PropertyContainer AsOverride()
         {
-            _generalModifiers.SourceItems.Add(new OverrideModifierStatement());
+            _generalModifiers.AddModifier(new OverrideModifierStatement());
             return this;
         }
 
         public PropertyContainer AsStatic()
         {
-            _generalModifiers.SourceItems.Add(new StaticModifierStatement());
+            _generalModifiers.AddModifier(new StaticModifierStatement());
             return this;
         }
 

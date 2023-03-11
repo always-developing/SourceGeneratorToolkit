@@ -22,5 +22,12 @@ namespace SourceGeneratorToolkit
 
             return sb.ToString();
         }
+
+        public UsingsContainer AddUsing(string @using)
+        {
+            _sourceItems.Add(new UsingStatement(@using));
+
+            return this;
+        }
     }
 }

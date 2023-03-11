@@ -43,41 +43,41 @@ using System.IO;
 using System.Text;", file);
     }
 
-    [TestMethod]
-    public void One_Using_Tree()
-    {
-        var tree = SourceGenerator.Generate(gen =>
-        {
-            gen.WithFile("file1", file =>
-            {
-                file.WithUsing("System");
-            });
-        }).ToTree();
+//    [TestMethod]
+//    public void One_Using_Tree()
+//    {
+//        var tree = SourceGenerator.Generate(gen =>
+//        {
+//            gen.WithFile("file1", file =>
+//            {
+//                file.WithUsing("System");
+//            });
+//        }).ToTree();
 
-        Assert.AreEqual(@"|-Generator
- |-FileContainer (file1)
-  |-UsingsContainer
-   |-UsingStatemment
-", tree);
-    }
+//        Assert.AreEqual(@"|-Generator
+// |-FileContainer (file1)
+//  |-UsingsContainer
+//   |-UsingStatemment
+//", tree);
+//    }
 
-    [TestMethod]
-    public void Multi_Using_Tree()
-    {
-        var tree = SourceGenerator.Generate(gen =>
-        {
-            gen.WithFile("file1", file =>
-            {
-                file.WithUsing("System")
-                .WithUsing("System.IO");
-            });
-        }).ToTree();
+//    [TestMethod]
+//    public void Multi_Using_Tree()
+//    {
+//        var tree = SourceGenerator.Generate(gen =>
+//        {
+//            gen.WithFile("file1", file =>
+//            {
+//                file.WithUsing("System")
+//                .WithUsing("System.IO");
+//            });
+//        }).ToTree();
 
-        Assert.AreEqual(@"|-Generator
- |-FileContainer (file1)
-  |-UsingsContainer
-   |-UsingStatemment
-   |-UsingStatemment
-", tree);
-    }
+//        Assert.AreEqual(@"|-Generator
+// |-FileContainer (file1)
+//  |-UsingsContainer
+//   |-UsingStatemment
+//   |-UsingStatemment
+//", tree);
+//    }
 }

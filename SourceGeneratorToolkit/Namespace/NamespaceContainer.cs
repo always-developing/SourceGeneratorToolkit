@@ -15,11 +15,12 @@ namespace SourceGeneratorToolkit
         {
             SourceText = @namespace;
         }
+
         public NamespaceContainer WithClass(string className, Action<ClassContainer> classBuilder)
         {
             var classContainer = new ClassContainer(className);
 
-            this.SourceItems.Add(classContainer);
+            _sourceItems.Add(classContainer);
             classBuilder.Invoke(classContainer);
 
             return this;

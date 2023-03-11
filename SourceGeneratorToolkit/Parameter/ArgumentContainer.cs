@@ -11,14 +11,14 @@ namespace SourceGeneratorToolkit
 
         public ArgumentContainer(string argumentValue)
         {
-            SourceItems.Add(new Statement(argumentValue));
+            _sourceItems.Add(new Statement(argumentValue));
         }
 
         public ArgumentContainer(string argumentName, string argumentValue)
         {
-            SourceItems.Add(new Statement(argumentName));
-            SourceItems.Add(new EqualsStatement());
-            SourceItems.Add(new Statement(argumentValue));
+            _sourceItems.Add(new Statement(argumentName));
+            _sourceItems.Add(new EqualsStatement());
+            _sourceItems.Add(new Statement(argumentValue));
         }
     }
 }

@@ -11,7 +11,7 @@ namespace SourceGeneratorToolkit
         public Generator WithFile(string fileName, Action<FileContainer> fileBuilder)
         {
             var internalFile = new FileContainer(fileName);
-            SourceItems.Add(internalFile);
+            _sourceItems.Add(internalFile);
 
             fileBuilder.Invoke(internalFile);
 

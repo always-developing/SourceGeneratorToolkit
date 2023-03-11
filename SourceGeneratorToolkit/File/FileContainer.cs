@@ -9,11 +9,18 @@ namespace SourceGeneratorToolkit
     {
         internal override string Name => nameof(FileContainer);
 
-        private UsingsContainer _usingsContainer;
+        private readonly UsingsContainer _usingsContainer = new UsingsContainer();
 
         public FileContainer(string fileName)
         {
             SourceText = fileName;
+        }
+
+        public override string ToSource()
+        {
+            _sourceItems.Insert(0, _usingsContainer);
+
+            return base.ToSource();
         }
 
         public override string ToTree(int treeLevel)
@@ -32,13 +39,7 @@ namespace SourceGeneratorToolkit
 
         public FileContainer WithUsing(string @using)
         {
-            if(_usingsContainer == null)
-            {
-                _usingsContainer = new UsingsContainer();
-                SourceItems.Insert(0, _usingsContainer);
-            }
-
-            _usingsContainer.SourceItems.Add(new UsingStatemment(@using));
+            _usingsContainer.AddUsing(@using);
 
             return this;
         }
@@ -46,7 +47,7 @@ namespace SourceGeneratorToolkit
         public FileContainer WithNamespace(string @namespace, Action<NamespaceContainer> nsBuilder)
         {
             var ns = new TraditionalNamespaceContainer(@namespace);
-            SourceItems.Add(ns);
+            _sourceItems.Add(ns);
 
             nsBuilder.Invoke(ns);
 
@@ -56,7 +57,7 @@ namespace SourceGeneratorToolkit
         public FileContainer WithFilescopedNamespace(string @namespace, Action<NamespaceContainer> nsBuilder)
         {
             var ns = new FilescopedNamespaceContainer(@namespace);
-            SourceItems.Add(ns);
+            _sourceItems.Add(ns);
 
             nsBuilder.Invoke(ns);
 

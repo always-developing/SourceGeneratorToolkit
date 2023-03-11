@@ -6,9 +6,9 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    internal class GenericsConstraintContainer : SourceContainer
+    internal class GenericConstraintList : SourceContainer
     {
-        internal override string Name => nameof(GenericsConstraintContainer);
+        internal override string Name => nameof(GenericConstraintList);
 
         public void AddConstraint(string genericKey, string value)
         {
@@ -21,7 +21,7 @@ namespace SourceGeneratorToolkit
                 return;
             }
 
-            SourceItems.Add(new GenericConstraintContainer(genericKey, value));
+            _sourceItems.Add(new GenericConstraintContainer(genericKey, value));
         }
 
         public override string ToSource()

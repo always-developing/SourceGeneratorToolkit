@@ -12,10 +12,5 @@ namespace SourceGeneratorToolkit
         {
             SourceText = constraints;
         }
-
-        public override string ToSource()
-        {
-            return SourceText;
-        }
     }
 }

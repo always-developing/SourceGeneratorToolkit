@@ -17,9 +17,9 @@ namespace SourceGeneratorToolkit
 
         internal GenericList _genericList = new GenericList();
 
-        internal AttributeList _attributeList = new AttributeList();
+        internal AttributeContainer _attributeList = new AttributeContainer();
 
-        internal GenericsConstraintContainer _constraintContainer = new GenericsConstraintContainer();
+        internal GenericConstraintList _constraintContainer = new GenericConstraintList();
 
         internal InheritenceStatement _inheritenceStatement;
 
@@ -32,41 +32,42 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var tempList = new List<SourceStatement>();
-
-            tempList.Add(_attributeList);
+            var builderList = new List<SourceStatement>
+            {
+                _attributeList
+            };
 
             if (_accessModifier != null)
             {
-                tempList.Add(_accessModifier);
+                builderList.Add(_accessModifier);
             }
-            tempList.Add(_generalModifiers);
-            tempList.Add(new Statement($"class {SourceText}"));
-            tempList.Add(_genericList);
+            builderList.Add(_generalModifiers);
+            builderList.Add(new Statement($"class {SourceText}"));
+            builderList.Add(_genericList);
 
             if(_inheritenceStatement != null || _implementsContainer.SourceItems.Any())
             {
-                tempList.Add(new ColonStatement());
+                builderList.Add(new ColonStatement());
             }
 
             if (_inheritenceStatement != null)
             {
-                tempList.Add(_inheritenceStatement);
+                builderList.Add(_inheritenceStatement);
 
                 if(_implementsContainer.SourceItems.Any())
                 {
-                    tempList.Add(new CommaStatement());
+                    builderList.Add(new CommaStatement());
                 }
             }
 
-            tempList.Add(_implementsContainer);
-            tempList.Add(_constraintContainer);
-            tempList.Add(new NewLineStatement());
-            tempList.Add(new BraceStartStatement());
+            builderList.Add(_implementsContainer);
+            builderList.Add(_constraintContainer);
+            builderList.Add(new NewLineStatement());
+            builderList.Add(new BraceStartStatement());
 
-            SourceItems.InsertRange(0, tempList);
+            _sourceItems.InsertRange(0, builderList);
 
-            SourceItems.Add(new BraceEndStatement());
+            _sourceItems.Add(new BraceEndStatement());
 
             return base.ToSource();
         }
@@ -103,31 +104,31 @@ namespace SourceGeneratorToolkit
 
         public ClassContainer AsAbstract()
         {
-            _generalModifiers.SourceItems.Add(new AbstractModifierStatement());
+            _generalModifiers.AddModifier(new AbstractModifierStatement());
             return this;
         }
 
         public ClassContainer AsStatic()
         {
-            _generalModifiers.SourceItems.Add(new StaticModifierStatement());
+            _generalModifiers.AddModifier(new StaticModifierStatement());
             return this;
         }
 
         public ClassContainer AsPartial()
         {
-            _generalModifiers.SourceItems.Add(new PartialModifierStatement());
+            _generalModifiers.AddModifier(new PartialModifierStatement());
             return this;
         }
 
         public ClassContainer AsSealed()
         {
-            _generalModifiers.SourceItems.Add(new SealedModifierStatement());
+            _generalModifiers.AddModifier(new SealedModifierStatement());
             return this;
         }
 
         public ClassContainer AddGeneric(string value)
         {
-            _genericList.SourceItems.Add(new GenericContainer(value));
+            _genericList.AddGeneric(value);
             return this;
         }
 
@@ -140,7 +141,7 @@ namespace SourceGeneratorToolkit
 
         public ClassContainer WithConstructor()
         {
-            SourceItems.Add(new ConstructorContainer(SourceText));
+            _sourceItems.Add(new ConstructorContainer(SourceText));
 
             return this;
         }
@@ -148,7 +149,7 @@ namespace SourceGeneratorToolkit
         public ClassContainer WithConstructor(Action<ConstructorContainer> constructorBuilder)
         {
             var constructor = new ConstructorContainer(SourceText);
-            SourceItems.Add(constructor);
+            _sourceItems.Add(constructor);
 
             constructorBuilder.Invoke(constructor);
 
@@ -157,7 +158,7 @@ namespace SourceGeneratorToolkit
 
         public ClassContainer WithMethod(string methodName, string returnType)
         {
-            SourceItems.Add(new MethodContainer(methodName, returnType));
+            _sourceItems.Add(new MethodContainer(methodName, returnType));
 
             return this;
         }
@@ -165,7 +166,7 @@ namespace SourceGeneratorToolkit
         public ClassContainer WithMethod(string methodName, string returnType, Action<MethodContainer> builder)
         {
             var container = new MethodContainer(methodName, returnType);
-            SourceItems.Add(container);
+            _sourceItems.Add(container);
 
             builder.Invoke(container);
 
@@ -181,8 +182,7 @@ namespace SourceGeneratorToolkit
 
         public ClassContainer Implements(string implementsInterface)
         {
-            _implementsContainer.SourceItems.Add(new ImplementStatement(implementsInterface));
-            _implementsContainer.SourceItems.Add(new CommaStatement());
+            _implementsContainer.AddImplements(implementsInterface);
 
             return this;
         }
@@ -190,7 +190,7 @@ namespace SourceGeneratorToolkit
         public ClassContainer AddField(string type, string name, Action<FieldContainer> builder = null)
         {
             var fieldContainer = new FieldContainer(type, name);
-            SourceItems.Add(fieldContainer);
+            _sourceItems.Add(fieldContainer);
 
             builder?.Invoke(fieldContainer);
 
@@ -200,18 +200,16 @@ namespace SourceGeneratorToolkit
         public ClassContainer AddProperty(string type, string name, Action<PropertyContainer> builder = null)
         {
             var propertyContainer = new PropertyContainer(type, name);
-            SourceItems.Add(propertyContainer);
+            _sourceItems.Add(propertyContainer);
 
             builder?.Invoke(propertyContainer);
 
             return this;
         }
 
-        public ClassContainer WithAttribute(string attributeName, Action<AttributeContainer> builder = null)
+        public ClassContainer WithAttribute(string attributeName, Action<AttributeStatement> builder = null)
         {
-            var attribute = new AttributeContainer(attributeName);
-            _attributeList.SourceItems.Add(attribute);
-
+            var attribute = _attributeList.AddAttribute(attributeName);
             builder?.Invoke(attribute);
 
             return this;
