@@ -26,6 +26,26 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
+        public NamespaceContainer WithNamespace(string @namespace, Action<NamespaceContainer> nsBuilder)
+        {
+            var ns = new TraditionalNamespaceContainer(@namespace);
+            _sourceItems.Add(ns);
+
+            nsBuilder.Invoke(ns);
+
+            return this;
+        }
+
+        public NamespaceContainer WithFilescopedNamespace(string @namespace, Action<NamespaceContainer> nsBuilder)
+        {
+            var ns = new FilescopedNamespaceContainer(@namespace);
+            _sourceItems.Add(ns);
+
+            nsBuilder.Invoke(ns);
+
+            return this;
+        }
+
         public NamespaceContainer AsPublic()
         {
             _accessModifier = new PublicModifierStatement();

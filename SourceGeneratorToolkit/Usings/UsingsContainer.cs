@@ -11,16 +11,10 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            var sb = new StringBuilder();
+            _sourceItems = _sourceItems.OrderBy(s => s.SourceText).ToList();
+            _sourceItems = _sourceItems.SelectMany(ss => new[] { ss, new NewLineStatement() }).ToList();
 
-            foreach (var item in SourceItems.OrderBy(s => s.SourceText)) 
-            {
-                sb.AppendLine(item.ToSource());
-            }
-
-            sb.Append(new NewLineStatement().ToSource());
-
-            return sb.ToString();
+            return base.ToSource();
         }
 
         public UsingsContainer AddUsing(string @using)

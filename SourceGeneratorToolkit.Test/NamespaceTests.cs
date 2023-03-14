@@ -308,7 +308,7 @@ public namespace tstNamespace;", file);
     }
 
     [TestMethod]
-    public void Internalc_Empty_Filescoped_Namespace_Multi_Using()
+    public void Internal_Empty_Filescoped_Namespace_Multi_Using()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -328,5 +328,27 @@ public namespace tstNamespace;", file);
 using System.IO;
 
 internal namespace tstNamespace;", file);
+    }
+
+    [TestMethod]
+    public void Trad_Namespace_In_Trad_Namespace()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("tstNamespace", ns => 
+                {
+                    ns.WithNamespace("otherNamespace", ns1 => { });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace tstNamespace
+{
+    namespace otherNamespace
+    {
+    }
+}", file);
     }
 }

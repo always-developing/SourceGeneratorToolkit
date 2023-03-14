@@ -32,6 +32,41 @@ public class ClassTests
     }
 
     [TestMethod]
+    public void Empty_Class_NoModifiers_No_Namespace()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithClass("myClass", cls => { });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"class myClass
+{
+}", file);
+    }
+
+    [TestMethod]
+    public void Empty_Class_NoModifiers_No_Namespace_Using()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithClass("myClass", cls => { })
+                .WithUsing("System");
+            });
+        }).Build();
+
+        Assert.AreEqual(@"using System;
+
+class myClass
+{
+}", file);
+    }
+
+    [TestMethod]
     public void Empty_Class_NoModifiers_Filescoped_Namespace()
     {
         var file = SourceGenerator.Generate(gen =>

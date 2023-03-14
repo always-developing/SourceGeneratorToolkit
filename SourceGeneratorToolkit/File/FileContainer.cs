@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -11,6 +12,8 @@ namespace SourceGeneratorToolkit
 
         private readonly UsingsContainer _usingsContainer = new UsingsContainer();
 
+        private readonly ExternAliasContainer _externAlias = new ExternAliasContainer();
+
         public FileContainer(string fileName)
         {
             SourceText = fileName;
@@ -19,6 +22,7 @@ namespace SourceGeneratorToolkit
         public override string ToSource()
         {
             _sourceItems.Insert(0, _usingsContainer);
+            _sourceItems.Insert(0, _externAlias);
 
             return base.ToSource();
         }
@@ -60,6 +64,23 @@ namespace SourceGeneratorToolkit
             _sourceItems.Add(ns);
 
             nsBuilder.Invoke(ns);
+
+            return this;
+        }
+
+        public FileContainer WithClass(string className, Action<ClassContainer> classBuilder)
+        {
+            var classContainer = new ClassContainer(className);
+
+            _sourceItems.Add(classContainer);
+            classBuilder.Invoke(classContainer);
+
+            return this;
+        }
+
+        public FileContainer WithExternAlias(string externAlias)
+        {
+            _externAlias.AddExternAlias(externAlias);
 
             return this;
         }

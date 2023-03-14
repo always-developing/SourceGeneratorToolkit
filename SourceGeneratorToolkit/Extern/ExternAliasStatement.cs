@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 
 namespace SourceGeneratorToolkit
 {
-    public class UsingStatement : SourceStatement
+    public class ExternAliasStatement : SourceStatement
     {
         internal override string Name => nameof(UsingStatement);
 
-        public UsingStatement(string @using)
+        public ExternAliasStatement(string @using)
         {
             SourceText = @using;
         }
 
         public override string ToSource()
         {
-            return $"using {SourceText};";
+            return $"extern alias {SourceText};";
         }
     }
 }
