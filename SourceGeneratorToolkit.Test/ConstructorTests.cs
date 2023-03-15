@@ -167,4 +167,136 @@ public class ConstructorTests
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Default_Constructor_Base()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.WithConstructor(con =>
+                        {
+                            con.CallsBase();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        myClass() : base()
+        {
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Default_Constructor_Base_With_Argument()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.WithConstructor(con =>
+                        {
+                            con.CallsBase(arg =>
+                            {
+                                arg.AddArgument("10")
+                                .AddArgument(@"""hello""");
+                            });
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        myClass() : base(10, ""hello"")
+        {
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Default_Constructor_This()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.WithConstructor(con =>
+                        {
+                            con.CallsThis();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        myClass() : this()
+        {
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Default_Constructor_This_With_Argument()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.WithConstructor(con =>
+                        {
+                            con.CallsThis(arg =>
+                            {
+                                arg.AddArgument("10")
+                                .AddArgument("33");
+                            });
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        myClass() : this(10, 33)
+        {
+        }
+    }
+}", file);
+    }
 }

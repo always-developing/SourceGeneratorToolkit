@@ -12,6 +12,8 @@ namespace SourceGeneratorToolkit
 
         internal AccessModifierStatement _accessModifier;
 
+        internal ConstructorCallStatement _constructorCalls;
+
         public ConstructorContainer(string className)
         {
             SourceText = className;
@@ -30,6 +32,10 @@ namespace SourceGeneratorToolkit
             _sourceItems.Add(new ParenthesisStartStatement());
             _sourceItems.Add(_parameterContainer);
             _sourceItems.Add(new ParenthesisEndStatement());
+            if (_constructorCalls != null)
+            {
+                _sourceItems.Add(_constructorCalls);
+            }
             _sourceItems.Add(new BraceStartStatement());
             _sourceItems.Add(new BraceEndStatement());
 
@@ -76,6 +82,24 @@ namespace SourceGeneratorToolkit
         public ConstructorContainer AsPrivateProtected()
         {
             _accessModifier = new PrivateProtectedStatement();
+            return this;
+        }
+
+        public ConstructorContainer CallsBase(Action<ConstructorCallStatement> builder = null)
+        {
+            _constructorCalls = new ConstructorBaseCallStatement();
+
+            builder?.Invoke(_constructorCalls);
+
+            return this;
+        }
+
+        public ConstructorContainer CallsThis(Action<ConstructorCallStatement> builder = null)
+        {
+            _constructorCalls = new ConstructorThisCallStatement();
+
+            builder?.Invoke(_constructorCalls);
+
             return this;
         }
     }
