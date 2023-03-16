@@ -140,4 +140,100 @@ public class MethodTest
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Empty_Async_Method_UnEnforced_Task()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .WithMethod("HelloWorld", "void", meth =>
+                        {
+                            meth.AsPublic().AsAsync(false);
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public async void HelloWorld()
+        {
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Empty_Async_Method_Enforced_Task()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .WithMethod("HelloWorld", "void", meth =>
+                        {
+                            meth.AsPublic().AsAsync();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public async Task HelloWorld()
+        {
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Empty_Async_Method_Enforced_Task_Int()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .WithMethod("HelloWorld", "int", meth =>
+                        {
+                            meth.AsPublic().AsAsync();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public async Task<int> HelloWorld()
+        {
+        }
+    }
+}", file);
+    }
 }

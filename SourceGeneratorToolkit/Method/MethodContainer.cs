@@ -18,12 +18,18 @@ namespace SourceGeneratorToolkit
 
         internal GenericConstraintList _constraintContainer = new GenericConstraintList();
 
-        internal string _returnType;
+        internal ReturnContainer _returnType;
+
+        public MethodContainer(string methodName)
+        {
+            SourceText = methodName;
+            _returnType = new ReturnContainer();
+        }
 
         public MethodContainer(string methodName, string returnType)
         {
             SourceText = methodName;
-            _returnType = returnType;
+            _returnType = new ReturnContainer(returnType);
         }
 
         public override string ToSource()
@@ -39,7 +45,8 @@ namespace SourceGeneratorToolkit
             }
 
             builderList.Add(_generalModifiers);
-            builderList.Add(new Statement($"{_returnType} {SourceText}"));
+            builderList.Add(_returnType);
+            builderList.Add(new Statement(SourceText));
             builderList.Add(_genericsList);
             builderList.Add(new ParenthesisStartStatement());
             builderList.Add(_parameterContainer);
@@ -98,6 +105,14 @@ namespace SourceGeneratorToolkit
         public MethodContainer AddGeneric(string value)
         {
             _genericsList.AddGeneric(value);
+            return this;
+        }
+
+        public MethodContainer AsAsync(bool enforceTaskReturnType = true)
+        {
+            _generalModifiers.AddModifier(new AsyncModifierStatement());
+            _returnType.EnforceAsync(enforceTaskReturnType);
+
             return this;
         }
 
