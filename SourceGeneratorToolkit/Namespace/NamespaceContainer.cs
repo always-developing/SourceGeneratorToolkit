@@ -26,6 +26,16 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
+        public NamespaceContainer WithInterface(string interfaceName, Action<InterfaceContainer> builder)
+        {
+            var interfaceContainer = new InterfaceContainer(interfaceName);
+
+            _sourceItems.Add(interfaceContainer);
+            builder.Invoke(interfaceContainer);
+
+            return this;
+        }
+
         public NamespaceContainer WithNamespace(string @namespace, Action<NamespaceContainer> nsBuilder)
         {
             var ns = new TraditionalNamespaceContainer(@namespace);
