@@ -10,7 +10,7 @@ namespace SourceGeneratorToolkit
 
         internal ParameterContainer _parameterContainer = new ParameterContainer();
 
-        internal ModifierContainer _generalModifiers = new ModifierContainer();
+        internal ModifierContainer<MethodContainer> _generalModifiers;
 
         internal AccessModifierStatement _accessModifier;
 
@@ -24,12 +24,16 @@ namespace SourceGeneratorToolkit
         {
             SourceText = methodName;
             _returnType = new ReturnContainer();
+
+            _generalModifiers = new ModifierContainer<MethodContainer>(this);
         }
 
         public MethodContainer(string methodName, string returnType)
         {
             SourceText = methodName;
             _returnType = new ReturnContainer(returnType);
+
+            _generalModifiers = new ModifierContainer<MethodContainer>(this);
         }
 
         public override string ToSource()
@@ -84,23 +88,11 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public MethodContainer AsAbstract()
-        {
-            _generalModifiers.AddModifier(new AbstractModifierStatement());
-            return this;
-        }
+        public MethodContainer AsAbstract() => _generalModifiers.AsAbstract();
 
-        public MethodContainer AsStatic()
-        {
-            _generalModifiers.AddModifier(new StaticModifierStatement());
-            return this;
-        }
+        public MethodContainer AsStatic() => _generalModifiers.AsStatic();
 
-        public MethodContainer AsPartial()
-        {
-            _generalModifiers.AddModifier(new PartialModifierStatement());
-            return this;
-        }
+        public MethodContainer AsPartial() => _generalModifiers.AsPartial();
 
         public MethodContainer AddGeneric(string value)
         {
@@ -110,10 +102,8 @@ namespace SourceGeneratorToolkit
 
         public MethodContainer AsAsync(bool enforceTaskReturnType = true)
         {
-            _generalModifiers.AddModifier(new AsyncModifierStatement());
             _returnType.EnforceAsync(enforceTaskReturnType);
-
-            return this;
+            return _generalModifiers.AsAsync(enforceTaskReturnType);
         }
 
         public MethodContainer WithGenericConstraint(string generic, string constraint)

@@ -113,7 +113,7 @@ public class FieldTest
                         {
                             field
                             .AsProtected()
-                            .AsReadOnnly()
+                            .AsReadOnly()
                             .WithValue("100");
                         });
                     });
@@ -146,7 +146,7 @@ public class FieldTest
                             field
                             .AsInternal()
                             .AsStatic()
-                            .AsReadOnnly()
+                            .AsReadOnly()
                             .WithValue("100");
                         });
                     });

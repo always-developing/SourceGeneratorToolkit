@@ -13,7 +13,7 @@ namespace SourceGeneratorToolkit
 
         internal AccessModifierStatement _accessModifier;
 
-        internal ModifierContainer _generalModifiers = new ModifierContainer();
+        internal ModifierContainer<ClassContainer> _generalModifiers;
 
         internal GenericList _genericList = new GenericList();
 
@@ -28,6 +28,8 @@ namespace SourceGeneratorToolkit
         public ClassContainer(string className)
         {
             SourceText = className;
+
+            _generalModifiers = new ModifierContainer<ClassContainer>(this);
         }
 
         public override string ToSource()
@@ -102,29 +104,13 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public ClassContainer AsAbstract()
-        {
-            _generalModifiers.AddModifier(new AbstractModifierStatement());
-            return this;
-        }
+        public ClassContainer AsAbstract() => _generalModifiers.AsAbstract();
 
-        public ClassContainer AsStatic()
-        {
-            _generalModifiers.AddModifier(new StaticModifierStatement());
-            return this;
-        }
+        public ClassContainer AsStatic() => _generalModifiers.AsStatic();
 
-        public ClassContainer AsPartial()
-        {
-            _generalModifiers.AddModifier(new PartialModifierStatement());
-            return this;
-        }
+        public ClassContainer AsPartial() => _generalModifiers.AsPartial();
 
-        public ClassContainer AsSealed()
-        {
-            _generalModifiers.AddModifier(new SealedModifierStatement());
-            return this;
-        }
+        public ClassContainer AsSealed() => _generalModifiers.AsSealed();
 
         public ClassContainer AddGeneric(string value)
         {

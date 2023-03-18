@@ -10,7 +10,7 @@ namespace SourceGeneratorToolkit
 
         internal ParameterContainer _parameterContainer = new ParameterContainer();
 
-        internal ModifierContainer _generalModifiers = new ModifierContainer();
+        internal ModifierContainer<InterfaceMethodContainer> _generalModifiers;
 
         internal AccessModifierStatement _accessModifier;
 
@@ -24,12 +24,16 @@ namespace SourceGeneratorToolkit
         {
             SourceText = methodName;
             _returnType = new ReturnContainer();
+
+            _generalModifiers = new ModifierContainer<InterfaceMethodContainer>(this);
         }
 
         public InterfaceMethodContainer(string methodName, string returnType)
         {
             SourceText = methodName;
             _returnType = new ReturnContainer(returnType);
+
+            _generalModifiers = new ModifierContainer<InterfaceMethodContainer>(this);
         }
 
         public override string ToSource()
@@ -83,23 +87,11 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public InterfaceMethodContainer AsAbstract()
-        {
-            _generalModifiers.AddModifier(new AbstractModifierStatement());
-            return this;
-        }
+        public InterfaceMethodContainer AsAbstract() => _generalModifiers.AsAbstract();
 
-        public InterfaceMethodContainer AsStatic()
-        {
-            _generalModifiers.AddModifier(new StaticModifierStatement());
-            return this;
-        }
+        public InterfaceMethodContainer AsStatic() => _generalModifiers.AsStatic();
 
-        public InterfaceMethodContainer AsPartial()
-        {
-            _generalModifiers.AddModifier(new PartialModifierStatement());
-            return this;
-        }
+        public InterfaceMethodContainer AsPartial() => _generalModifiers.AsPartial();
 
         public InterfaceMethodContainer AddGeneric(string value)
         {
