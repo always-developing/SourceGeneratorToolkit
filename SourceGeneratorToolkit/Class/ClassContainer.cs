@@ -7,13 +7,13 @@ using System.Threading;
 
 namespace SourceGeneratorToolkit
 {
-    public class ClassContainer : SourceContainer
+    public class ClassContainer : SourceContainer, IStaticModifier<ClassContainer>
     {
         internal override string Name => nameof(ClassContainer);
 
-        internal AccessModifierStatement _accessModifier;
+        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
 
-        internal ModifierContainer<ClassContainer> _generalModifiers;
+        internal AccessModifierStatement _accessModifier;
 
         internal GenericList _genericList = new GenericList();
 
@@ -28,8 +28,6 @@ namespace SourceGeneratorToolkit
         public ClassContainer(string className)
         {
             SourceText = className;
-
-            _generalModifiers = new ModifierContainer<ClassContainer>(this);
         }
 
         public override string ToSource()
@@ -43,7 +41,7 @@ namespace SourceGeneratorToolkit
             {
                 builderList.Add(_accessModifier);
             }
-            builderList.Add(_generalModifiers);
+            builderList.Add(GeneralModifier);
             builderList.Add(new Statement($"class {SourceText}"));
             builderList.Add(_genericList);
 
@@ -104,13 +102,13 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public ClassContainer AsAbstract() => _generalModifiers.AsAbstract();
+        public ClassContainer AsAbstract() => GeneralModifier.AsAbstract(this);
 
-        public ClassContainer AsStatic() => _generalModifiers.AsStatic();
+        //public ClassContainer AsStatic() => GeneralModifier.AsStatic(this);
 
-        public ClassContainer AsPartial() => _generalModifiers.AsPartial();
+        public ClassContainer AsPartial() => GeneralModifier.AsPartial(this);
 
-        public ClassContainer AsSealed() => _generalModifiers.AsSealed();
+        public ClassContainer AsSealed() => GeneralModifier.AsSealed(this);
 
         public ClassContainer AddGeneric(string value)
         {

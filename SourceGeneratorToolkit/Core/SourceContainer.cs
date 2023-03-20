@@ -10,7 +10,7 @@ namespace SourceGeneratorToolkit
     {
         protected List<SourceStatement> _sourceItems = new List<SourceStatement>();
 
-        internal ReadOnlyCollection<SourceStatement> SourceItems
+        public ReadOnlyCollection<SourceStatement> SourceItems
         {
             get
             {

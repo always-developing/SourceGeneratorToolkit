@@ -10,15 +10,13 @@ namespace SourceGeneratorToolkit
 
         internal AccessModifierStatement _accessModifier;
 
-        internal ModifierContainer<FieldContainer> _generalModifiers;
+        internal ModifierContainer _generalModifiers = new ModifierContainer();
 
         internal string _defaultValue = null;
 
         public FieldContainer(string type, string name)
         {
             SourceText = $"{type} {name}";
-
-            _generalModifiers = new ModifierContainer<FieldContainer>(this);
         }
 
         public override string ToSource()
@@ -73,8 +71,8 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public FieldContainer AsReadOnly() => _generalModifiers.AsReadOnly();
+        public FieldContainer AsReadOnly() => _generalModifiers.AsReadOnly(this);
 
-        public FieldContainer AsStatic() => _generalModifiers.AsStatic();
+        public FieldContainer AsStatic() => _generalModifiers.AsStatic(this);
     }
 }

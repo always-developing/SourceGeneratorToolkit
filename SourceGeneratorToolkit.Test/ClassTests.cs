@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SourceGeneratorToolkit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SourceGeneratorToolkit.Test;
+namespace SourceGeneratorToolkitTest;
 
 [TestClass]
 public class ClassTests

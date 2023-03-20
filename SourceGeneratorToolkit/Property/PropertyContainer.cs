@@ -10,7 +10,7 @@ namespace SourceGeneratorToolkit
 
         internal AccessModifierStatement _accessModifier;
 
-        internal ModifierContainer<PropertyContainer> _generalModifiers;
+        internal ModifierContainer _generalModifiers = new ModifierContainer();
 
         internal GetAccessorContainer _getter = new GetAccessorContainer();
         internal SetAccessorContainer _setter = new SetAccessorContainer();
@@ -21,8 +21,6 @@ namespace SourceGeneratorToolkit
         public PropertyContainer(string type, string name)
         {
             SourceText = $"{type} {name}";
-
-            _generalModifiers = new ModifierContainer<PropertyContainer>(this);
         }
 
         public override string ToSource()
@@ -90,11 +88,11 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public PropertyContainer AsVirtual() => _generalModifiers.AsVirtual();
+        public PropertyContainer AsVirtual() => _generalModifiers.AsVirtual(this);
 
-        public PropertyContainer AsOverride() => _generalModifiers.AsOverride();
+        public PropertyContainer AsOverride() => _generalModifiers.AsOverride(this);
 
-        public PropertyContainer AsStatic() => _generalModifiers.AsStatic();
+        public PropertyContainer AsStatic() => _generalModifiers.AsStatic(this);
 
         public PropertyContainer WithValue(string value)
         {

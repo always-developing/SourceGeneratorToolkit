@@ -11,7 +11,7 @@ namespace SourceGeneratorToolkit
 
         internal AccessModifierStatement _accessModifier;
 
-        internal ModifierContainer<InterfaceContainer> _generalModifiers;
+        internal ModifierContainer _generalModifiers = new ModifierContainer();
 
         internal GenericList _genericList = new GenericList();
 
@@ -24,8 +24,6 @@ namespace SourceGeneratorToolkit
         public InterfaceContainer(string interfaceName)
         {
             SourceText = interfaceName;
-
-            _generalModifiers = new ModifierContainer<InterfaceContainer>(this);
         }
 
         public override string ToSource()
@@ -85,7 +83,7 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public InterfaceContainer AsPartial() => _generalModifiers.AsPartial();
+        public InterfaceContainer AsPartial() => _generalModifiers.AsPartial(this);
 
         public InterfaceContainer AddGeneric(string value)
         {
