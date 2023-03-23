@@ -4,55 +4,51 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class MethodContainer : SourceContainer
+    public class MethodContainer : SourceContainer, IPublicModifier<MethodContainer>, IPrivateModifier<MethodContainer>, IProtectedModifier<MethodContainer>,
+        IInternalModifier<MethodContainer>, IAbstractModifier<MethodContainer>, IStaticModifier<MethodContainer>, IPartialModifier<MethodContainer>,
+        IAsyncModifier<MethodContainer>, IHasReturnValue
     {
         internal override string Name => nameof(MethodContainer);
 
         internal ParameterContainer _parameterContainer = new ParameterContainer();
 
-        internal ModifierContainer _generalModifiers = new ModifierContainer();
+        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
 
-        internal AccessModifierStatement _accessModifier;
+        public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
         internal GenericList _genericsList = new GenericList();
 
         internal GenericConstraintList _constraintContainer = new GenericConstraintList();
 
-        internal ReturnContainer _returnType;
+        public ReturnContainer ReturnType { get; } = new ReturnContainer();
 
         public MethodContainer(string methodName)
         {
             SourceText = methodName;
-            _returnType = new ReturnContainer();
         }
 
         public MethodContainer(string methodName, string returnType)
         {
             SourceText = methodName;
-            _returnType = new ReturnContainer(returnType);
+            ReturnType = new ReturnContainer(returnType);
         }
 
         public override string ToSource()
         {
             var builderList = new List<SourceStatement>
             {
-                new NewLineStatement()
+                new NewLineStatement(),
+                AccessModifier,
+                GeneralModifier,
+                ReturnType,
+                new Statement(SourceText),
+                _genericsList,
+                new ParenthesisStartStatement(),
+                _parameterContainer,
+                new ParenthesisEndStatement(),
+                _constraintContainer,
+                new BraceStartStatement()
             };
-
-            if (_accessModifier != null)
-            {
-                builderList.Add(_accessModifier);
-            }
-
-            builderList.Add(_generalModifiers);
-            builderList.Add(_returnType);
-            builderList.Add(new Statement(SourceText));
-            builderList.Add(_genericsList);
-            builderList.Add(new ParenthesisStartStatement());
-            builderList.Add(_parameterContainer);
-            builderList.Add(new ParenthesisEndStatement());
-            builderList.Add(_constraintContainer);
-            builderList.Add(new BraceStartStatement());
 
             _sourceItems.InsertRange(0, builderList);
             _sourceItems.Add(new BraceEndStatement());
@@ -60,46 +56,10 @@ namespace SourceGeneratorToolkit
             return base.ToSource();
         }
 
-        public MethodContainer AsPublic()
-        {
-            _accessModifier = new PublicModifierStatement();
-            return this;
-        }
-
-        public MethodContainer AsPrivate()
-        {
-            _accessModifier = new PrivateModifierStatement();
-            return this;
-        }
-
-        public MethodContainer AsProtected()
-        {
-            _accessModifier = new ProtectedModifierStatement();
-            return this;
-        }
-
-        public MethodContainer AsInternal()
-        {
-            _accessModifier = new InternalModifierStatement();
-            return this;
-        }
-
-        public MethodContainer AsAbstract() => _generalModifiers.AsAbstract(this);
-
-        public MethodContainer AsStatic() => _generalModifiers.AsStatic(this);
-
-        public MethodContainer AsPartial() => _generalModifiers.AsPartial(this);
-
         public MethodContainer AddGeneric(string value)
         {
             _genericsList.AddGeneric(value);
             return this;
-        }
-
-        public MethodContainer AsAsync(bool enforceTaskReturnType = true)
-        {
-            _returnType.EnforceAsync(enforceTaskReturnType);
-            return _generalModifiers.AsAsync(this, enforceTaskReturnType);
         }
 
         public MethodContainer WithGenericConstraint(string generic, string constraint)

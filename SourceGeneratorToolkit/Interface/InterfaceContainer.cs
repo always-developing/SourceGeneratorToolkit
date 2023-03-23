@@ -5,13 +5,15 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class InterfaceContainer : SourceContainer
+    public class InterfaceContainer : SourceContainer, IPublicModifier<InterfaceContainer>, IPrivateModifier<InterfaceContainer>,
+        IProtectedModifier<InterfaceContainer>, IInternalModifier<InterfaceContainer>, IFileModifier<InterfaceContainer>,
+        IPartialModifier<InterfaceContainer>
     {
         internal override string Name => nameof(InterfaceContainer);
 
-        internal AccessModifierStatement _accessModifier;
+        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
 
-        internal ModifierContainer _generalModifiers = new ModifierContainer();
+        public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
         internal GenericList _genericList = new GenericList();
 
@@ -30,21 +32,17 @@ namespace SourceGeneratorToolkit
         {
             var builderList = new List<SourceStatement>
             {
-                _attributeList
+                _attributeList,
+                AccessModifier,
+                GeneralModifier,
+                new Statement($"interface {SourceText}"),
+                _genericList,
+
+                _implementsContainer,
+                _constraintContainer,
+                new NewLineStatement(),
+                new BraceStartStatement()
             };
-
-            if (_accessModifier != null)
-            {
-                builderList.Add(_accessModifier);
-            }
-            builderList.Add(_generalModifiers);
-            builderList.Add(new Statement($"interface {SourceText}"));
-            builderList.Add(_genericList);
-
-            builderList.Add(_implementsContainer);
-            builderList.Add(_constraintContainer);
-            builderList.Add(new NewLineStatement());
-            builderList.Add(new BraceStartStatement());
 
             _sourceItems.InsertRange(0, builderList);
 
@@ -52,38 +50,6 @@ namespace SourceGeneratorToolkit
 
             return base.ToSource();
         }
-
-        public InterfaceContainer AsPublic()
-        {
-            _accessModifier = new PublicModifierStatement();
-            return this;
-        }
-
-        public InterfaceContainer AsPrivate()
-        {
-            _accessModifier = new PrivateModifierStatement();
-            return this;
-        }
-
-        public InterfaceContainer AsProtected()
-        {
-            _accessModifier = new ProtectedModifierStatement();
-            return this;
-        }
-
-        public InterfaceContainer AsInternal()
-        {
-            _accessModifier = new InternalModifierStatement();
-            return this;
-        }
-
-        public InterfaceContainer AsFile()
-        {
-            _accessModifier = new FileModifierStatement();
-            return this;
-        }
-
-        public InterfaceContainer AsPartial() => _generalModifiers.AsPartial(this);
 
         public InterfaceContainer AddGeneric(string value)
         {

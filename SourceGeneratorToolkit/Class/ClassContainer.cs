@@ -7,13 +7,16 @@ using System.Threading;
 
 namespace SourceGeneratorToolkit
 {
-    public class ClassContainer : SourceContainer, IStaticModifier<ClassContainer>
+    public class ClassContainer : SourceContainer, IStaticModifier<ClassContainer>, IAbstractModifier<ClassContainer>, IPartialModifier<ClassContainer>,
+        ISealedModifier<ClassContainer>, IPublicModifier<ClassContainer>, IPrivateModifier<ClassContainer>,
+        IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>
+        
     {
         internal override string Name => nameof(ClassContainer);
 
         public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
 
-        internal AccessModifierStatement _accessModifier;
+        public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
         internal GenericList _genericList = new GenericList();
 
@@ -34,18 +37,14 @@ namespace SourceGeneratorToolkit
         {
             var builderList = new List<SourceStatement>
             {
-                _attributeList
+                _attributeList,
+                AccessModifier,
+                GeneralModifier,
+                new Statement($"class {SourceText}"),
+                _genericList
             };
 
-            if (_accessModifier != null)
-            {
-                builderList.Add(_accessModifier);
-            }
-            builderList.Add(GeneralModifier);
-            builderList.Add(new Statement($"class {SourceText}"));
-            builderList.Add(_genericList);
-
-            if(_inheritenceStatement != null || _implementsContainer.SourceItems.Any())
+            if (_inheritenceStatement != null || _implementsContainer.SourceItems.Any())
             {
                 builderList.Add(new ColonStatement());
             }
@@ -71,44 +70,6 @@ namespace SourceGeneratorToolkit
 
             return base.ToSource();
         }
-
-        public ClassContainer AsPublic()
-        {
-            _accessModifier = new PublicModifierStatement(); 
-            return this; 
-        }
-
-        public ClassContainer AsPrivate()
-        {
-            _accessModifier = new PrivateModifierStatement();
-            return this;
-        }
-
-        public ClassContainer AsProtected()
-        {
-            _accessModifier = new ProtectedModifierStatement();
-            return this;
-        }
-
-        public ClassContainer AsInternal()
-        {
-            _accessModifier = new InternalModifierStatement();
-            return this;
-        }
-
-        public ClassContainer AsFile()
-        {
-            _accessModifier = new FileModifierStatement();
-            return this;
-        }
-
-        public ClassContainer AsAbstract() => GeneralModifier.AsAbstract(this);
-
-        //public ClassContainer AsStatic() => GeneralModifier.AsStatic(this);
-
-        public ClassContainer AsPartial() => GeneralModifier.AsPartial(this);
-
-        public ClassContainer AsSealed() => GeneralModifier.AsSealed(this);
 
         public ClassContainer AddGeneric(string value)
         {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    internal class AsyncModifierStatement : SourceStatement
+    public class AsyncModifierStatement : SourceStatement
     {
         internal override string Name => nameof(AsyncModifierStatement);
 

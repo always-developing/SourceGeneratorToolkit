@@ -14,9 +14,9 @@ namespace SourceGeneratorToolkit
         {
             var builderList = new List<SourceStatement>();
 
-            if (_accessModifier != null)
+            if (AccessModifier != null)
             {
-                builderList.Add(_accessModifier);
+                builderList.Add(AccessModifier);
             }
 
             builderList.Add(new NewLineStatement($"namespace {SourceText}"));

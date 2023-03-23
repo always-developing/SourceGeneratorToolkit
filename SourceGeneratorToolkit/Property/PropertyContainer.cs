@@ -4,13 +4,16 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class PropertyContainer : SourceContainer
+    public class PropertyContainer : SourceContainer, IPublicModifier<PropertyContainer>, IPrivateModifier<PropertyContainer>,
+        IProtectedInternalModifier<PropertyContainer>, IInternalModifier<PropertyContainer>, IVirtualModifier<PropertyContainer>, 
+        IOverrideModifier<PropertyContainer>, IStaticModifier<PropertyContainer>
+
     {
         internal override string Name => nameof(PropertyContainer);
 
-        internal AccessModifierStatement _accessModifier;
+        public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
-        internal ModifierContainer _generalModifiers = new ModifierContainer();
+        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
 
         internal GetAccessorContainer _getter = new GetAccessorContainer();
         internal SetAccessorContainer _setter = new SetAccessorContainer();
@@ -25,12 +28,8 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            if (_accessModifier != null)
-            {
-                _sourceItems.Add(_accessModifier);
-            }
-
-            _sourceItems.Add(_generalModifiers);
+            _sourceItems.Add(AccessModifier);
+            _sourceItems.Add(GeneralModifier);
             _sourceItems.Add(new Statement(SourceText));
 
             _sourceItems.Add(new BraceStartStatement());
@@ -63,36 +62,6 @@ namespace SourceGeneratorToolkit
 
             return base.ToSource();
         }
-
-        public PropertyContainer AsPublic()
-        {
-            _accessModifier = new PublicModifierStatement();
-            return this;
-        }
-
-        public PropertyContainer AsPrivate()
-        {
-            _accessModifier = new PrivateModifierStatement();
-            return this;
-        }
-
-        public PropertyContainer AsProtected()
-        {
-            _accessModifier = new ProtectedModifierStatement();
-            return this;
-        }
-
-        public PropertyContainer AsInternal()
-        {
-            _accessModifier = new InternalModifierStatement();
-            return this;
-        }
-
-        public PropertyContainer AsVirtual() => _generalModifiers.AsVirtual(this);
-
-        public PropertyContainer AsOverride() => _generalModifiers.AsOverride(this);
-
-        public PropertyContainer AsStatic() => _generalModifiers.AsStatic(this);
 
         public PropertyContainer WithValue(string value)
         {

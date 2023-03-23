@@ -4,8 +4,8 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public interface IAbstractModifier<T> where T : SourceContainer
+    public interface IHasReturnValue
     {
-        ModifierContainer GeneralModifier { get; }
+        public ReturnContainer ReturnType { get; }
     }
 }

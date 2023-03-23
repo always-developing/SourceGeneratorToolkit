@@ -5,11 +5,11 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class NamespaceContainer : SourceContainer
+    public class NamespaceContainer : SourceContainer, IPublicModifier<NamespaceContainer>, IInternalModifier<NamespaceContainer>
     {
         internal override string Name => nameof(NamespaceContainer);
 
-        internal AccessModifierStatement _accessModifier;
+        public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
         public NamespaceContainer(string @namespace)
         {
@@ -53,18 +53,6 @@ namespace SourceGeneratorToolkit
 
             nsBuilder.Invoke(ns);
 
-            return this;
-        }
-
-        public NamespaceContainer AsPublic()
-        {
-            _accessModifier = new PublicModifierStatement();
-            return this;
-        }
-
-        public NamespaceContainer AsInternal()
-        {
-            _accessModifier = new InternalModifierStatement();
             return this;
         }
     }

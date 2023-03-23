@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public interface IAbstractModifier<T> where T : SourceContainer
+    public interface IPartialModifier<T> where T : SourceContainer
     {
         ModifierContainer GeneralModifier { get; }
     }

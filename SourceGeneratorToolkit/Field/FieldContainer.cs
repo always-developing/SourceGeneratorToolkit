@@ -4,13 +4,14 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class FieldContainer : SourceContainer
+    public class FieldContainer : SourceContainer, IPublicModifier<FieldContainer>, IPrivateModifier<FieldContainer>, IProtectedModifier<FieldContainer>,
+        IInternalModifier<FieldContainer>, IReadOnlyModifier<FieldContainer>, IStaticModifier<FieldContainer>
     {
         internal override string Name => nameof(FieldContainer);
 
-        internal AccessModifierStatement _accessModifier;
+        public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
-        internal ModifierContainer _generalModifiers = new ModifierContainer();
+        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
 
         internal string _defaultValue = null;
 
@@ -21,12 +22,8 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            if(_accessModifier != null)
-            {
-                _sourceItems.Add(_accessModifier);
-            }
-
-            _sourceItems.Add(_generalModifiers);
+            _sourceItems.Add(AccessModifier);
+            _sourceItems.Add(GeneralModifier);
             _sourceItems.Add(new Statement(SourceText));
 
             if(_defaultValue != null)
@@ -41,38 +38,10 @@ namespace SourceGeneratorToolkit
             return base.ToSource();
         }
 
-        public FieldContainer AsPublic()
-        {
-            _accessModifier = new PublicModifierStatement();
-            return this;
-        }
-
-        public FieldContainer AsPrivate()
-        {
-            _accessModifier = new PrivateModifierStatement();
-            return this;
-        }
-
-        public FieldContainer AsProtected()
-        {
-            _accessModifier = new ProtectedModifierStatement();
-            return this;
-        }
-
-        public FieldContainer AsInternal()
-        {
-            _accessModifier = new InternalModifierStatement();
-            return this;
-        }
-
         public FieldContainer WithValue(string value)
         {
             _defaultValue = value;
             return this;
         }
-
-        public FieldContainer AsReadOnly() => _generalModifiers.AsReadOnly(this);
-
-        public FieldContainer AsStatic() => _generalModifiers.AsStatic(this);
     }
 }

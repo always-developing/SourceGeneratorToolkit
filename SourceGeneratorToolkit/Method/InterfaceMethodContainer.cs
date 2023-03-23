@@ -4,15 +4,17 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class InterfaceMethodContainer : SourceContainer
+    public class InterfaceMethodContainer : SourceContainer, IPublicModifier<InterfaceMethodContainer>, IPrivateModifier<InterfaceMethodContainer>,
+        IProtectedModifier<InterfaceMethodContainer>, IInternalModifier<InterfaceMethodContainer>, IAbstractModifier<InterfaceMethodContainer>,
+        IStaticModifier<InterfaceMethodContainer>, IPartialModifier<InterfaceMethodContainer>
     {
         internal override string Name => nameof(InterfaceMethodContainer);
 
+        public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
+
+        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
+
         internal ParameterContainer _parameterContainer = new ParameterContainer();
-
-        internal ModifierContainer _generalModifiers = new ModifierContainer();
-
-        internal AccessModifierStatement _accessModifier;
 
         internal GenericList _genericsList = new GenericList();
 
@@ -36,58 +38,23 @@ namespace SourceGeneratorToolkit
         {
             var builderList = new List<SourceStatement>
             {
-                new NewLineStatement()
+                new NewLineStatement(),
+                AccessModifier,
+                GeneralModifier,
+                _returnType,
+                new Statement(SourceText),
+                _genericsList,
+                new ParenthesisStartStatement(),
+                _parameterContainer,
+                new ParenthesisEndStatement(),
+                _constraintContainer,
+                new SemiColonStatement()
             };
-
-            if (_accessModifier != null)
-            {
-                builderList.Add(_accessModifier);
-            }
-
-            builderList.Add(_generalModifiers);
-            builderList.Add(_returnType);
-            builderList.Add(new Statement(SourceText));
-            builderList.Add(_genericsList);
-            builderList.Add(new ParenthesisStartStatement());
-            builderList.Add(_parameterContainer);
-            builderList.Add(new ParenthesisEndStatement());
-            builderList.Add(_constraintContainer);
-            builderList.Add(new SemiColonStatement());
 
             _sourceItems.InsertRange(0, builderList);
 
             return base.ToSource();
         }
-
-        public InterfaceMethodContainer AsPublic()
-        {
-            _accessModifier = new PublicModifierStatement();
-            return this;
-        }
-
-        public InterfaceMethodContainer AsPrivate()
-        {
-            _accessModifier = new PrivateModifierStatement();
-            return this;
-        }
-
-        public InterfaceMethodContainer AsProtected()
-        {
-            _accessModifier = new ProtectedModifierStatement();
-            return this;
-        }
-
-        public InterfaceMethodContainer AsInternal()
-        {
-            _accessModifier = new InternalModifierStatement();
-            return this;
-        }
-
-        public InterfaceMethodContainer AsAbstract() => _generalModifiers.AsAbstract(this);
-
-        public InterfaceMethodContainer AsStatic() => _generalModifiers.AsStatic(this);
-
-        public InterfaceMethodContainer AsPartial() => _generalModifiers.AsPartial(this);
 
         public InterfaceMethodContainer AddGeneric(string value)
         {
