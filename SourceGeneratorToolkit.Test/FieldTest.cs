@@ -51,7 +51,7 @@ public class FieldTest
                         {
                             field
                             .AsPublic()
-                            .WithValue("100");
+                            .WithDefaultValue("100");
                         });
                     });
                 });
@@ -82,7 +82,7 @@ public class FieldTest
                         {
                             field
                             .AsInternal()
-                            .WithValue(@"""value""");
+                            .WithDefaultValue(@"""value""");
                         });
                     });
                 });
@@ -114,7 +114,7 @@ public class FieldTest
                             field
                             .AsProtected()
                             .AsReadOnly()
-                            .WithValue("100");
+                            .WithDefaultValue("100");
                         });
                     });
                 });
@@ -147,7 +147,7 @@ public class FieldTest
                             .AsInternal()
                             .AsStatic()
                             .AsReadOnly()
-                            .WithValue("100");
+                            .WithDefaultValue("100");
                         });
                     });
                 });

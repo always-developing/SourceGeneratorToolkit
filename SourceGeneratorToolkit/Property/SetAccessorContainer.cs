@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    internal class SetAccessorContainer : SourceContainer
+    public class SetAccessorContainer : SourceContainer
     {
         internal override string Name => nameof(SetAccessorContainer);
 

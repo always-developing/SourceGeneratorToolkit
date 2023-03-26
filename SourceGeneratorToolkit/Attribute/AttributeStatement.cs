@@ -7,13 +7,13 @@ using System.Xml.Linq;
 
 namespace SourceGeneratorToolkit
 {
-    public class AttributeStatement : SourceContainer
+    public class AttributeStatement : SourceContainer, ISupportsArguments<AttributeStatement>
     {
         internal override string Name => nameof(AttributeStatement);
 
-        internal ArgumentList _arguments = new ArgumentList();
+        public ArgumentList Arguments { get; } = new ArgumentList();
 
-        internal AppliesToStatement _appliesTo;
+        public AppliesToStatement AttributeAppliesTo { get; internal set; }
 
         public AttributeStatement(string attributeName)
         {
@@ -26,17 +26,17 @@ namespace SourceGeneratorToolkit
         {
             _sourceItems.Add(new BracketStartStatement());
 
-            if(_appliesTo != null)
+            if(AttributeAppliesTo != null)
             {
-                _sourceItems.Add(_appliesTo);
+                _sourceItems.Add(AttributeAppliesTo);
             }
 
             _sourceItems.Add(new Statement(SourceText));
             
-            if(_arguments.SourceItems.Any())
+            if(Arguments.SourceItems.Any())
             {
                 _sourceItems.Add(new ParenthesisStartStatement());
-                _sourceItems.Add( _arguments);
+                _sourceItems.Add(Arguments);
                 _sourceItems.Add(new ParenthesisEndStatement());
             }
 
@@ -44,25 +44,10 @@ namespace SourceGeneratorToolkit
 
             return base.ToSource();
         }
-
-        public AttributeStatement AddArgument(string argumentValue)
+        
+        public AttributeStatement AppliesTo(AttributeAppliesTo appliesTo)
         {
-            _arguments.AddArgument(new ArgumentContainer(argumentValue));
-
-            return this;
-        }
-
-        public AttributeStatement AddArgument(string argumentName, string argumentValue)
-        {
-            _arguments.AddArgument(new ArgumentContainer(argumentName, argumentValue));
-
-            return this;
-        }
-
-        public AttributeStatement AppliesTo(AppliesTo appliesTo)
-        {
-            _appliesTo = new AppliesToStatement(appliesTo);
-
+            AttributeAppliesTo = new AppliesToStatement(appliesTo);
             return this;
         }
     }

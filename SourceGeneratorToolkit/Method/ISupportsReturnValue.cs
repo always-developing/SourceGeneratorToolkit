@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public interface IHasReturnValue
+    public interface ISupportsReturnValue
     {
         public ReturnContainer ReturnType { get; }
     }

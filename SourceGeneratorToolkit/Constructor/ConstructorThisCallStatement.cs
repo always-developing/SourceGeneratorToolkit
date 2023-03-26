@@ -18,7 +18,7 @@ namespace SourceGeneratorToolkit
             _sourceItems.Add(new ColonStatement());
             _sourceItems.Add(new Statement(SourceText));
             _sourceItems.Add(new ParenthesisStartStatement());
-            _sourceItems.Add(_arguments);
+            _sourceItems.Add(Arguments);
             _sourceItems.Add(new ParenthesisEndStatement());
 
             return base.ToSource();

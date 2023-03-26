@@ -4,15 +4,17 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class ConstructorContainer : SourceContainer
+    public class ConstructorContainer : SourceContainer, IPublicModifier<ConstructorContainer>, IPrivateModifier<ConstructorContainer>,
+        IProtectedModifier<ConstructorContainer>, IInternalModifier<ConstructorContainer>, IProtectedInternalModifier<ConstructorContainer>,
+        IPrivateProtected<ConstructorContainer>, ISupportsParameters<ConstructorContainer>
     {
         internal override string Name => nameof(ConstructorContainer);
 
-        internal ParameterContainer _parameterContainer = new ParameterContainer();
+        public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
-        internal AccessModifierStatement _accessModifier;
+        public ParameterContainer ParameterContainer { get; } = new ParameterContainer();
 
-        internal ConstructorCallStatement _constructorCalls;
+        public ConstructorCallStatement ConstructorCalls { get; internal set; }
 
         public ConstructorContainer(string className)
         {
@@ -22,19 +24,14 @@ namespace SourceGeneratorToolkit
         public override string ToSource()
         {
             _sourceItems.Add(new NewLineStatement());
-
-            if (_accessModifier != null)
-            {
-                _sourceItems.Add(_accessModifier);
-            }
-
+            _sourceItems.Add(AccessModifier);
             _sourceItems.Add(new Statement(SourceText));
             _sourceItems.Add(new ParenthesisStartStatement());
-            _sourceItems.Add(_parameterContainer);
+            _sourceItems.Add(ParameterContainer);
             _sourceItems.Add(new ParenthesisEndStatement());
-            if (_constructorCalls != null)
+            if (ConstructorCalls != null)
             {
-                _sourceItems.Add(_constructorCalls);
+                _sourceItems.Add(ConstructorCalls);
             }
             _sourceItems.Add(new BraceStartStatement());
             _sourceItems.Add(new BraceEndStatement());
@@ -42,63 +39,20 @@ namespace SourceGeneratorToolkit
             return base.ToSource();            
         }
 
-        public ConstructorContainer AddParameter(string type, string name)
-        {
-            _parameterContainer.AddParameter(type, name);
-
-            return this;
-        }
-
-        public ConstructorContainer AsPublic()
-        {
-            _accessModifier = new PublicModifierStatement();
-            return this;
-        }
-
-        public ConstructorContainer AsPrivate()
-        {
-            _accessModifier = new PrivateModifierStatement();
-            return this;
-        }
-
-        public ConstructorContainer AsProtected()
-        {
-            _accessModifier = new ProtectedModifierStatement();
-            return this;
-        }
-
-        public ConstructorContainer AsInternal()
-        {
-            _accessModifier = new InternalModifierStatement();
-            return this;
-        }
-
-        public ConstructorContainer AsProtectedInternal()
-        {
-            _accessModifier = new ProtectedInternalModifierStatement();
-            return this;
-        }
-
-        public ConstructorContainer AsPrivateProtected()
-        {
-            _accessModifier = new PrivateProtectedStatement();
-            return this;
-        }
-
         public ConstructorContainer CallsBase(Action<ConstructorCallStatement> builder = null)
         {
-            _constructorCalls = new ConstructorBaseCallStatement();
+            ConstructorCalls = new ConstructorBaseCallStatement();
 
-            builder?.Invoke(_constructorCalls);
+            builder?.Invoke(ConstructorCalls);
 
             return this;
         }
 
         public ConstructorContainer CallsThis(Action<ConstructorCallStatement> builder = null)
         {
-            _constructorCalls = new ConstructorThisCallStatement();
+            ConstructorCalls = new ConstructorThisCallStatement();
 
-            builder?.Invoke(_constructorCalls);
+            builder?.Invoke(ConstructorCalls);
 
             return this;
         }

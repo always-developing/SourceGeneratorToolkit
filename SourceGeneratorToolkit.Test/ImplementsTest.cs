@@ -20,7 +20,7 @@ public class ImplementsTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls.Implements("IStringBuilder");
+                        cls.WithImplementation("IStringBuilder");
                     });
                 });
             });
@@ -46,8 +46,8 @@ public class ImplementsTest
                     ns.WithClass("myClass", cls =>
                     {
                         cls
-                        .Implements("IStringBuilder")
-                        .Implements("ITask");
+                        .WithImplementation("IStringBuilder")
+                        .WithImplementation("ITask");
                     });
                 });
             });
@@ -73,8 +73,8 @@ public class ImplementsTest
                     ns.WithClass("myClass", cls =>
                     {
                         cls
-                        .Implements("IStringBuilder")
-                        .Inherits("Baseclass");
+                        .WithImplementation("IStringBuilder")
+                        .WithInheritence("Baseclass");
                     });
                 });
             });
@@ -100,9 +100,9 @@ public class ImplementsTest
                     ns.WithClass("myClass", cls =>
                     {
                         cls
-                        .Implements("IStringBuilder")
-                        .Inherits("Baseclass")
-                        .Implements("ITask");
+                        .WithImplementation("IStringBuilder")
+                        .WithInheritence("Baseclass")
+                        .WithImplementation("ITask");
                     });
                 });
             });

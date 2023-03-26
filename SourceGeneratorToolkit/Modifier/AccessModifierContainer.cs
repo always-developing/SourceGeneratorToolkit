@@ -55,5 +55,13 @@ namespace SourceGeneratorToolkit
 
             return parent;
         }
+
+        internal T AsPrivateProtected<T>(T parent) where T : SourceContainer
+        {
+            _sourceItems.Clear();
+            _sourceItems.Add(new PrivateProtectedStatement());
+
+            return parent;
+        }
     }
 }

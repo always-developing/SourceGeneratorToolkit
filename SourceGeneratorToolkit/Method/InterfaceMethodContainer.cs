@@ -6,32 +6,35 @@ namespace SourceGeneratorToolkit
 {
     public class InterfaceMethodContainer : SourceContainer, IPublicModifier<InterfaceMethodContainer>, IPrivateModifier<InterfaceMethodContainer>,
         IProtectedModifier<InterfaceMethodContainer>, IInternalModifier<InterfaceMethodContainer>, IAbstractModifier<InterfaceMethodContainer>,
-        IStaticModifier<InterfaceMethodContainer>, IPartialModifier<InterfaceMethodContainer>
+        IStaticModifier<InterfaceMethodContainer>, IPartialModifier<InterfaceMethodContainer>, ISupportsGenerics<InterfaceMethodContainer>,
+        ISupportsGenericsConstraints<InterfaceMethodContainer>, ISupportsParameters<InterfaceMethodContainer>, ISupportsReturnValue,
+        IAsyncModifier<InterfaceMethodContainer>
+
     {
         internal override string Name => nameof(InterfaceMethodContainer);
 
         public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
-        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
+        public GeneralModifierContainer GeneralModifiers { get; } = new GeneralModifierContainer();
 
-        internal ParameterContainer _parameterContainer = new ParameterContainer();
+        public GenericList GenericList { get; } = new GenericList();
 
-        internal GenericList _genericsList = new GenericList();
+        public GenericConstraintList ConstraintContainer { get; } = new GenericConstraintList();
 
-        internal GenericConstraintList _constraintContainer = new GenericConstraintList();
+        public ParameterContainer ParameterContainer { get; } = new ParameterContainer();
 
-        internal ReturnContainer _returnType;
+        public ReturnContainer ReturnType { get; internal set; }
 
         public InterfaceMethodContainer(string methodName)
         {
             SourceText = methodName;
-            _returnType = new ReturnContainer();
+            ReturnType = new ReturnContainer();
         }
 
         public InterfaceMethodContainer(string methodName, string returnType)
         {
             SourceText = methodName;
-            _returnType = new ReturnContainer(returnType);
+            ReturnType = new ReturnContainer(returnType);
         }
 
         public override string ToSource()
@@ -40,40 +43,20 @@ namespace SourceGeneratorToolkit
             {
                 new NewLineStatement(),
                 AccessModifier,
-                GeneralModifier,
-                _returnType,
+                GeneralModifiers,
+                ReturnType,
                 new Statement(SourceText),
-                _genericsList,
+                GenericList,
                 new ParenthesisStartStatement(),
-                _parameterContainer,
+                ParameterContainer,
                 new ParenthesisEndStatement(),
-                _constraintContainer,
+                ConstraintContainer,
                 new SemiColonStatement()
             };
 
             _sourceItems.InsertRange(0, builderList);
 
             return base.ToSource();
-        }
-
-        public InterfaceMethodContainer AddGeneric(string value)
-        {
-            _genericsList.AddGeneric(value);
-            return this;
-        }
-
-        public InterfaceMethodContainer AsAsync(bool enforceTaskReturnType = true)
-        {
-            _returnType.EnforceAsync(enforceTaskReturnType);
-
-            return this;
-        }
-
-        public InterfaceMethodContainer WithGenericConstraint(string generic, string constraint)
-        {
-            _constraintContainer.AddConstraint(generic, constraint);
-
-            return this;
         }
     }
 }

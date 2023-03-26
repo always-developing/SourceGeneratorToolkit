@@ -8,7 +8,7 @@ namespace SourceGeneratorToolkit
     {
         internal override string Name => nameof(AppliesToStatement);
 
-        public AppliesToStatement(AppliesTo appliesTo)
+        public AppliesToStatement(AttributeAppliesTo appliesTo)
         {
             _sourceItems.Add(new Statement(appliesTo.ToString().ToLower()));
             _sourceItems.Add(new ColonStatement());

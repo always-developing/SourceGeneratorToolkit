@@ -190,7 +190,7 @@ public class GenericsTest
                     ns.WithClass("myClass", cls =>
                     {
                         cls.AddGeneric("T")
-                        .Inherits("StringBuilder")
+                        .WithInheritence("StringBuilder")
                         .WithGenericConstraint("T", "new()")
                         .WithGenericConstraint("T", "ITemp");
 
@@ -223,7 +223,7 @@ public class GenericsTest
                         .AddGeneric("T1")
                         .WithGenericConstraint("T", "new()")
                         .WithGenericConstraint("T1", "new()")
-                        .Inherits("Task")
+                        .WithInheritence("Task")
                         .WithGenericConstraint("T", "ITemp");
                     });
                 });

@@ -31,6 +31,11 @@ namespace SourceGeneratorToolkit
             return @base.AccessModifier.AsProtectedInternal((T)@base);
         }
 
+        public static T AsPrivateProtected<T>(this IPrivateProtected<T> @base) where T : SourceContainer
+        {
+            return @base.AccessModifier.AsPrivateProtected((T)@base);
+        }
+
         public static T AsFile<T>(this IFileModifier<T> @base) where T : SourceContainer
         {
             return @base.AccessModifier.AsFile((T)@base);

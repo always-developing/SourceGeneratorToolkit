@@ -11,9 +11,9 @@ namespace SourceGeneratorToolkit
 
         public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
-        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
+        public GeneralModifierContainer GeneralModifiers { get; } = new GeneralModifierContainer();
 
-        internal string _defaultValue = null;
+        public string DefaultValue  {get; internal set;}
 
         public FieldContainer(string type, string name)
         {
@@ -23,13 +23,13 @@ namespace SourceGeneratorToolkit
         public override string ToSource()
         {
             _sourceItems.Add(AccessModifier);
-            _sourceItems.Add(GeneralModifier);
+            _sourceItems.Add(GeneralModifiers);
             _sourceItems.Add(new Statement(SourceText));
 
-            if(_defaultValue != null)
+            if(DefaultValue != null)
             {
                 _sourceItems.Add(new EqualsStatement());
-                _sourceItems.Add(new Statement(_defaultValue));
+                _sourceItems.Add(new Statement(DefaultValue));
             }
 
             _sourceItems.Add(new SemiColonStatement());
@@ -38,9 +38,9 @@ namespace SourceGeneratorToolkit
             return base.ToSource();
         }
 
-        public FieldContainer WithValue(string value)
+        public FieldContainer WithDefaultValue(string value)
         {
-            _defaultValue = value;
+            DefaultValue = value;
             return this;
         }
     }

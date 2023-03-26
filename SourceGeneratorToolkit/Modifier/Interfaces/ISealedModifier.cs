@@ -6,6 +6,6 @@ namespace SourceGeneratorToolkit
 {
     public interface ISealedModifier<T> where T : SourceContainer
     {
-        ModifierContainer GeneralModifier { get; }
+        GeneralModifierContainer GeneralModifiers { get; }
     }
 }

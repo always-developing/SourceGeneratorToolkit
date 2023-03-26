@@ -6,6 +6,6 @@ namespace SourceGeneratorToolkit
 {
     public interface IAsyncModifier<T> where T : SourceContainer
     {
-        ModifierContainer GeneralModifier { get; }
+        GeneralModifierContainer GeneralModifiers { get; }
     }
 }

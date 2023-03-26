@@ -7,6 +7,6 @@ namespace SourceGeneratorToolkit
 {
     public interface IStaticModifier<T> where T : SourceContainer
     {
-        ModifierContainer GeneralModifier { get; }
+        GeneralModifierContainer GeneralModifiers { get; }
     }
 }

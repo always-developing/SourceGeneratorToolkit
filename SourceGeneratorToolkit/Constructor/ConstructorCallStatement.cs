@@ -4,15 +4,15 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class ConstructorCallStatement : SourceContainer
+    public class ConstructorCallStatement : SourceContainer, ISupportsArguments<ConstructorCallStatement>
     {
         internal override string Name => nameof(ConstructorCallStatement);
 
-        internal ArgumentList _arguments = new ArgumentList();
+        public ArgumentList Arguments { get; } = new ArgumentList();
 
         public ConstructorCallStatement AddArgument(string argumentValue)
         {
-            _arguments.AddArgument(new ArgumentContainer(argumentValue));
+            Arguments.AddArgument(argumentValue);
 
             return this;
         }

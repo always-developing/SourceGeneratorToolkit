@@ -6,21 +6,22 @@ namespace SourceGeneratorToolkit
 {
     public class MethodContainer : SourceContainer, IPublicModifier<MethodContainer>, IPrivateModifier<MethodContainer>, IProtectedModifier<MethodContainer>,
         IInternalModifier<MethodContainer>, IAbstractModifier<MethodContainer>, IStaticModifier<MethodContainer>, IPartialModifier<MethodContainer>,
-        IAsyncModifier<MethodContainer>, IHasReturnValue
+        IAsyncModifier<MethodContainer>, ISupportsReturnValue, ISupportsGenerics<MethodContainer>, ISupportsGenericsConstraints<MethodContainer>,
+        ISupportsParameters<MethodContainer>
     {
         internal override string Name => nameof(MethodContainer);
 
-        internal ParameterContainer _parameterContainer = new ParameterContainer();
-
-        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
+        public GeneralModifierContainer GeneralModifiers { get; } = new GeneralModifierContainer();
 
         public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
-        internal GenericList _genericsList = new GenericList();
-
-        internal GenericConstraintList _constraintContainer = new GenericConstraintList();
-
         public ReturnContainer ReturnType { get; } = new ReturnContainer();
+
+        public GenericList GenericList { get; } = new GenericList();
+
+        public GenericConstraintList ConstraintContainer { get; } = new GenericConstraintList();
+
+        public ParameterContainer ParameterContainer { get; } = new ParameterContainer();
 
         public MethodContainer(string methodName)
         {
@@ -39,14 +40,14 @@ namespace SourceGeneratorToolkit
             {
                 new NewLineStatement(),
                 AccessModifier,
-                GeneralModifier,
+                GeneralModifiers,
                 ReturnType,
                 new Statement(SourceText),
-                _genericsList,
+                GenericList,
                 new ParenthesisStartStatement(),
-                _parameterContainer,
+                ParameterContainer,
                 new ParenthesisEndStatement(),
-                _constraintContainer,
+                ConstraintContainer,
                 new BraceStartStatement()
             };
 
@@ -54,19 +55,6 @@ namespace SourceGeneratorToolkit
             _sourceItems.Add(new BraceEndStatement());
 
             return base.ToSource();
-        }
-
-        public MethodContainer AddGeneric(string value)
-        {
-            _genericsList.AddGeneric(value);
-            return this;
-        }
-
-        public MethodContainer WithGenericConstraint(string generic, string constraint)
-        {
-            _constraintContainer.AddConstraint(generic, constraint);
-
-            return this;
         }
     }
 }

@@ -233,7 +233,7 @@ public class AttribtueTest
                     {
                         cls.AddAttribute("Serializable", att =>
                         {
-                            att.AppliesTo(AppliesTo.Method);
+                            att.AppliesTo(AttributeAppliesTo.Method);
                         });
                     });
                 });

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    internal class GenericConstraintList : SourceContainer
+    public class GenericConstraintList : SourceContainer
     {
         internal override string Name => nameof(GenericConstraintList);
 

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class ModifierContainer : SourceContainer 
+    public class GeneralModifierContainer : SourceContainer 
     {
-        internal override string Name => nameof(ModifierContainer);
+        internal override string Name => nameof(GeneralModifierContainer);
 
         public override string ToSource()
         {

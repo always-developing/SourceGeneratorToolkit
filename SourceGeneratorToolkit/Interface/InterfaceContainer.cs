@@ -7,19 +7,20 @@ namespace SourceGeneratorToolkit
 {
     public class InterfaceContainer : SourceContainer, IPublicModifier<InterfaceContainer>, IPrivateModifier<InterfaceContainer>,
         IProtectedModifier<InterfaceContainer>, IInternalModifier<InterfaceContainer>, IFileModifier<InterfaceContainer>,
-        IPartialModifier<InterfaceContainer>
+        IPartialModifier<InterfaceContainer>, ISupportsGenerics<InterfaceContainer>, ISupportsGenericsConstraints<InterfaceContainer>,
+        ISupportsAttributes<InterfaceContainer>
     {
         internal override string Name => nameof(InterfaceContainer);
 
-        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
+        public GeneralModifierContainer GeneralModifiers { get; } = new GeneralModifierContainer();
 
         public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
-        internal GenericList _genericList = new GenericList();
+        public GenericList GenericList { get; } = new GenericList();
 
-        internal AttributeContainer _attributeList = new AttributeContainer();
+        public GenericConstraintList ConstraintContainer { get; } = new GenericConstraintList();
 
-        internal GenericConstraintList _constraintContainer = new GenericConstraintList();
+        public AttributeContainer AttributeList { get; } = new AttributeContainer();
 
         internal ImplementsContainer _implementsContainer = new ImplementsContainer();
 
@@ -32,14 +33,14 @@ namespace SourceGeneratorToolkit
         {
             var builderList = new List<SourceStatement>
             {
-                _attributeList,
+                AttributeList,
                 AccessModifier,
-                GeneralModifier,
+                GeneralModifiers,
                 new Statement($"interface {SourceText}"),
-                _genericList,
+                GenericList,
 
                 _implementsContainer,
-                _constraintContainer,
+                ConstraintContainer,
                 new NewLineStatement(),
                 new BraceStartStatement()
             };
@@ -49,19 +50,6 @@ namespace SourceGeneratorToolkit
             _sourceItems.Add(new BraceEndStatement());
 
             return base.ToSource();
-        }
-
-        public InterfaceContainer AddGeneric(string value)
-        {
-            _genericList.AddGeneric(value);
-            return this;
-        }
-
-        public InterfaceContainer WithGenericConstraint(string generic, string constraint)
-        {
-            _constraintContainer.AddConstraint(generic, constraint);
-
-            return this;
         }
 
         public InterfaceContainer WithMethod(string methodName, string returnType)
@@ -110,7 +98,7 @@ namespace SourceGeneratorToolkit
 
         public InterfaceContainer AddAttribute(string attributeName, Action<AttributeStatement> builder = null)
         {
-            var attribute = _attributeList.AddAttribute(attributeName);
+            var attribute = AttributeList.AddAttribute(attributeName);
             builder?.Invoke(attribute);
 
             return this;

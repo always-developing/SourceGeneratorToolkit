@@ -20,7 +20,7 @@ public class InheritenceTest
                 {
                     ns.WithClass("myClass", cls => 
                     {
-                        cls.Inherits("StringBuilder");
+                        cls.WithInheritence("StringBuilder");
                     });
                 });
             });
@@ -46,8 +46,8 @@ public class InheritenceTest
                     ns.WithClass("myClass", cls =>
                     {
                         cls
-                        .Inherits("StringBuilder")
-                        .Inherits("Task");
+                        .WithInheritence("StringBuilder")
+                        .WithInheritence("Task");
                     });
                 });
             });

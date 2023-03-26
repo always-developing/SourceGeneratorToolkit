@@ -10,9 +10,9 @@ namespace SourceGeneratorToolkit
     {
         internal override string Name => nameof(FileContainer);
 
-        private readonly UsingsContainer _usingsContainer = new UsingsContainer();
+        public UsingsContainer UsingsContainer { get; protected set; } = new UsingsContainer();
 
-        private readonly ExternAliasContainer _externAlias = new ExternAliasContainer();
+        public ExternAliasContainer ExternAlias { get; protected set; } = new ExternAliasContainer();
 
         public FileContainer(string fileName)
         {
@@ -21,8 +21,8 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            _sourceItems.Insert(0, _usingsContainer);
-            _sourceItems.Insert(0, _externAlias);
+            _sourceItems.Insert(0, UsingsContainer);
+            _sourceItems.Insert(0, ExternAlias);
 
             return base.ToSource();
         }
@@ -43,8 +43,7 @@ namespace SourceGeneratorToolkit
 
         public FileContainer WithUsing(string @using)
         {
-            _usingsContainer.AddUsing(@using);
-
+            UsingsContainer.AddUsing(@using);
             return this;
         }
 
@@ -80,8 +79,7 @@ namespace SourceGeneratorToolkit
 
         public FileContainer WithExternAlias(string externAlias)
         {
-            _externAlias.AddExternAlias(externAlias);
-
+            ExternAlias.AddExternAlias(externAlias);
             return this;
         }
 

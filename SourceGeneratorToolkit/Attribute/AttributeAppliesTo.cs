@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public enum AppliesTo
+    public enum AttributeAppliesTo
     {
         Assembly,
         Module,

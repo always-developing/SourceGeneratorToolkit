@@ -9,24 +9,25 @@ namespace SourceGeneratorToolkit
 {
     public class ClassContainer : SourceContainer, IStaticModifier<ClassContainer>, IAbstractModifier<ClassContainer>, IPartialModifier<ClassContainer>,
         ISealedModifier<ClassContainer>, IPublicModifier<ClassContainer>, IPrivateModifier<ClassContainer>,
-        IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>
-        
+        IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>,
+        ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>
+
     {
         internal override string Name => nameof(ClassContainer);
 
-        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
+        public GeneralModifierContainer GeneralModifiers { get; } = new GeneralModifierContainer();
 
         public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
-        internal GenericList _genericList = new GenericList();
+        public GenericList GenericList { get; } = new GenericList();
 
-        internal AttributeContainer _attributeList = new AttributeContainer();
+        public AttributeContainer AttributeList { get; } = new AttributeContainer();
 
-        internal GenericConstraintList _constraintContainer = new GenericConstraintList();
+        public GenericConstraintList ConstraintContainer { get; } = new GenericConstraintList();
 
-        internal InheritenceStatement _inheritenceStatement;
+        public InheritenceStatement Inherits { get; internal set; }
 
-        internal ImplementsContainer _implementsContainer = new ImplementsContainer();
+        public ImplementsContainer Implements { get; internal set; } = new ImplementsContainer();
 
         public ClassContainer(string className)
         {
@@ -37,30 +38,30 @@ namespace SourceGeneratorToolkit
         {
             var builderList = new List<SourceStatement>
             {
-                _attributeList,
+                AttributeList,
                 AccessModifier,
-                GeneralModifier,
+                GeneralModifiers,
                 new Statement($"class {SourceText}"),
-                _genericList
+                GenericList
             };
 
-            if (_inheritenceStatement != null || _implementsContainer.SourceItems.Any())
+            if (Inherits != null || Implements.SourceItems.Any())
             {
                 builderList.Add(new ColonStatement());
             }
 
-            if (_inheritenceStatement != null)
+            if (Inherits != null)
             {
-                builderList.Add(_inheritenceStatement);
+                builderList.Add(Inherits);
 
-                if(_implementsContainer.SourceItems.Any())
+                if(Implements.SourceItems.Any())
                 {
                     builderList.Add(new CommaStatement());
                 }
             }
 
-            builderList.Add(_implementsContainer);
-            builderList.Add(_constraintContainer);
+            builderList.Add(Implements);
+            builderList.Add(ConstraintContainer);
             builderList.Add(new NewLineStatement());
             builderList.Add(new BraceStartStatement());
 
@@ -69,19 +70,6 @@ namespace SourceGeneratorToolkit
             _sourceItems.Add(new BraceEndStatement());
 
             return base.ToSource();
-        }
-
-        public ClassContainer AddGeneric(string value)
-        {
-            _genericList.AddGeneric(value);
-            return this;
-        }
-
-        public ClassContainer WithGenericConstraint(string generic, string constraint)
-        {
-            _constraintContainer.AddConstraint(generic, constraint);
-
-            return this;
         }
 
         public ClassContainer WithConstructor()
@@ -118,16 +106,16 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public ClassContainer Inherits(string baseClassName)
+        public ClassContainer WithInheritence(string baseClassName)
         {
-            _inheritenceStatement = new InheritenceStatement(baseClassName);
+            Inherits = new InheritenceStatement(baseClassName);
 
             return this;
         }
 
-        public ClassContainer Implements(string implementsInterface)
+        public ClassContainer WithImplementation(string implementsInterface)
         {
-            _implementsContainer.AddImplements(implementsInterface);
+            Implements.AddImplements(implementsInterface);
 
             return this;
         }
@@ -148,14 +136,6 @@ namespace SourceGeneratorToolkit
             _sourceItems.Add(propertyContainer);
 
             builder?.Invoke(propertyContainer);
-
-            return this;
-        }
-
-        public ClassContainer AddAttribute(string attributeName, Action<AttributeStatement> builder = null)
-        {
-            var attribute = _attributeList.AddAttribute(attributeName);
-            builder?.Invoke(attribute);
 
             return this;
         }

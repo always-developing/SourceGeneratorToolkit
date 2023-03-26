@@ -13,13 +13,14 @@ namespace SourceGeneratorToolkit
 
         public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
-        public ModifierContainer GeneralModifier { get; } = new ModifierContainer();
+        public GeneralModifierContainer GeneralModifiers { get; } = new GeneralModifierContainer();
 
-        internal GetAccessorContainer _getter = new GetAccessorContainer();
-        internal SetAccessorContainer _setter = new SetAccessorContainer();
-        internal InitAccessorContainer _initer = null;
+        public GetAccessorContainer Getter { get; protected set; } = new GetAccessorContainer();
+        public SetAccessorContainer Setter { get; protected set; } = new SetAccessorContainer();
 
-        internal string _defaultValue = null;
+        public InitAccessorContainer Initer { get; protected set; }
+
+        public string DefaultValue { get; internal set; }
 
         public PropertyContainer(string type, string name)
         {
@@ -29,32 +30,32 @@ namespace SourceGeneratorToolkit
         public override string ToSource()
         {
             _sourceItems.Add(AccessModifier);
-            _sourceItems.Add(GeneralModifier);
+            _sourceItems.Add(GeneralModifiers);
             _sourceItems.Add(new Statement(SourceText));
 
             _sourceItems.Add(new BraceStartStatement());
 
-            if(_getter != null)
+            if(Getter != null)
             {
-                _sourceItems.Add(_getter);
+                _sourceItems.Add(Getter);
             }
 
-            if (_setter != null)
+            if (Setter != null)
             {
-                _sourceItems.Add(_setter);
+                _sourceItems.Add(Setter);
             }
 
-            if (_initer != null)
+            if (Initer != null)
             {
-                _sourceItems.Add(_initer);
+                _sourceItems.Add(Initer);
             }
 
             _sourceItems.Add(new BraceEndStatement());
 
-            if (_defaultValue != null)
+            if (DefaultValue != null)
             {
                 _sourceItems.Add(new EqualsStatement());
-                _sourceItems.Add(new Statement(_defaultValue));
+                _sourceItems.Add(new Statement(DefaultValue));
                 _sourceItems.Add(new SemiColonStatement());
             }
 
@@ -65,41 +66,41 @@ namespace SourceGeneratorToolkit
 
         public PropertyContainer WithValue(string value)
         {
-            _defaultValue = value;
+            DefaultValue = value;
             return this;
         }
 
         public PropertyContainer WithGetter()
         {
-            _getter = new GetAccessorContainer();
+            Getter = new GetAccessorContainer();
             return this;
         }
 
         public PropertyContainer WithSetter()
         {
-            _setter = new SetAccessorContainer();
-            _initer = null;
+            Setter = new SetAccessorContainer();
+            Initer = null;
 
             return this;
         }
 
         public PropertyContainer WithIniter()
         {
-            _setter = null;
-            _initer = new InitAccessorContainer(); 
+            Setter = null;
+            Initer = new InitAccessorContainer(); 
 
             return this;
         }
 
         public PropertyContainer WithNoGetter() 
         {
-            _getter = null;
+            Getter = null;
             return this;
         }
 
         public PropertyContainer WithNoSetter()
         {
-            _setter = null;
+            Setter = null;
             return this;
         }
 

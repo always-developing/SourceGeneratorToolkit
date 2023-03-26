@@ -6,6 +6,6 @@ namespace SourceGeneratorToolkit
 {
     public interface IVirtualModifier<T> where T : SourceContainer
     {
-        ModifierContainer GeneralModifier { get; }
+        GeneralModifierContainer GeneralModifiers { get; }
     }
 }
