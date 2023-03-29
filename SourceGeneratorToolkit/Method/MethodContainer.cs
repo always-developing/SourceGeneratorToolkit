@@ -56,5 +56,12 @@ namespace SourceGeneratorToolkit
 
             return base.ToSource();
         }
+
+        public MethodContainer WithBody(string body)
+        {
+            _sourceItems.Add(new Statement(body));
+
+            return this;
+        }
     }
 }

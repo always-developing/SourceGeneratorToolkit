@@ -22,5 +22,8 @@ public class Temp<T> : Task, IDisposable where T : new()
 
 partial interface ITemp<T>
 {
-    public Task<int> MyMethod();
+    public int MyMethod()
+    {
+        return 1;
+    }
 }

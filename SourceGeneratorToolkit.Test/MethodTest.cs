@@ -85,7 +85,7 @@ public class MethodTest
                         {
                             meth
                             .AsPrivate()
-                            .AddStatement("return 100;");
+                            .WithBody("return 100;");
                         });
                     });
                 });
@@ -120,8 +120,9 @@ public class MethodTest
                         {
                             meth
                             .AsInternal()
-                            .AddStatement(@"var s = ""hello"";")
-                            .AddStatement(@"return s;");
+                            .WithBody(@"var s = ""hello"";
+return s;
+");
                         });
                     });
                 });

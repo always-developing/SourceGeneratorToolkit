@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SourceGeneratorToolkit
@@ -50,13 +51,30 @@ namespace SourceGeneratorToolkit
                 new ParenthesisStartStatement(),
                 ParameterContainer,
                 new ParenthesisEndStatement(),
-                ConstraintContainer,
-                new SemiColonStatement()
+                ConstraintContainer//,
+                //new SemiColonStatement()
             };
 
-            _sourceItems.InsertRange(0, builderList);
+            if(!_sourceItems.Any())
+            {
+                builderList.Add(new SemiColonStatement());
+                _sourceItems.InsertRange(0, builderList);
+            }
+            else
+            {
+                builderList.Add(new BraceStartStatement());
+                _sourceItems.InsertRange(0, builderList);
+                _sourceItems.Add(new BraceEndStatement());
+            }
 
             return base.ToSource();
+        }
+
+        public InterfaceMethodContainer WithBody(string body)
+        {
+            _sourceItems.Add(new Statement(body));
+
+            return this;
         }
     }
 }

@@ -180,4 +180,38 @@ public class InterfaceTests
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Interface_Default_Method_Default_Implementation()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithInterface("IMyInterface", builder =>
+                    {
+                        builder
+                        .AsPublic()
+                        .WithMethod("MyMethod", "void", mth =>
+                        {
+                            mth.WithBody("return 1;");
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    public interface IMyInterface
+    {
+        void MyMethod()
+        {
+            return 1;
+        }
+    }
+}", file);
+    }
 }
