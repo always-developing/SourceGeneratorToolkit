@@ -8,22 +8,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace SourceGeneratorToolkit.Test;
-public class Temp<T> : Task, IDisposable where T : new()
+namespace SourceGeneratorToolkit.Test
 {
-    public static readonly int myint = 100;
-
-    public virtual int MyValue { get; set; } = 100;
-
-    public Temp(Action action) : base(action)
-    {
-    }
+    // this is a comment
 }
 
-partial interface ITemp<T>
-{
-    public int MyMethod()
-    {
-        return 1;
-    }
-}
+//public class Temp<T> : Task, IDisposable where T : new()
+//{
+//    public static readonly int myint = 100;
+
+//    public virtual int MyValue { get; set; } = 100;
+
+//    public Temp(Action action) : base(action)
+//    {
+//    }
+//}
+
+//partial interface ITemp<T>
+//{
+//    public int MyMethod()
+//    {
+//        return 1;
+//    }
+//}

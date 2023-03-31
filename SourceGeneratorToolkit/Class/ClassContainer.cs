@@ -10,7 +10,8 @@ namespace SourceGeneratorToolkit
     public class ClassContainer : SourceContainer, IStaticModifier<ClassContainer>, IAbstractModifier<ClassContainer>, IPartialModifier<ClassContainer>,
         ISealedModifier<ClassContainer>, IPublicModifier<ClassContainer>, IPrivateModifier<ClassContainer>,
         IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>,
-        ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>
+        ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>,
+        ISupportsComments<ClassContainer>
 
     {
         internal override string Name => nameof(ClassContainer);

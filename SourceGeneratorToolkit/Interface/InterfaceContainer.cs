@@ -8,7 +8,7 @@ namespace SourceGeneratorToolkit
     public class InterfaceContainer : SourceContainer, IPublicModifier<InterfaceContainer>, IPrivateModifier<InterfaceContainer>,
         IProtectedModifier<InterfaceContainer>, IInternalModifier<InterfaceContainer>, IFileModifier<InterfaceContainer>,
         IPartialModifier<InterfaceContainer>, ISupportsGenerics<InterfaceContainer>, ISupportsGenericsConstraints<InterfaceContainer>,
-        ISupportsAttributes<InterfaceContainer>
+        ISupportsAttributes<InterfaceContainer>, ISupportsComments<InterfaceContainer>
     {
         internal override string Name => nameof(InterfaceContainer);
 

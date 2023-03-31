@@ -8,7 +8,7 @@ namespace SourceGeneratorToolkit
 {
     public abstract class SourceContainer : SourceStatement
     {
-        protected List<SourceStatement> _sourceItems = new List<SourceStatement>();
+        internal List<SourceStatement> _sourceItems = new List<SourceStatement>();
 
         public ReadOnlyCollection<SourceStatement> SourceItems
         {

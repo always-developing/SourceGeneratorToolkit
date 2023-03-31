@@ -6,7 +6,7 @@ namespace SourceGeneratorToolkit
 {
     public class ConstructorContainer : SourceContainer, IPublicModifier<ConstructorContainer>, IPrivateModifier<ConstructorContainer>,
         IProtectedModifier<ConstructorContainer>, IInternalModifier<ConstructorContainer>, IProtectedInternalModifier<ConstructorContainer>,
-        IPrivateProtected<ConstructorContainer>, ISupportsParameters<ConstructorContainer>
+        IPrivateProtected<ConstructorContainer>, ISupportsParameters<ConstructorContainer>, ISupportsComments<ConstructorContainer>
     {
         internal override string Name => nameof(ConstructorContainer);
 
@@ -23,17 +23,23 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            _sourceItems.Add(new NewLineStatement());
-            _sourceItems.Add(AccessModifier);
-            _sourceItems.Add(new Statement(SourceText));
-            _sourceItems.Add(new ParenthesisStartStatement());
-            _sourceItems.Add(ParameterContainer);
-            _sourceItems.Add(new ParenthesisEndStatement());
+            var builderList = new List<SourceStatement>
+            {
+                new NewLineStatement(),
+                AccessModifier,
+                new Statement(SourceText),
+                new ParenthesisStartStatement(),
+                ParameterContainer,
+                new ParenthesisEndStatement()
+            };
+
             if (ConstructorCalls != null)
             {
-                _sourceItems.Add(ConstructorCalls);
+                builderList.Add(ConstructorCalls);
             }
-            _sourceItems.Add(new BraceStartStatement());
+            builderList.Add(new BraceStartStatement());
+
+            _sourceItems.InsertRange(0, builderList);
             _sourceItems.Add(new BraceEndStatement());
 
             return base.ToSource();            
