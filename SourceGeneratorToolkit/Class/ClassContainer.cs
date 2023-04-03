@@ -11,7 +11,7 @@ namespace SourceGeneratorToolkit
         ISealedModifier<ClassContainer>, IPublicModifier<ClassContainer>, IPrivateModifier<ClassContainer>,
         IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>,
         ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>,
-        ISupportsComments<ClassContainer>
+        ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>
 
     {
         internal override string Name => nameof(ClassContainer);
@@ -30,6 +30,8 @@ namespace SourceGeneratorToolkit
 
         public ImplementsContainer Implements { get; internal set; } = new ImplementsContainer();
 
+        public DocumentationContainer Documentation { get; } = new DocumentationContainer();
+
         public ClassContainer(string className)
         {
             SourceText = className;
@@ -39,6 +41,7 @@ namespace SourceGeneratorToolkit
         {
             var builderList = new List<SourceStatement>
             {
+                Documentation,
                 AttributeList,
                 AccessModifier,
                 GeneralModifiers,

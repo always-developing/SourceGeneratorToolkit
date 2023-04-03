@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace SourceGeneratorToolkit.Test;
 
 [TestClass]
-public class ImplementsTest
+public class DocumentationTests
 {
     [TestMethod]
-    public void Empty_Class_One_Implements()
+    public void Class_Summary_Single_Comment()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -20,7 +20,10 @@ public class ImplementsTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls.WithImplementation("IStringBuilder");
+                        cls.AddDocumentation(doc =>
+                        {
+                            doc.WithSummary("Description for 'myClass'");
+                        });
                     });
                 });
             });
@@ -28,14 +31,17 @@ public class ImplementsTest
 
         Assert.AreEqual(@"namespace testns
 {
-    class myClass : IStringBuilder
+    /// <summary>
+    /// Description for 'myClass'
+    /// </summary>
+    class myClass
     {
     }
 }", file);
     }
 
     [TestMethod]
-    public void Empty_Class_Multi_Implements()
+    public void Class_Summary_Single_Blank_Comment()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -45,9 +51,9 @@ public class ImplementsTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls
-                        .WithImplementation("IStringBuilder")
-                        .WithImplementation("ITask");
+                        cls.AddDocumentation(doc =>
+                        {
+                        });
                     });
                 });
             });
@@ -55,14 +61,14 @@ public class ImplementsTest
 
         Assert.AreEqual(@"namespace testns
 {
-    class myClass : IStringBuilder, ITask
+    class myClass
     {
     }
 }", file);
     }
 
     [TestMethod]
-    public void Empty_Class_One_Implements_Inherits()
+    public void Class_Summary_Single_Multi_Comment()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -72,9 +78,10 @@ public class ImplementsTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls
-                        .WithImplementation("IStringBuilder")
-                        .WithInheritence("Baseclass");
+                        cls.AddDocumentation(doc =>
+                        {
+                            doc.WithSummary(new string[] { "Summary line 1", "Summary line 2" });
+                        });
                     });
                 });
             });
@@ -82,35 +89,11 @@ public class ImplementsTest
 
         Assert.AreEqual(@"namespace testns
 {
-    class myClass : Baseclass, IStringBuilder
-    {
-    }
-}", file);
-    }
-
-    [TestMethod]
-    public void Empty_Class_Multi_Implements_Inherits()
-    {
-        var file = SourceGenerator.Generate(gen =>
-        {
-            gen.WithFile("file1", file =>
-            {
-                file.WithNamespace("testns", ns =>
-                {
-                    ns.WithClass("myClass", cls =>
-                    {
-                        cls
-                        .WithImplementation("IStringBuilder")
-                        .WithInheritence("Baseclass")
-                        .WithImplementation("ITask");
-                    });
-                });
-            });
-        }).Build();
-
-        Assert.AreEqual(@"namespace testns
-{
-    class myClass : Baseclass, IStringBuilder, ITask
+    /// <summary>
+    /// Summary line 1
+    /// Summary line 2
+    /// </summary>
+    class myClass
     {
     }
 }", file);

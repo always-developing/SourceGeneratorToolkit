@@ -7,36 +7,10 @@ using System.Threading.Tasks;
 namespace SourceGeneratorToolkit.Test;
 
 [TestClass]
-public class AttribtueTest
+public class PropertyTests
 {
     [TestMethod]
-    public void Empty_Class_Default_Attribute()
-    {
-        var file = SourceGenerator.Generate(gen =>
-        {
-            gen.WithFile("file1", file =>
-            {
-                file.WithNamespace("testns", ns =>
-                {
-                    ns.WithClass("myClass", cls => 
-                    {
-                        cls.AddAttribute("Serializable");
-                    });
-                });
-            });
-        }).Build();
-
-        Assert.AreEqual(@"namespace testns
-{
-    [Serializable]
-    class myClass
-    {
-    }
-}", file);
-    }
-
-    [TestMethod]
-    public void Empty_Class_OneValue_Attribute()
+    public void Class_Default_Property()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -46,9 +20,35 @@ public class AttribtueTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls.AddAttribute("Serializable", att =>
+                        cls.AddProperty("int", "myIntField");
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        int myIntField { get; set; }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Class_Public_Property()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.AddProperty("int", "myIntField", builder =>
                         {
-                            att.AddArgument("1");
+                            builder.AsPublic();
                         });
                     });
                 });
@@ -57,15 +57,15 @@ public class AttribtueTest
 
         Assert.AreEqual(@"namespace testns
 {
-    [Serializable(1)]
     class myClass
     {
+        public int myIntField { get; set; }
     }
 }", file);
     }
 
     [TestMethod]
-    public void Empty_Class_OneNamedValue_Attribute()
+    public void Class_Internal_Property_DefaultValue()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -75,9 +75,11 @@ public class AttribtueTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls.AddAttribute("Serializable", att =>
+                        cls.AddProperty("int", "myIntField", builder =>
                         {
-                            att.AddArgument("intValue", "1");
+                            builder
+                            .AsInternal()
+                            .WithValue("100");
                         });
                     });
                 });
@@ -86,15 +88,15 @@ public class AttribtueTest
 
         Assert.AreEqual(@"namespace testns
 {
-    [Serializable(intValue = 1)]
     class myClass
     {
+        internal int myIntField { get; set; } = 100;
     }
 }", file);
     }
 
     [TestMethod]
-    public void Empty_Class_MultiValue_Attribute()
+    public void Class_Public_Property_No_Getter()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -104,42 +106,11 @@ public class AttribtueTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls.AddAttribute("Serializable", att =>
+                        cls.AddProperty("int", "myIntField", builder =>
                         {
-                            att
-                            .AddArgument("1")
-                            .AddArgument(@"""hello""");
-                        })
-                        .AsPublic();
-                    });
-                });
-            });
-        }).Build();
-
-        Assert.AreEqual(@"namespace testns
-{
-    [Serializable(1, ""hello"")]
-    public class myClass
-    {
-    }
-}", file);
-    }
-
-    [TestMethod]
-    public void Empty_Class_MultiNamedValue_Attribute()
-    {
-        var file = SourceGenerator.Generate(gen =>
-        {
-            gen.WithFile("file1", file =>
-            {
-                file.WithNamespace("testns", ns =>
-                {
-                    ns.WithClass("myClass", cls =>
-                    {
-                        cls.AddAttribute("Serializable", att =>
-                        {
-                            att.AddArgument("intValue", "1")
-                            .AddArgument("hello", @"""world""");
+                            builder
+                            .AsPublic()
+                            .WithNoGetter();
                         });
                     });
                 });
@@ -148,15 +119,15 @@ public class AttribtueTest
 
         Assert.AreEqual(@"namespace testns
 {
-    [Serializable(intValue = 1, hello = ""world"")]
     class myClass
     {
+        public int myIntField { set; }
     }
 }", file);
     }
 
     [TestMethod]
-    public void Empty_Class_Multi_Attributes()
+    public void Class_Public_Property_No_Setter()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -166,44 +137,11 @@ public class AttribtueTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls.AddAttribute("Serializable")
-                        .AddAttribute("OtherAttribute");
-                    });
-                });
-            });
-        }).Build();
-
-        Assert.AreEqual(@"namespace testns
-{
-    [Serializable]
-    [OtherAttribute]
-    class myClass
-    {
-    }
-}", file);
-    }
-
-    [TestMethod]
-    public void Empty_Class_Multi_Attributes_Named()
-    {
-        var file = SourceGenerator.Generate(gen =>
-        {
-            gen.WithFile("file1", file =>
-            {
-                file.WithNamespace("testns", ns =>
-                {
-                    ns.WithClass("myClass", cls =>
-                    {
-                        cls.AddAttribute("Serializable", att =>
+                        cls.AddProperty("int", "myIntField", builder =>
                         {
-                            att
-                            .AddArgument("intValue", "1")
-                            .AddArgument("hello", @"""world""");
-                        })
-                        .AddAttribute("OtherAttribute", att =>
-                        {
-                            att
-                            .AddArgument("doubleValue", "1.00");
+                            builder
+                            .AsPublic()
+                            .WithNoSetter();
                         });
                     });
                 });
@@ -212,16 +150,15 @@ public class AttribtueTest
 
         Assert.AreEqual(@"namespace testns
 {
-    [Serializable(intValue = 1, hello = ""world"")]
-    [OtherAttribute(doubleValue = 1.00)]
     class myClass
     {
+        public int myIntField { get; }
     }
 }", file);
     }
 
     [TestMethod]
-    public void Empty_Class_Default_Attribute_AppliesTo()
+    public void Class_Public_Property_With_Initer()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -231,9 +168,11 @@ public class AttribtueTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls.AddAttribute("Serializable", att =>
+                        cls.AddProperty("int", "myIntField", builder =>
                         {
-                            att.AppliesTo(AttributeAppliesTo.Method);
+                            builder
+                            .AsPublic()
+                            .WithIniter();
                         });
                     });
                 });
@@ -242,9 +181,40 @@ public class AttribtueTest
 
         Assert.AreEqual(@"namespace testns
 {
-    [method: Serializable]
     class myClass
     {
+        public int myIntField { get; init; }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Class_Public_Virtual_Property()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.AddProperty("int", "myIntField", builder =>
+                        {
+                            builder
+                            .AsPublic()
+                            .AsVirtual();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public virtual int myIntField { get; set; }
     }
 }", file);
     }

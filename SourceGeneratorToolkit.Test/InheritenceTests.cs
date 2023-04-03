@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SourceGeneratorToolkit.Test;
 
 [TestClass]
-public class InheritenceTest
+public class InheritenceTests
 {
     [TestMethod]
     public void Empty_Class_One_Inheritence()

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SourceGeneratorToolkit.Test;
 
 [TestClass]
-public class GenericsTest
+public class GenericsTests
 {
     [TestMethod]
     public void Empty_Class_One_Generic()

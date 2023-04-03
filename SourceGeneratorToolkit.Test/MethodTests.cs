@@ -7,56 +7,10 @@ using System.Threading.Tasks;
 namespace SourceGeneratorToolkit.Test;
 
 [TestClass]
-public class CommentTest
+public class MethodTests
 {
     [TestMethod]
-    public void Empty_Namespace_With_Comment()
-    {
-        var file = SourceGenerator.Generate(gen =>
-        {
-            gen.WithFile("file1", file =>
-            {
-                file.WithNamespace("tstNamespace", ns =>
-                {
-                    ns.AddComment("custom namespace for the test");
-                });
-            });
-        }).Build();
-
-        Assert.AreEqual(@"namespace tstNamespace
-{
-// custom namespace for the test
-}", file);
-    }
-
-    [TestMethod]
-    public void Empty_Class_Trad_Namespace_Comment()
-    {
-        var file = SourceGenerator.Generate(gen =>
-        {
-            gen.WithFile("file1", file =>
-            {
-                file.WithNamespace("testns", ns =>
-                {
-                    ns.WithClass("myClass", cls => 
-                    {
-                        cls.AddComment("A description about the class");
-                    });
-                });
-            });
-        }).Build();
-
-        Assert.AreEqual(@"namespace testns
-{
-    class myClass
-    {
-    // A description about the class
-    }
-}", file);
-    }
-
-    [TestMethod]
-    public void Default_Constructor_Comment()
+    public void Empty_Method_No_Modifier()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -66,10 +20,7 @@ public class CommentTest
                 {
                     ns.WithClass("myClass", cls =>
                     {
-                        cls.WithConstructor(cons =>
-                        {
-                            cons.AddComment("// this is the classes default constructor");
-                        });
+                        cls.WithMethod("HelloWorld", "void");
                     });
                 });
             });
@@ -79,79 +30,15 @@ public class CommentTest
 {
     class myClass
     {
-        myClass()
+        void HelloWorld()
         {
-        // this is the classes default constructor
         }
     }
 }", file);
     }
 
     [TestMethod]
-    public void Default_Interface_Comment()
-    {
-        var file = SourceGenerator.Generate(gen =>
-        {
-            gen.WithFile("file1", file =>
-            {
-                file.WithNamespace("testns", ns =>
-                {
-                    ns.WithInterface("IMyInterface", builder => 
-                    {
-                        builder.AddComment("comment for interface");
-                    });
-                });
-            });
-        }).Build();
-
-        Assert.AreEqual(@"namespace testns
-{
-    interface IMyInterface
-    {
-    // comment for interface
-    }
-}", file);
-    }
-
-    [TestMethod]
-    public void Interface_Default_Method_Default_Implementation_Comment()
-    {
-        var file = SourceGenerator.Generate(gen =>
-        {
-            gen.WithFile("file1", file =>
-            {
-                file.WithNamespace("testns", ns =>
-                {
-                    ns.WithInterface("IMyInterface", builder =>
-                    {
-                        builder
-                        .AsPublic()
-                        .WithMethod("MyMethod", "void", mth =>
-                        {
-                            mth
-                            .AddComment("returns hardcoded 1")
-                            .WithBody("return 1;");
-                        });
-                    });
-                });
-            });
-        }).Build();
-
-        Assert.AreEqual(@"namespace testns
-{
-    public interface IMyInterface
-    {
-        void MyMethod()
-        {
-            // returns hardcoded 1
-            return 1;
-        }
-    }
-}", file);
-    }
-
-    [TestMethod]
-    public void Empty_Async_Method_Enforced_Task_Comment()
+    public void Empty_Method_Public_Modifier()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -164,7 +51,144 @@ public class CommentTest
                         cls
                         .WithMethod("HelloWorld", "void", meth =>
                         {
-                            meth.AsPublic().AsAsync().AddComment("// hello to the world");
+                            meth.AsPublic();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public void HelloWorld()
+        {
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Int_Return_Method_Private_Modifier()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .WithMethod("HelloWorld", "int", meth =>
+                        {
+                            meth
+                            .AsPrivate()
+                            .WithBody("return 100;");
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        private int HelloWorld()
+        {
+            return 100;
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void String_Return_Method_Internal_Modifier()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .WithMethod("HelloWorld", "string", meth =>
+                        {
+                            meth
+                            .AsInternal()
+                            .WithBody(@"var s = ""hello"";
+return s;
+");
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        internal string HelloWorld()
+        {
+            var s = ""hello"";
+            return s;
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Empty_Async_Method_UnEnforced_Task()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .WithMethod("HelloWorld", "void", meth =>
+                        {
+                            meth.AsPublic().AsAsync(false);
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public async void HelloWorld()
+        {
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Empty_Async_Method_Enforced_Task()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .WithMethod("HelloWorld", "void", meth =>
+                        {
+                            meth.AsPublic().AsAsync();
                         });
                     });
                 });
@@ -177,9 +201,41 @@ public class CommentTest
     {
         public async Task HelloWorld()
         {
-        // hello to the world
         }
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Empty_Async_Method_Enforced_Task_Int()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .WithMethod("HelloWorld", "int", meth =>
+                        {
+                            meth.AsPublic().AsAsync();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public async Task<int> HelloWorld()
+        {
+        }
+    }
+}", file);
+    }
+
 }

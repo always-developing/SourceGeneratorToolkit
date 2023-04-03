@@ -14,5 +14,7 @@ namespace SourceGeneratorToolkit
 
             return (T)@base;
         }
+
+       
     }
 }
