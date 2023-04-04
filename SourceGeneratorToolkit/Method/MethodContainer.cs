@@ -7,7 +7,7 @@ namespace SourceGeneratorToolkit
     public class MethodContainer : SourceContainer, IPublicModifier<MethodContainer>, IPrivateModifier<MethodContainer>, IProtectedModifier<MethodContainer>,
         IInternalModifier<MethodContainer>, IAbstractModifier<MethodContainer>, IStaticModifier<MethodContainer>, IPartialModifier<MethodContainer>,
         IAsyncModifier<MethodContainer>, ISupportsReturnValue, ISupportsGenerics<MethodContainer>, ISupportsGenericsConstraints<MethodContainer>,
-        ISupportsParameters<MethodContainer>, ISupportsComments<MethodContainer>
+        ISupportsParameters<MethodContainer>, ISupportsComments<MethodContainer>, ISupportsDocumentation<MethodContainer>
     {
         internal override string Name => nameof(MethodContainer);
 
@@ -22,6 +22,8 @@ namespace SourceGeneratorToolkit
         public GenericConstraintList ConstraintContainer { get; } = new GenericConstraintList();
 
         public ParameterContainer ParameterContainer { get; } = new ParameterContainer();
+
+        public DocumentationContainer Documentation { get; } = new DocumentationContainer();
 
         public MethodContainer(string methodName)
         {
@@ -38,6 +40,7 @@ namespace SourceGeneratorToolkit
         {
             var builderList = new List<SourceStatement>
             {
+                Documentation,
                 new NewLineStatement(),
                 AccessModifier,
                 GeneralModifiers,

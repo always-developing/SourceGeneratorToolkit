@@ -4,11 +4,11 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class DocumentStatement : SourceStatement
+    public class DocumentationStatement : SourceStatement
     {
-        internal override string Name => nameof(DocumentStatement);
+        internal override string Name => nameof(DocumentationStatement);
 
-        public DocumentStatement(string documentText)
+        public DocumentationStatement(string documentText)
         {
             SourceText = $"/// {documentText}";
         }
