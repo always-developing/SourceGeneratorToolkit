@@ -43,5 +43,7 @@ namespace SourceGeneratorToolkit
 
         public T AsOverride<T>(T parent) where T : SourceContainer => this.AddModifier(parent, new OverrideModifierStatement());
 
+        public T AsUnsafe<T>(T parent) where T : SourceContainer => this.AddModifier(parent, new UnsafeModifierStatement());
+
     }
 }

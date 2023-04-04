@@ -41,6 +41,11 @@ namespace SourceGeneratorToolkit
             return @base.GeneralModifiers.AsOverride((T)@base);
         }
 
+        public static T AsUnsafe<T>(this IUnsafeModifier<T> @base) where T : SourceContainer
+        {
+            return @base.GeneralModifiers.AsUnsafe((T)@base);
+        }
+
         public static T AsAsync<T>(this IAsyncModifier<T> @base, bool enforceTaskReturnType = true) where T : SourceContainer
         {
             if(@base as ISupportsReturnValue != null)

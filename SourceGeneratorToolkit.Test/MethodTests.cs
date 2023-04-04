@@ -238,4 +238,43 @@ return s;
 }", file);
     }
 
+    [TestMethod]
+    public void String_Return_Method_Internal_Unsafe_Modifier()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .WithMethod("HelloWorld", "string", meth =>
+                        {
+                            meth
+                            .AsInternal()
+                            .AsUnsafe()
+                            .WithBody(@"var s = ""hello"";
+return s;
+");
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        internal unsafe string HelloWorld()
+        {
+            var s = ""hello"";
+            return s;
+        }
+    }
+}", file);
+    }
+
 }

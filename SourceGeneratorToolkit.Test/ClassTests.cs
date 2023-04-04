@@ -389,4 +389,29 @@ protected partial sealed static class myClass
 {
 }", file);
     }
+
+    [TestMethod]
+    public void Empty_Class_Unsafe_Static_Filescoped_Namespace()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithFilescopedNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .AsUnsafe()
+                        .AsStatic();
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns;
+unsafe static class myClass
+{
+}", file);
+    }
 }

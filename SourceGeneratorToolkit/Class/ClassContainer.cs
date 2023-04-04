@@ -9,7 +9,7 @@ namespace SourceGeneratorToolkit
 {
     public class ClassContainer : SourceContainer, IStaticModifier<ClassContainer>, IAbstractModifier<ClassContainer>, IPartialModifier<ClassContainer>,
         ISealedModifier<ClassContainer>, IPublicModifier<ClassContainer>, IPrivateModifier<ClassContainer>,
-        IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>,
+        IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>, IUnsafeModifier<ClassContainer>,
         ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>,
         ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>
 
