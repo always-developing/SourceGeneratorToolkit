@@ -11,7 +11,7 @@ namespace SourceGeneratorToolkit
         ISealedModifier<ClassContainer>, IPublicModifier<ClassContainer>, IPrivateModifier<ClassContainer>,
         IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>, IUnsafeModifier<ClassContainer>,
         ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>,
-        ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>
+        ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>, ISupportsImplementation<ClassContainer>
 
     {
         internal override string Name => nameof(ClassContainer);
@@ -113,13 +113,6 @@ namespace SourceGeneratorToolkit
         public ClassContainer WithInheritence(string baseClassName)
         {
             Inherits = new InheritenceStatement(baseClassName);
-
-            return this;
-        }
-
-        public ClassContainer WithImplementation(string implementsInterface)
-        {
-            Implements.AddImplements(implementsInterface);
 
             return this;
         }

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,10 @@ using System.Threading.Tasks;
 
 namespace SourceGeneratorToolkit.Test
 {
-    // this is a comment
+    struct MyStruct<T> where T : new()
+    {
+
+    }
 }
 
 //public class Temp<T> : Task, IDisposable where T : new()

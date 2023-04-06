@@ -27,6 +27,16 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
+        public NamespaceContainer WithStruct(string structName, Action<StructContainer> structBuilder)
+        {
+            var structContainer = new StructContainer(structName);
+
+            _sourceItems.Add(structContainer);
+            structBuilder.Invoke(structContainer);
+
+            return this;
+        }
+
         public NamespaceContainer WithInterface(string interfaceName, Action<InterfaceContainer> builder)
         {
             var interfaceContainer = new InterfaceContainer(interfaceName);
