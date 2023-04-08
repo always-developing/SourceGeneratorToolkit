@@ -11,7 +11,8 @@ namespace SourceGeneratorToolkit
         ISealedModifier<ClassContainer>, IPublicModifier<ClassContainer>, IPrivateModifier<ClassContainer>,
         IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>, IUnsafeModifier<ClassContainer>,
         ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>,
-        ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>, ISupportsImplementation<ClassContainer>
+        ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>, ISupportsImplementation<ClassContainer>,
+        ISupportsInheritence<ClassContainer>
 
     {
         internal override string Name => nameof(ClassContainer);
@@ -26,9 +27,9 @@ namespace SourceGeneratorToolkit
 
         public GenericConstraintList ConstraintContainer { get; } = new GenericConstraintList();
 
-        public InheritenceStatement Inherits { get; internal set; }
+        public InheritenceContainer Inherits { get; } = new InheritenceContainer();
 
-        public ImplementsContainer Implements { get; internal set; } = new ImplementsContainer();
+        public ImplementsContainer Implements { get; } = new ImplementsContainer();
 
         public DocumentationContainer Documentation { get; } = new DocumentationContainer();
 
@@ -46,23 +47,11 @@ namespace SourceGeneratorToolkit
                 AccessModifier,
                 GeneralModifiers,
                 new Statement($"class {SourceText}"),
-                GenericList
+                GenericList,
+                Inherits
             };
 
-            if (Inherits != null || Implements.SourceItems.Any())
-            {
-                builderList.Add(new ColonStatement());
-            }
-
-            if (Inherits != null)
-            {
-                builderList.Add(Inherits);
-
-                if(Implements.SourceItems.Any())
-                {
-                    builderList.Add(new CommaStatement());
-                }
-            }
+            Implements.ParentAlsoInherits(Inherits.SourceItems.Any());
 
             builderList.Add(Implements);
             builderList.Add(ConstraintContainer);
@@ -106,13 +95,6 @@ namespace SourceGeneratorToolkit
             _sourceItems.Add(container);
 
             builder.Invoke(container);
-
-            return this;
-        }
-
-        public ClassContainer WithInheritence(string baseClassName)
-        {
-            Inherits = new InheritenceStatement(baseClassName);
 
             return this;
         }

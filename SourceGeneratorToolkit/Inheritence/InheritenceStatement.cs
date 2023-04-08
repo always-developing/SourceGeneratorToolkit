@@ -8,9 +8,9 @@ namespace SourceGeneratorToolkit
     {
         internal override string Name => nameof(InheritenceStatement);
 
-        public InheritenceStatement(string inherits)
+        public InheritenceStatement(string baseClassName)
         {
-            SourceText = inherits;
+            SourceText = baseClassName;
         }
 
         public override string ToSource()

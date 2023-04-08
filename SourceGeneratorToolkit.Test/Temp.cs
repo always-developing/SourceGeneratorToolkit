@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 
 namespace SourceGeneratorToolkit.Test
 {
-    struct MyStruct<T> where T : new()
+    public class MyStruct<T> where T : new()
     {
-
     }
+
+    public record MyRec<TU>(TU id);//: MyStruct<TU> where TU : new();
 }
 
 //public class Temp<T> : Task, IDisposable where T : new()
