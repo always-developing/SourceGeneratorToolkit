@@ -37,6 +37,16 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
+        public NamespaceContainer WithRecord(string recordName, Action<RecordContainer> recordBuilder)
+        {
+            var recordContainer = new RecordContainer(recordName);
+
+            _sourceItems.Add(recordContainer);
+            recordBuilder.Invoke(recordContainer);
+
+            return this;
+        }
+
         public NamespaceContainer WithInterface(string interfaceName, Action<InterfaceContainer> builder)
         {
             var interfaceContainer = new InterfaceContainer(interfaceName);

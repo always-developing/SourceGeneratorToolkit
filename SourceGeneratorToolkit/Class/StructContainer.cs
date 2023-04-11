@@ -7,7 +7,7 @@ namespace SourceGeneratorToolkit
 {
     public class StructContainer : SourceContainer, IPublicModifier<StructContainer>, IPrivateModifier<StructContainer>,
         IInternalModifier<StructContainer>, IFileModifier<StructContainer>, IProtectedModifier<StructContainer>, IReadOnlyModifier<StructContainer>,
-        ISupportsImplementation<StructContainer>, ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>, ISupportsAttributes<ClassContainer>,
+        ISupportsImplementation<StructContainer>, ISupportsComments<StructContainer>, ISupportsDocumentation<StructContainer>, ISupportsAttributes<StructContainer>,
         ISupportsGenerics<StructContainer>, ISupportsGenericsConstraints<StructContainer>
     {
         internal override string Name => nameof(StructContainer);
@@ -40,13 +40,12 @@ namespace SourceGeneratorToolkit
                 AccessModifier,
                 GeneralModifiers,
                 new Statement($"struct {SourceText}"),
-                GenericList
+                GenericList,
+                Implements,
+                ConstraintContainer,
+                new NewLineStatement(),
+                new BraceStartStatement()
             };
-
-            builderList.Add(Implements);
-            builderList.Add(ConstraintContainer);
-            builderList.Add(new NewLineStatement());
-            builderList.Add(new BraceStartStatement());
 
             _sourceItems.InsertRange(0, builderList);
 

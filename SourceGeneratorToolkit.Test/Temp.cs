@@ -15,7 +15,11 @@ namespace SourceGeneratorToolkit.Test
     {
     }
 
-    public record MyRec<TU>(TU id);//: MyStruct<TU> where TU : new();
+    public record MyRec(string Name)
+    {
+        Guid Id { get; set; }
+    }
+
 }
 
 //public class Temp<T> : Task, IDisposable where T : new()

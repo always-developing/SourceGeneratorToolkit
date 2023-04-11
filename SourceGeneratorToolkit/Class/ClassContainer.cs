@@ -12,7 +12,7 @@ namespace SourceGeneratorToolkit
         IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>, IUnsafeModifier<ClassContainer>,
         ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>,
         ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>, ISupportsImplementation<ClassContainer>,
-        ISupportsInheritence<ClassContainer>
+        ISupportsInheritence<ClassContainer>, ISupportsProperty<ClassContainer>
 
     {
         internal override string Name => nameof(ClassContainer);
@@ -32,6 +32,8 @@ namespace SourceGeneratorToolkit
         public ImplementsContainer Implements { get; } = new ImplementsContainer();
 
         public DocumentationContainer Documentation { get; } = new DocumentationContainer();
+
+        public PropertyList Properties { get; } = new PropertyList();
 
         public ClassContainer(string className)
         {
@@ -59,6 +61,8 @@ namespace SourceGeneratorToolkit
             builderList.Add(new BraceStartStatement());
 
             _sourceItems.InsertRange(0, builderList);
+
+            _sourceItems.Add(Properties);
 
             _sourceItems.Add(new BraceEndStatement());
 
@@ -105,16 +109,6 @@ namespace SourceGeneratorToolkit
             _sourceItems.Add(fieldContainer);
 
             builder?.Invoke(fieldContainer);
-
-            return this;
-        }
-
-        public ClassContainer AddProperty(string type, string name, Action<PropertyContainer> builder = null)
-        {
-            var propertyContainer = new PropertyContainer(type, name);
-            _sourceItems.Add(propertyContainer);
-
-            builder?.Invoke(propertyContainer);
 
             return this;
         }
