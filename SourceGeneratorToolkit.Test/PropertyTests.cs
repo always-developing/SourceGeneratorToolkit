@@ -288,4 +288,35 @@ public class PropertyTests
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Class_Public_Required_Property()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.AddProperty("int", "myIntField", builder =>
+                        {
+                            builder
+                            .AsPublic()
+                            .AsRequired();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public required int myIntField { get; set; }
+    }
+}", file);
+    }
 }

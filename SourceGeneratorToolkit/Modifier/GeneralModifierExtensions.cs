@@ -61,5 +61,10 @@ namespace SourceGeneratorToolkit
 
             return (T)@base;
         }
+
+        public static T AsRequired<T>(this IRequiredModifier<T> @base) where T : SourceContainer
+        {
+            return @base.GeneralModifiers.AsRequired((T)@base);
+        }
     }
 }

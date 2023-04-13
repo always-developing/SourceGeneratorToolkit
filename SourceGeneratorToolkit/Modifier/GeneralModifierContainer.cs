@@ -45,5 +45,7 @@ namespace SourceGeneratorToolkit
 
         public T AsUnsafe<T>(T parent) where T : SourceContainer => this.AddModifier(parent, new UnsafeModifierStatement());
 
+        public T AsRequired<T>(T parent) where T : SourceContainer => this.AddModifier(parent, new RequiredModifierStatement());
+
     }
 }
