@@ -218,4 +218,74 @@ public class PropertyTests
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Class_Public_Property_Internal_Set()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.AddProperty("int", "myIntField", builder =>
+                        {
+                            builder
+                            .AsPublic()
+                            .WithGetter(builder =>
+                            {
+                                builder.AsInternal();
+                            });
+
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public int myIntField { internal get; set; }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Class_Public_Property_No_Getter_Private_Set()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.AddProperty("int", "myIntField", builder =>
+                        {
+                            builder
+                            .AsPublic()
+                            .WithNoGetter()
+                            .WithSetter(builder =>
+                            {
+                                builder.AsPrivate();
+                            });
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public int myIntField { private set; }
+    }
+}", file);
+    }
 }

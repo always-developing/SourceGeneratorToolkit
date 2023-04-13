@@ -70,24 +70,29 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public PropertyContainer WithGetter()
+        public PropertyContainer WithGetter(Action<GetAccessorContainer> builder = null)
         {
             Getter = new GetAccessorContainer();
+            builder?.Invoke(Getter);
+
             return this;
         }
 
-        public PropertyContainer WithSetter()
+        public PropertyContainer WithSetter(Action<SetAccessorContainer> builder = null)
         {
             Setter = new SetAccessorContainer();
+            builder?.Invoke(Setter);
+
             Initer = null;
 
             return this;
         }
 
-        public PropertyContainer WithIniter()
+        public PropertyContainer WithIniter(Action<InitAccessorContainer> builder = null)
         {
             Setter = null;
-            Initer = new InitAccessorContainer(); 
+            Initer = new InitAccessorContainer();
+            builder?.Invoke(Initer);
 
             return this;
         }

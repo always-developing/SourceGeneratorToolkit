@@ -17,7 +17,7 @@ namespace SourceGeneratorToolkit.Test
 
     public record MyRec(string Name)
     {
-        Guid Id { get; set; }
+        public Guid Id { get; private protected init ; }
     }
 
 }
