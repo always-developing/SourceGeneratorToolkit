@@ -12,5 +12,12 @@ namespace SourceGeneratorToolkit
 
             return (T)@base;
         }
+
+        public static T AddParameter<T>(this ISupportsParameters<T> @base, Type type, string name) where T : SourceContainer
+        {
+            @base.ParameterContainer.AddParameter(type.Name, name);
+
+            return (T)@base;
+        }
     }
 }
