@@ -319,4 +319,33 @@ public class PropertyTests
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Class_Public_Property_WithType()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.AddProperty(typeof(Task), "myTaskField", builder =>
+                        {
+                            builder.AsPublic();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public Task myTaskField { get; set; }
+    }
+}", file);
+    }
 }

@@ -11,5 +11,11 @@ namespace SourceGeneratorToolkit
             @base.Properties.AddProperty(type, name, builder);
             return (T)@base;
         }
+
+        public static T AddProperty<T>(this ISupportsProperty<T> @base, Type type, string name, Action<PropertyContainer> builder = null) where T : SourceContainer
+        {
+            @base.Properties.AddProperty(type.Name, name, builder);
+            return (T)@base;
+        }
     }
 }
