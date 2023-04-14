@@ -8,7 +8,8 @@ namespace SourceGeneratorToolkit
     public class InterfaceContainer : SourceContainer, IPublicModifier<InterfaceContainer>, IPrivateModifier<InterfaceContainer>,
         IProtectedModifier<InterfaceContainer>, IInternalModifier<InterfaceContainer>, IFileModifier<InterfaceContainer>,
         IPartialModifier<InterfaceContainer>, ISupportsGenerics<InterfaceContainer>, ISupportsGenericsConstraints<InterfaceContainer>,
-        ISupportsAttributes<InterfaceContainer>, ISupportsComments<InterfaceContainer>
+        ISupportsAttributes<InterfaceContainer>, ISupportsComments<InterfaceContainer>, ISupportsProperty<InterfaceContainer>,
+        ISupportsImplementation<InterfaceContainer>
     {
         internal override string Name => nameof(InterfaceContainer);
 
@@ -22,7 +23,9 @@ namespace SourceGeneratorToolkit
 
         public AttributeContainer AttributeList { get; } = new AttributeContainer();
 
-        internal ImplementsContainer _implementsContainer = new ImplementsContainer();
+        public ImplementsContainer Implements { get; } = new ImplementsContainer();
+
+        public PropertyList Properties { get; } = new PropertyList();
 
         public InterfaceContainer(string interfaceName)
         {
@@ -39,13 +42,15 @@ namespace SourceGeneratorToolkit
                 new Statement($"interface {SourceText}"),
                 GenericList,
 
-                _implementsContainer,
+                Implements,
                 ConstraintContainer,
                 new NewLineStatement(),
                 new BraceStartStatement()
             };
 
             _sourceItems.InsertRange(0, builderList);
+
+            _sourceItems.Add(Properties);
 
             _sourceItems.Add(new BraceEndStatement());
 
@@ -69,37 +74,12 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public InterfaceContainer Implements(string implementsInterface)
-        {
-            _implementsContainer.AddImplements(implementsInterface);
-
-            return this;
-        }
-
         public InterfaceContainer AddField(string type, string name, Action<FieldContainer> builder = null)
         {
             var fieldContainer = new FieldContainer(type, name);
             _sourceItems.Add(fieldContainer);
 
             builder?.Invoke(fieldContainer);
-
-            return this;
-        }
-
-        public InterfaceContainer AddProperty(string type, string name, Action<PropertyContainer> builder = null)
-        {
-            var propertyContainer = new PropertyContainer(type, name);
-            _sourceItems.Add(propertyContainer);
-
-            builder?.Invoke(propertyContainer);
-
-            return this;
-        }
-
-        public InterfaceContainer AddAttribute(string attributeName, Action<AttributeStatement> builder = null)
-        {
-            var attribute = AttributeList.AddAttribute(attributeName);
-            builder?.Invoke(attribute);
 
             return this;
         }
