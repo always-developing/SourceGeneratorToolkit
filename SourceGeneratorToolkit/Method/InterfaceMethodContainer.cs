@@ -51,8 +51,7 @@ namespace SourceGeneratorToolkit
                 new ParenthesisStartStatement(),
                 ParameterContainer,
                 new ParenthesisEndStatement(),
-                ConstraintContainer//,
-                //new SemiColonStatement()
+                ConstraintContainer
             };
 
             if(!_sourceItems.Any())

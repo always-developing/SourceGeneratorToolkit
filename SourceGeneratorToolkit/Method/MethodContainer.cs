@@ -28,6 +28,7 @@ namespace SourceGeneratorToolkit
         public MethodContainer(string methodName)
         {
             SourceText = methodName;
+            ReturnType = new ReturnContainer();
         }
 
         public MethodContainer(string methodName, string returnType)
