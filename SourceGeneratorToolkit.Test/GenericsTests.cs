@@ -445,4 +445,43 @@ public class GenericsTests
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Empty_Proteced_Method_Multi_Generic_Multi_Constraint_Enum()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.WithMethod("myMethod", "void", mthd =>
+                        {
+                            mthd
+                            .AddGeneric("T")
+                            .AddGeneric("T1")
+                            .AddGeneric("T2")
+                            .WithGenericConstraint("T", GenericConstraint.New)
+                            .WithGenericConstraint("T1", GenericConstraint.New)
+                            .WithGenericConstraint("T", GenericConstraint.Class)
+                            .AsProtected();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        protected void myMethod<T, T1, T2>()
+            where T : new(), class where T1 : new()
+        {
+        }
+    }
+}", file);
+    }
 }
