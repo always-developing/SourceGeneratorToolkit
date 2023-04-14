@@ -12,5 +12,12 @@ namespace SourceGeneratorToolkit
 
             return (T)@base;
         }
+
+        public static T WithImplementation<T>(this ISupportsImplementation<T> @base, Type value) where T : SourceContainer
+        {
+            @base.Implements.AddImplements(value.Name);
+
+            return (T)@base;
+        }
     }
 }

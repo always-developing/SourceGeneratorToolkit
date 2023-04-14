@@ -35,6 +35,31 @@ public class ImplementsTests
     }
 
     [TestMethod]
+    public void Empty_Class_One_Implements_Type()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.WithImplementation(typeof(Task));
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass : Task
+    {
+    }
+}", file);
+    }
+
+    [TestMethod]
     public void Empty_Class_Multi_Implements()
     {
         var file = SourceGenerator.Generate(gen =>

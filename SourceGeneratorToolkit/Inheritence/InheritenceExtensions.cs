@@ -12,5 +12,12 @@ namespace SourceGeneratorToolkit
 
             return (T)@base;
         }
+
+        public static T WithInheritence<T>(this ISupportsInheritence<T> @base, Type baseClass) where T : SourceContainer
+        {
+            @base.Inherits.AddInheritence(baseClass.Name);
+
+            return (T)@base;
+        }
     }
 }

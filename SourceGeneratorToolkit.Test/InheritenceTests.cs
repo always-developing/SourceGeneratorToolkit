@@ -35,6 +35,31 @@ public class InheritenceTests
     }
 
     [TestMethod]
+    public void Empty_Class_One_Inheritence_Type()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.WithInheritence(typeof(StringBuilder));
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass : StringBuilder
+    {
+    }
+}", file);
+    }
+
+    [TestMethod]
     public void Empty_Class_Multi_Inheritence()
     {
         var file = SourceGenerator.Generate(gen =>
