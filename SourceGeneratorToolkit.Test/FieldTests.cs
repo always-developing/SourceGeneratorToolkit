@@ -162,4 +162,30 @@ public class FieldTests
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Interface_Default_Field()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithInterface("IMyInterface", cls =>
+                    {
+                        cls.AddField("int", "myIntField");
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    interface IMyInterface
+    {
+        int myIntField;
+    }
+}", file);
+    }
 }

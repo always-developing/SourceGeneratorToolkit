@@ -9,7 +9,7 @@ namespace SourceGeneratorToolkit
         IProtectedModifier<InterfaceContainer>, IInternalModifier<InterfaceContainer>, IFileModifier<InterfaceContainer>,
         IPartialModifier<InterfaceContainer>, ISupportsGenerics<InterfaceContainer>, ISupportsGenericsConstraints<InterfaceContainer>,
         ISupportsAttributes<InterfaceContainer>, ISupportsComments<InterfaceContainer>, ISupportsProperty<InterfaceContainer>,
-        ISupportsImplementation<InterfaceContainer>
+        ISupportsImplementation<InterfaceContainer>, ISupportsField<InterfaceContainer>
     {
         internal override string Name => nameof(InterfaceContainer);
 
@@ -26,6 +26,8 @@ namespace SourceGeneratorToolkit
         public ImplementsContainer Implements { get; } = new ImplementsContainer();
 
         public PropertyList Properties { get; } = new PropertyList();
+
+        public FieldList Fields { get; } = new FieldList();
 
         public InterfaceContainer(string interfaceName)
         {
@@ -50,6 +52,7 @@ namespace SourceGeneratorToolkit
 
             _sourceItems.InsertRange(0, builderList);
 
+            _sourceItems.Add(Fields);
             _sourceItems.Add(Properties);
 
             _sourceItems.Add(new BraceEndStatement());
@@ -70,16 +73,6 @@ namespace SourceGeneratorToolkit
             _sourceItems.Add(container);
 
             builder.Invoke(container);
-
-            return this;
-        }
-
-        public InterfaceContainer AddField(string type, string name, Action<FieldContainer> builder = null)
-        {
-            var fieldContainer = new FieldContainer(type, name);
-            _sourceItems.Add(fieldContainer);
-
-            builder?.Invoke(fieldContainer);
 
             return this;
         }
