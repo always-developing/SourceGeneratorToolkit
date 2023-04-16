@@ -96,7 +96,24 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
+        public ClassContainer WithMethod(string methodName, Type returnType)
+        {
+            _sourceItems.Add(new MethodContainer(methodName, returnType));
+
+            return this;
+        }
+
         public ClassContainer WithMethod(string methodName, string returnType, Action<MethodContainer> builder)
+        {
+            var container = new MethodContainer(methodName, returnType);
+            _sourceItems.Add(container);
+
+            builder.Invoke(container);
+
+            return this;
+        }
+
+        public ClassContainer WithMethod(string methodName, Type returnType, Action<MethodContainer> builder)
         {
             var container = new MethodContainer(methodName, returnType);
             _sourceItems.Add(container);

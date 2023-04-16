@@ -239,6 +239,38 @@ return s;
     }
 
     [TestMethod]
+    public void Empty_Async_Method_Enforced_Task_StringBuilder()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls
+                        .WithMethod("HelloWorld", typeof(StringBuilder), meth =>
+                        {
+                            meth.AsPublic().AsAsync();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        public async Task<StringBuilder> HelloWorld()
+        {
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
     public void String_Return_Method_Internal_Unsafe_Modifier()
     {
         var file = SourceGenerator.Generate(gen =>

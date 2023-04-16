@@ -23,6 +23,11 @@ namespace SourceGeneratorToolkit
             SourceText = returnType;
         }
 
+        public ReturnContainer(Type returnType)
+        {
+            SourceText = returnType.Name;
+        }
+
         public void EnforceAsync(bool enforceAsync)
         {
             _enforceAsync = enforceAsync;

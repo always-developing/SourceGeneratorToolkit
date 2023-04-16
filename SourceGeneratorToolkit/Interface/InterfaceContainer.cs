@@ -67,7 +67,24 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
+        public InterfaceContainer WithMethod(string methodName, Type returnType)
+        {
+            _sourceItems.Add(new InterfaceMethodContainer(methodName, returnType));
+
+            return this;
+        }
+
         public InterfaceContainer WithMethod(string methodName, string returnType, Action<InterfaceMethodContainer> builder)
+        {
+            var container = new InterfaceMethodContainer(methodName, returnType);
+            _sourceItems.Add(container);
+
+            builder.Invoke(container);
+
+            return this;
+        }
+
+        public InterfaceContainer WithMethod(string methodName, Type returnType, Action<InterfaceMethodContainer> builder)
         {
             var container = new InterfaceMethodContainer(methodName, returnType);
             _sourceItems.Add(container);

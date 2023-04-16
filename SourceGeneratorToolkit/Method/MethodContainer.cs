@@ -37,6 +37,12 @@ namespace SourceGeneratorToolkit
             ReturnType = new ReturnContainer(returnType);
         }
 
+        public MethodContainer(string methodName, Type returnType)
+        {
+            SourceText = methodName;
+            ReturnType = new ReturnContainer(returnType);
+        }
+
         public override string ToSource()
         {
             var builderList = new List<SourceStatement>
