@@ -6,7 +6,7 @@ namespace SourceGeneratorToolkit
 {
     public class ConstructorContainer : SourceContainer, IPublicModifier<ConstructorContainer>, IPrivateModifier<ConstructorContainer>,
         IProtectedModifier<ConstructorContainer>, IInternalModifier<ConstructorContainer>, IProtectedInternalModifier<ConstructorContainer>,
-        IPrivateProtected<ConstructorContainer>, ISupportsParameters<ConstructorContainer>, ISupportsComments<ConstructorContainer>
+        IPrivateProtectedModifier<ConstructorContainer>, ISupportsParameters<ConstructorContainer>, ISupportsComments<ConstructorContainer>
     {
         internal override string Name => nameof(ConstructorContainer);
 

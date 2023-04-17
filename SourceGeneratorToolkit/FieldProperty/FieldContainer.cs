@@ -5,7 +5,8 @@ using System.Text;
 namespace SourceGeneratorToolkit
 {
     public class FieldContainer : SourceContainer, IPublicModifier<FieldContainer>, IPrivateModifier<FieldContainer>, IProtectedModifier<FieldContainer>,
-        IInternalModifier<FieldContainer>, IReadOnlyModifier<FieldContainer>, IStaticModifier<FieldContainer>, ISupportsDefaultValue<FieldContainer>
+        IInternalModifier<FieldContainer>, IReadOnlyModifier<FieldContainer>, IStaticModifier<FieldContainer>, ISupportsDefaultValue<FieldContainer>,
+        IPrivateProtectedModifier<FieldContainer>
     {
         internal override string Name => nameof(FieldContainer);
 

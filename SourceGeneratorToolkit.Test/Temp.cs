@@ -11,33 +11,38 @@ using System.Threading.Tasks;
 
 namespace SourceGeneratorToolkit.Test
 {
-    public class MyStruct<T> where T : new()
+    public struct MyStruct<T> where T : new()
     {
     }
 
-    public record MyRec(string Name)
+    public abstract record MyRec(string Name)
     {
         public Guid Id { get; private protected init ; }
 
     }
 
+    public class myclass
+    {
+        private protected myclass()
+        {
+            
+        }
+    }
+
 }
 
-//public class Temp<T> : Task, IDisposable where T : new()
-//{
-//    public static readonly int myint = 100;
+public abstract class Temp<T> : Task, IDisposable where T : new()
+{
+    public abstract int myint = 100;
 
-//    public virtual int MyValue { get; set; } = 100;
+    public abstract int MyValue { get; set; }
 
-//    public Temp(Action action) : base(action)
-//    {
-//    }
-//}
+    public Temp(Action action) : base(action)
+    {
+    }
+}
 
-//partial interface ITemp<T>
-//{
-//    public int MyMethod()
-//    {
-//        return 1;
-//    }
-//}
+partial interface ITemp<T>
+{
+    public abstract int MyMethod();
+}

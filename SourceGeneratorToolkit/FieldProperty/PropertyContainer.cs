@@ -6,8 +6,8 @@ namespace SourceGeneratorToolkit
 {
     public class PropertyContainer : SourceContainer, IPublicModifier<PropertyContainer>, IPrivateModifier<PropertyContainer>,
         IProtectedInternalModifier<PropertyContainer>, IInternalModifier<PropertyContainer>, IVirtualModifier<PropertyContainer>, 
-        IOverrideModifier<PropertyContainer>, IStaticModifier<PropertyContainer>, IRequiredModifier<PropertyContainer>
-
+        IOverrideModifier<PropertyContainer>, IStaticModifier<PropertyContainer>, IRequiredModifier<PropertyContainer>,
+        IPrivateProtectedModifier<PropertyContainer>, IAbstractModifier<PropertyContainer>
     {
         internal override string Name => nameof(PropertyContainer);
 

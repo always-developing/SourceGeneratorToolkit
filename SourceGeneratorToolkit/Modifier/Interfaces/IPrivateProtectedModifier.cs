@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public interface IPrivateProtected<T> where T : SourceContainer
+    public interface IPrivateProtectedModifier<T> where T : SourceContainer
     {
         AccessModifierContainer AccessModifier { get; }
     }

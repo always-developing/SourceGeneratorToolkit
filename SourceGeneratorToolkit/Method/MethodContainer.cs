@@ -7,7 +7,8 @@ namespace SourceGeneratorToolkit
     public class MethodContainer : SourceContainer, IPublicModifier<MethodContainer>, IPrivateModifier<MethodContainer>, IProtectedModifier<MethodContainer>,
         IInternalModifier<MethodContainer>, IAbstractModifier<MethodContainer>, IStaticModifier<MethodContainer>, IPartialModifier<MethodContainer>,
         IAsyncModifier<MethodContainer>, ISupportsReturnValue, ISupportsGenerics<MethodContainer>, ISupportsGenericsConstraints<MethodContainer>,
-        ISupportsParameters<MethodContainer>, ISupportsComments<MethodContainer>, ISupportsDocumentation<MethodContainer>, IUnsafeModifier<MethodContainer>
+        ISupportsParameters<MethodContainer>, ISupportsComments<MethodContainer>, ISupportsDocumentation<MethodContainer>, IUnsafeModifier<MethodContainer>,
+        IPrivateProtectedModifier<MethodContainer>
     {
         internal override string Name => nameof(MethodContainer);
 
