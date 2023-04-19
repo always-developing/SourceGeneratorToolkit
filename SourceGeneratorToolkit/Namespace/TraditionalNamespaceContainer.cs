@@ -14,11 +14,6 @@ namespace SourceGeneratorToolkit
         {
             var builderList = new List<SourceStatement>();
 
-            if (AccessModifier != null)
-            {
-                builderList.Add(AccessModifier);
-            }
-
             builderList.Add(new NewLineStatement($"namespace {SourceText}"));
             builderList.Add(new BraceStartStatement());
 

@@ -6,7 +6,8 @@ namespace SourceGeneratorToolkit
 {
     public class FieldContainer : SourceContainer, IPublicModifier<FieldContainer>, IPrivateModifier<FieldContainer>, IProtectedModifier<FieldContainer>,
         IInternalModifier<FieldContainer>, IReadOnlyModifier<FieldContainer>, IStaticModifier<FieldContainer>, ISupportsDefaultValue<FieldContainer>,
-        IPrivateProtectedModifier<FieldContainer>
+        IPrivateProtectedModifier<FieldContainer>, IOverrideModifier<FieldContainer>, IProtectedInternalModifier<FieldContainer>, IRequiredModifier<FieldContainer>,
+        IUnsafeModifier<FieldContainer>
     {
         internal override string Name => nameof(FieldContainer);
 

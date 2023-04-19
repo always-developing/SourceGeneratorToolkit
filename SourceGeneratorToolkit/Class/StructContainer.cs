@@ -8,7 +8,8 @@ namespace SourceGeneratorToolkit
     public class StructContainer : SourceContainer, IPublicModifier<StructContainer>, IPrivateModifier<StructContainer>,
         IInternalModifier<StructContainer>, IFileModifier<StructContainer>, IProtectedModifier<StructContainer>, IReadOnlyModifier<StructContainer>,
         ISupportsImplementation<StructContainer>, ISupportsComments<StructContainer>, ISupportsDocumentation<StructContainer>, ISupportsAttributes<StructContainer>,
-        ISupportsGenerics<StructContainer>, ISupportsGenericsConstraints<StructContainer>, IPrivateProtectedModifier<StructContainer>
+        ISupportsGenerics<StructContainer>, ISupportsGenericsConstraints<StructContainer>, IPrivateProtectedModifier<StructContainer>, IPartialModifier<StructContainer>,
+        IProtectedInternalModifier<StructContainer>, IUnsafeModifier<StructContainer>
     {
         internal override string Name => nameof(StructContainer);
 

@@ -1,6 +1,7 @@
 ﻿//extern alias NS1;
 //extern alias NS2;
 
+using SourceGeneratorToolkit;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -8,16 +9,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace SourceGeneratorToolkit.Test
 {
-    public struct MyStruct<T> where T : new()
+    public unsafe struct MyStruct<T> where T : new()
     {
+        public readonly int GetInt()
+        {
+            return 0;
+        }
     }
 
-    public abstract record MyRec(string Name)
+    public unsafe record MyRec(string Name)
     {
-        public Guid Id { get; private protected init ; }
+        public unsafe virtual Guid Id { get; private protected init ; }
+
+        public int MyInt;
 
     }
 
@@ -31,18 +37,30 @@ namespace SourceGeneratorToolkit.Test
 
 }
 
-public abstract class Temp<T> : Task, IDisposable where T : new()
+public abstract class Temp//<T> : Task, IDisposable where T : new()
 {
-    public abstract int myint = 100;
+    //public abstract int myint = 100;
 
-    public abstract int MyValue { get; set; }
+    public int MyValue { protected internal get; set; }
 
-    public Temp(Action action) : base(action)
+    public Temp(Action action)
+    {
+    }
+
+    
+}
+
+public class Temp2 : Temp
+{
+    public Temp2(Action action) : base(action)
     {
     }
 }
 
-partial interface ITemp<T>
+public unsafe interface ITemp<T>
 {
-    public abstract int MyMethod();
+    public virtual int MyMethod()
+    {
+        return 0;
+    }
 }

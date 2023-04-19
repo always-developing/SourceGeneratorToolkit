@@ -5,12 +5,9 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class NamespaceContainer : SourceContainer, IPublicModifier<NamespaceContainer>, IInternalModifier<NamespaceContainer>, 
-        ISupportsComments<NamespaceContainer>
+    public class NamespaceContainer : SourceContainer, ISupportsComments<NamespaceContainer>
     {
         internal override string Name => nameof(NamespaceContainer);
-
-        public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
         public NamespaceContainer(string @namespace)
         {

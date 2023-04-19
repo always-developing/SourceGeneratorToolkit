@@ -8,7 +8,8 @@ namespace SourceGeneratorToolkit
         IInternalModifier<MethodContainer>, IAbstractModifier<MethodContainer>, IStaticModifier<MethodContainer>, IPartialModifier<MethodContainer>,
         IAsyncModifier<MethodContainer>, ISupportsReturnValue, ISupportsGenerics<MethodContainer>, ISupportsGenericsConstraints<MethodContainer>,
         ISupportsParameters<MethodContainer>, ISupportsComments<MethodContainer>, ISupportsDocumentation<MethodContainer>, IUnsafeModifier<MethodContainer>,
-        IPrivateProtectedModifier<MethodContainer>
+        IPrivateProtectedModifier<MethodContainer>, IOverrideModifier<MethodContainer>, IProtectedInternalModifier<MethodContainer>,
+        IVirtualModifier<MethodContainer>
     {
         internal override string Name => nameof(MethodContainer);
 

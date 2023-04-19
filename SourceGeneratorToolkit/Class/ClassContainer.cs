@@ -12,7 +12,8 @@ namespace SourceGeneratorToolkit
         IInternalModifier<ClassContainer>, IFileModifier<ClassContainer>, IProtectedModifier<ClassContainer>, IUnsafeModifier<ClassContainer>,
         ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>,
         ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>, ISupportsImplementation<ClassContainer>,
-        ISupportsInheritence<ClassContainer>, ISupportsProperty<ClassContainer>, ISupportsField<ClassContainer>, IPrivateProtectedModifier<ClassContainer>
+        ISupportsInheritence<ClassContainer>, ISupportsProperty<ClassContainer>, ISupportsField<ClassContainer>, IPrivateProtectedModifier<ClassContainer>,
+        IProtectedInternalModifier<ClassContainer>
 
     {
         internal override string Name => nameof(ClassContainer);

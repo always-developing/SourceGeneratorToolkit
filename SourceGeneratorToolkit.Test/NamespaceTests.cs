@@ -247,8 +247,7 @@ namespace tstNamespace2;", file);
             {
                 file
                 .WithNamespace("tstNamespace", ns => 
-                {
-                    ns.AsPublic();
+                {                   
                 })
                 .WithUsing("System");
             });
@@ -256,7 +255,7 @@ namespace tstNamespace2;", file);
 
         Assert.AreEqual(@"using System;
 
-public namespace tstNamespace
+namespace tstNamespace
 {
 }", file);
     }
@@ -269,17 +268,14 @@ public namespace tstNamespace
             gen.WithFile("file1", file =>
             {
                 file
-                .WithNamespace("tstNamespace", ns =>
-                {
-                    ns.AsInternal();
-                })
+                .WithNamespace("tstNamespace", ns => {})
                 .WithUsing("System");
             });
         }).Build();
 
         Assert.AreEqual(@"using System;
 
-internal namespace tstNamespace
+namespace tstNamespace
 {
 }", file);
     }
@@ -295,7 +291,6 @@ internal namespace tstNamespace
                 .WithUsing("System.IO")
                 .WithFilescopedNamespace("tstNamespace", ns => 
                 {
-                    ns.AsPublic();
                 })
                 .WithUsing("System");
             });
@@ -304,7 +299,7 @@ internal namespace tstNamespace
         Assert.AreEqual(@"using System;
 using System.IO;
 
-public namespace tstNamespace;", file);
+namespace tstNamespace;", file);
     }
 
     [TestMethod]
@@ -318,7 +313,6 @@ public namespace tstNamespace;", file);
                 .WithUsing("System.IO")
                 .WithFilescopedNamespace("tstNamespace", ns =>
                 {
-                    ns.AsInternal();
                 })
                 .WithUsing("System");
             });
@@ -327,7 +321,7 @@ public namespace tstNamespace;", file);
         Assert.AreEqual(@"using System;
 using System.IO;
 
-internal namespace tstNamespace;", file);
+namespace tstNamespace;", file);
     }
 
     [TestMethod]

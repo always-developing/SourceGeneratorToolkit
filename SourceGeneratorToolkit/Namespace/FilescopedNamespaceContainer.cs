@@ -16,11 +16,6 @@ namespace SourceGeneratorToolkit
         {
             _sourceItems.Insert(0, new NewLineStatement($"namespace {SourceText};"));
 
-            if (AccessModifier != null)
-            {
-                _sourceItems.Insert(0, AccessModifier);
-            }
-
             return base.ToSource();
         }
     }

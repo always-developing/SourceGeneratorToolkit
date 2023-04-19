@@ -6,7 +6,8 @@ using System.Text;
 namespace SourceGeneratorToolkit
 {
     public class SetAccessorContainer : SourceContainer, IPublicModifier<SetAccessorContainer>, IPrivateModifier<SetAccessorContainer>,
-        IInternalModifier<SetAccessorContainer>, IProtectedModifier<SetAccessorContainer>, IPrivateProtectedModifier<SetAccessorContainer>
+        IInternalModifier<SetAccessorContainer>, IProtectedModifier<SetAccessorContainer>, IPrivateProtectedModifier<SetAccessorContainer>,
+        IProtectedInternalModifier<SetAccessorContainer>
     {
         internal override string Name => nameof(SetAccessorContainer);
 

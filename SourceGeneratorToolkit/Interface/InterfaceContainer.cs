@@ -9,7 +9,8 @@ namespace SourceGeneratorToolkit
         IProtectedModifier<InterfaceContainer>, IInternalModifier<InterfaceContainer>, IFileModifier<InterfaceContainer>,
         IPartialModifier<InterfaceContainer>, ISupportsGenerics<InterfaceContainer>, ISupportsGenericsConstraints<InterfaceContainer>,
         ISupportsAttributes<InterfaceContainer>, ISupportsComments<InterfaceContainer>, ISupportsProperty<InterfaceContainer>,
-        ISupportsImplementation<InterfaceContainer>, ISupportsField<InterfaceContainer>, IPrivateProtectedModifier<InterfaceContainer>
+        ISupportsImplementation<InterfaceContainer>, ISupportsField<InterfaceContainer>, IPrivateProtectedModifier<InterfaceContainer>,
+        IProtectedInternalModifier<InterfaceContainer>, IUnsafeModifier<InterfaceContainer>
     {
         internal override string Name => nameof(InterfaceContainer);
 

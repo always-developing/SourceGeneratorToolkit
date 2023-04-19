@@ -11,7 +11,7 @@ namespace SourceGeneratorToolkit
         IPartialModifier<RecordContainer>, IAbstractModifier<RecordContainer>, IUnsafeModifier<RecordContainer>,
         ISupportsGenerics<RecordContainer>, ISupportsGenericsConstraints<RecordContainer>, ISupportsAttributes<RecordContainer>,
         ISupportsDocumentation<RecordContainer>, ISupportsImplementation<RecordContainer>, ISupportsInheritence<RecordContainer>,
-        ISupportsProperty<RecordContainer>, IPrivateProtectedModifier<RecordContainer>
+        ISupportsProperty<RecordContainer>, IPrivateProtectedModifier<RecordContainer>, ISealedModifier<RecordContainer>
     {
         internal override string Name => nameof(RecordContainer);
 
