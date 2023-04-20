@@ -52,6 +52,14 @@ public abstract class Temp//<T> : Task, IDisposable where T : new()
 
 public class Temp2 : Temp
 {
+    protected internal enum Season
+    {
+        Spring,
+        Summer,
+        Autumn,
+        Winter
+    }
+
     public Temp2(Action action) : base(action)
     {
     }
@@ -64,3 +72,5 @@ public unsafe interface ITemp<T>
         return 0;
     }
 }
+
+

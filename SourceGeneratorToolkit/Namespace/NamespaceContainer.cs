@@ -54,6 +54,26 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
+        public NamespaceContainer WithEnum(string enumName, Action<EnumContainer> builder)
+        {
+            var enumContainer = new EnumContainer(enumName);
+
+            _sourceItems.Add(enumContainer);
+            builder.Invoke(enumContainer);
+
+            return this;
+        }
+
+        public NamespaceContainer WithEnum(string enumName, string type, Action<EnumContainer> builder)
+        {
+            var enumContainer = new EnumContainer(enumName, type);
+
+            _sourceItems.Add(enumContainer);
+            builder.Invoke(enumContainer);
+
+            return this;
+        }
+
         public NamespaceContainer WithNamespace(string @namespace, Action<NamespaceContainer> nsBuilder)
         {
             var ns = new TraditionalNamespaceContainer(@namespace);
