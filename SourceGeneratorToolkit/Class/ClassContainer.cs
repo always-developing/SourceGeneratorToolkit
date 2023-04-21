@@ -13,7 +13,7 @@ namespace SourceGeneratorToolkit
         ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>,
         ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>, ISupportsImplementation<ClassContainer>,
         ISupportsInheritence<ClassContainer>, ISupportsProperty<ClassContainer>, ISupportsField<ClassContainer>, IPrivateProtectedModifier<ClassContainer>,
-        IProtectedInternalModifier<ClassContainer>
+        IProtectedInternalModifier<ClassContainer>, ISupportsMethods<ClassContainer>
 
     {
         internal override string Name => nameof(ClassContainer);
@@ -90,38 +90,6 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public ClassContainer WithMethod(string methodName, string returnType)
-        {
-            _sourceItems.Add(new MethodContainer(methodName, returnType));
-
-            return this;
-        }
-
-        public ClassContainer WithMethod(string methodName, Type returnType)
-        {
-            _sourceItems.Add(new MethodContainer(methodName, returnType));
-
-            return this;
-        }
-
-        public ClassContainer WithMethod(string methodName, string returnType, Action<MethodContainer> builder)
-        {
-            var container = new MethodContainer(methodName, returnType);
-            _sourceItems.Add(container);
-
-            builder.Invoke(container);
-
-            return this;
-        }
-
-        public ClassContainer WithMethod(string methodName, Type returnType, Action<MethodContainer> builder)
-        {
-            var container = new MethodContainer(methodName, returnType);
-            _sourceItems.Add(container);
-
-            builder.Invoke(container);
-
-            return this;
-        }
+        
     }
 }

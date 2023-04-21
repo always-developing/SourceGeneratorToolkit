@@ -13,7 +13,7 @@ namespace SourceGeneratorToolkit.Test
 {
     public unsafe struct MyStruct<T> where T : new()
     {
-        public readonly int GetInt()
+        public static async Task<int> GetInt()
         {
             return 0;
         }

@@ -77,4 +77,34 @@ internal readonly struct TestStruct
 {
 }", file);
     }
+
+    [TestMethod]
+    public void Struct_With_Public_Async_Method()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithFilescopedNamespace("testns", ns =>
+                {
+                    ns.WithStruct("TestStruct", str =>
+                    {
+                        str.AsPublic()
+                        .WithMethod("GetIntAsync", "int", mthd =>
+                        {
+                            mthd.AsPublic().AsAsync();
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns;
+public struct TestStruct
+{
+    public async Task<int> GetIntAsync()
+    {
+    }
+}", file);
+    }
 }
