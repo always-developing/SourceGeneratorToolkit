@@ -21,8 +21,13 @@ namespace SourceGeneratorToolkit
 
         public override string ToSource()
         {
-            _sourceItems = _sourceItems.OrderBy(s => s.SourceText).ToList();
-            //_sourceItems = _sourceItems.SelectMany(ss => new[] { ss, new NewLineStatement() }).ToList();
+            _sourceItems = _sourceItems
+                .Select(s => s as UsingContainer)
+                .ToList()
+                .OrderByDescending(s => s._isGlobal)
+                .ThenBy(s => s.SourceText)
+                .Select(s => s as SourceStatement)
+                .ToList();
 
             return base.ToSource();
         }

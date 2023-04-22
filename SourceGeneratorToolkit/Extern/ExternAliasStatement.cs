@@ -6,7 +6,7 @@ namespace SourceGeneratorToolkit
 {
     public class ExternAliasStatement : SourceStatement
     {
-        internal override string Name => nameof(UsingStatement);
+        internal override string Name => nameof(ExternAliasStatement);
 
         public ExternAliasStatement(string @using)
         {

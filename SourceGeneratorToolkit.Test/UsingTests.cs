@@ -147,6 +147,45 @@ using System.IO;
 using static System.Text;", file);
     }
 
+    [TestMethod]
+    public void One_Global_Using()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithUsing("System", u =>
+                {
+                    u.AsGlobal();
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"global using System;", file);
+    }
+
+    [TestMethod]
+    public void Multi_Using_One_Global()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file
+                .WithUsing("System")
+                .WithUsing("System.Text", u =>
+                {
+                    u.AsGlobal();
+                })
+                .WithUsing("System.IO");
+            });
+        }).Build();
+
+        Assert.AreEqual(@"global using System.Text;
+using System;
+using System.IO;", file);
+    }
+
     //    [TestMethod]
     //    public void One_Using_Tree()
     //    {
