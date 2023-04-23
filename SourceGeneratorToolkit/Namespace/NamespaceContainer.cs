@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class NamespaceContainer : SourceContainer, ISupportsComments<NamespaceContainer>
+    public class NamespaceContainer : SourceContainer, ISupportsComments<NamespaceContainer>, ISupportsStatement<NamespaceContainer>
     {
         internal override string Name => nameof(NamespaceContainer);
 

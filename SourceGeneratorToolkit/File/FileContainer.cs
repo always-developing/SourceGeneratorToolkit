@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class FileContainer : SourceContainer
+    public class FileContainer : SourceContainer, ISupportsStatement<FileContainer>
     {
         internal override string Name => nameof(FileContainer);
 

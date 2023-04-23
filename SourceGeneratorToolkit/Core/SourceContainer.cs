@@ -18,13 +18,6 @@ namespace SourceGeneratorToolkit
             }
         }
 
-        public virtual SourceContainer AddStatement(string statement)
-        {
-            _sourceItems.Add(new Statement(statement));
-
-            return this;
-        }
-
         public override string ToSource()
         {
             if (!SourceItems.Any())

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class DocumentationContainer : SourceContainer
+    public class DocumentationContainer : SourceContainer, ISupportsStatement<DocumentationContainer>
     {
         internal override string Name => nameof(DocumentationContainer);
 

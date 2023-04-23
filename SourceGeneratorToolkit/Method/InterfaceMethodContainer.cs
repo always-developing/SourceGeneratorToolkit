@@ -10,7 +10,7 @@ namespace SourceGeneratorToolkit
         IStaticModifier<InterfaceMethodContainer>, IPartialModifier<InterfaceMethodContainer>, ISupportsGenerics<InterfaceMethodContainer>,
         ISupportsGenericsConstraints<InterfaceMethodContainer>, ISupportsParameters<InterfaceMethodContainer>, ISupportsReturnValue,
         IAsyncModifier<InterfaceMethodContainer>, ISupportsComments<InterfaceMethodContainer>, IPrivateProtectedModifier<InterfaceMethodContainer>,
-        IProtectedInternalModifier<InterfaceMethodContainer>, IUnsafeModifier<InterfaceMethodContainer>
+        IProtectedInternalModifier<InterfaceMethodContainer>, IUnsafeModifier<InterfaceMethodContainer>, ISupportsStatement<InterfaceMethodContainer>
     {
         internal override string Name => nameof(InterfaceMethodContainer);
 

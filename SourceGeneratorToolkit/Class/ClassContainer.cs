@@ -13,7 +13,7 @@ namespace SourceGeneratorToolkit
         ISupportsGenerics<ClassContainer>, ISupportsGenericsConstraints<ClassContainer>, ISupportsAttributes<ClassContainer>,
         ISupportsComments<ClassContainer>, ISupportsDocumentation<ClassContainer>, ISupportsImplementation<ClassContainer>,
         ISupportsInheritence<ClassContainer>, ISupportsProperty<ClassContainer>, ISupportsField<ClassContainer>, IPrivateProtectedModifier<ClassContainer>,
-        IProtectedInternalModifier<ClassContainer>, ISupportsMethods<ClassContainer>
+        IProtectedInternalModifier<ClassContainer>, ISupportsMethods<ClassContainer>, ISupportsStatement<ClassContainer>
 
     {
         internal override string Name => nameof(ClassContainer);
