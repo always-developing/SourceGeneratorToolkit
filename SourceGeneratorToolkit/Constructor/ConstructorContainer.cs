@@ -63,5 +63,12 @@ namespace SourceGeneratorToolkit
 
             return this;
         }
+
+        public ConstructorContainer WithBody(string body)
+        {
+            _sourceItems.Add(new Statement(body));
+
+            return this;
+        }
     }
 }

@@ -1,24 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// Container representing a auto-geneated file 
+    /// </summary>
     public class FileContainer : SourceContainer, ISupportsStatement<FileContainer>
     {
+        /// <inheritdoc/>
         internal override string Name => nameof(FileContainer);
 
+        /// <inheritdoc/>
         public UsingList UsingList { get; protected set; } = new UsingList();
 
+        /// <inheritdoc/>
         public ExternAliasContainer ExternAlias { get; protected set; } = new ExternAliasContainer();
 
+        /// <summary>
+        /// Creates a source generated file instance with the given file name
+        /// </summary>
+        /// <param name="fileName">The name of the file</param>
         public FileContainer(string fileName)
         {
             SourceText = fileName;
         }
 
+        /// <inheritdoc/>
         public override string ToSource()
         {
             _sourceItems.Insert(0, UsingList);
@@ -27,6 +35,7 @@ namespace SourceGeneratorToolkit
             return base.ToSource();
         }
 
+        /// <inheritdoc/>
         public override string ToTree(int treeLevel)
         {
             var sb = new StringBuilder();
@@ -41,6 +50,12 @@ namespace SourceGeneratorToolkit
             return sb.ToString().TrimEnd();
         }
 
+        /// <summary>
+        /// Adds a "using" statement to the file
+        /// </summary>
+        //// <param name="using">The namespace to include in the "using" statement</param>
+        /// <param name="builder">The builder used to modify the properties of the "using" statement</param>
+        /// <returns>The file container</returns>
         public FileContainer WithUsing(string @using, Action<UsingContainer> builder = null)
         {
 
