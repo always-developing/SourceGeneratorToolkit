@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
     /// <summary>
     /// Contains a list of "external alias" statements 
