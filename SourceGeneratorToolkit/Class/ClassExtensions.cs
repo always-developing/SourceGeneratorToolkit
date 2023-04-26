@@ -3,7 +3,7 @@
 namespace SourceGeneratorToolkit
 {
     /// <summary>
-    /// Static method containing extensiosn for class type entities (classes, records, structs)
+    /// Static class containing extensiosn for class type entities (classes, records, structs)
     /// </summary>
     public static class ClassExtensions
     {

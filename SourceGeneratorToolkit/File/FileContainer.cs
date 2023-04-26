@@ -7,7 +7,8 @@ namespace SourceGeneratorToolkit
     /// A container representing a auto-geneated file 
     /// </summary>
     public class FileContainer : SourceContainer, ISupportsStatement<FileContainer>, ISupportsClasses<FileContainer>,
-        ISupportsRecords<NamespaceContainer>, ISupportsStructs<NamespaceContainer>
+        ISupportsRecords<FileContainer>, ISupportsStructs<FileContainer>, ISupportsNamespaces<FileContainer>,
+        ISupportsEnums<NamespaceContainer>
     {
         /// <inheritdoc/>
         internal override string Name => nameof(FileContainer);
@@ -61,38 +62,6 @@ namespace SourceGeneratorToolkit
         {
 
             UsingList.AddUsing(@using, builder);
-            return this;
-        }
-
-        /// <summary>
-        /// Adds a namespace to the file
-        /// </summary>
-        /// <param name="namespace">The name of the namespace</param>
-        /// <param name="builder">The builder used to modify the properties of the namespace</param>
-        /// <returns>The file container</returns>
-        public FileContainer WithNamespace(string @namespace, Action<NamespaceContainer> builder)
-        {
-            var ns = new TraditionalNamespaceContainer(@namespace);
-            _sourceItems.Add(ns);
-
-            builder.Invoke(ns);
-
-            return this;
-        }
-
-        /// <summary>
-        /// Adds a filescoped namespace to the file
-        /// </summary>
-        /// <param name="namespace">The name of the namespace</param>
-        /// <param name="builder">The builder used to modify the properties of the namespace</param>
-        /// <returns>The file container</returns>
-        public FileContainer WithFilescopedNamespace(string @namespace, Action<NamespaceContainer> builder)
-        {
-            var ns = new FilescopedNamespaceContainer(@namespace);
-            _sourceItems.Add(ns);
-
-            builder.Invoke(ns);
-
             return this;
         }
 
