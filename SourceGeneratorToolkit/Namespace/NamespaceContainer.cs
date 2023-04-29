@@ -7,7 +7,7 @@ namespace SourceGeneratorToolkit
     /// </summary>
     public class NamespaceContainer : SourceContainer, ISupportsComments<NamespaceContainer>, ISupportsStatement<NamespaceContainer>,
         ISupportsClasses<NamespaceContainer>, ISupportsRecords<NamespaceContainer>, ISupportsStructs<NamespaceContainer>,
-        ISupportsNamespaces<NamespaceContainer>, ISupportsEnums<NamespaceContainer>
+        ISupportsNamespaces<NamespaceContainer>, ISupportsEnums<NamespaceContainer>, ISupportsInterfaces<NamespaceContainer>
     {
         /// <inheritdoc/>
         internal override string Name => nameof(NamespaceContainer);
@@ -20,22 +20,6 @@ namespace SourceGeneratorToolkit
         {
             SourceText = @namespace;
         }
-
-        /// <summary>
-        /// Adds an interface to the namespace
-        /// </summary>
-        /// <param name="interfaceName">The name of the interface</param>
-        /// <param name="builder">The builder used to modify the properties of the interface</param>
-        /// <returns>The namespace container</returns>
-        public NamespaceContainer WithInterface(string interfaceName, Action<InterfaceContainer> builder)
-        {
-            var interfaceContainer = new InterfaceContainer(interfaceName);
-
-            _sourceItems.Add(interfaceContainer);
-            builder.Invoke(interfaceContainer);
-
-            return this;
-        }
-
+    
     }
 }

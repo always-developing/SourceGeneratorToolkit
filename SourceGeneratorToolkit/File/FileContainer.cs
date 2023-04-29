@@ -8,7 +8,7 @@ namespace SourceGeneratorToolkit
     /// </summary>
     public class FileContainer : SourceContainer, ISupportsStatement<FileContainer>, ISupportsClasses<FileContainer>,
         ISupportsRecords<FileContainer>, ISupportsStructs<FileContainer>, ISupportsNamespaces<FileContainer>,
-        ISupportsEnums<NamespaceContainer>
+        ISupportsEnums<FileContainer>, ISupportsInterfaces<FileContainer>
     {
         /// <inheritdoc/>
         internal override string Name => nameof(FileContainer);

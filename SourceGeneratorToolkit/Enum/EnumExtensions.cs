@@ -10,7 +10,7 @@ namespace SourceGeneratorToolkit
         /// <summary>
         /// Adds an enum to the contaioner
         /// </summary>
-        /// /// <typeparam name="TContainer">The parent container</typeparam>
+        /// <typeparam name="TContainer">The parent container</typeparam>
         /// <param name="base">The parent container</param>
         /// <param name="enumName">The name of the enum</param>
         /// <param name="builder">The builder used to modify the properties of the enum</param>
