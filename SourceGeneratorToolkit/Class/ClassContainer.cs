@@ -5,7 +5,7 @@ using System.Linq;
 namespace SourceGeneratorToolkit
 {
     /// <summary>
-    /// A container epresenting a c# class
+    /// A container representing a c# class
     /// </summary>
     public class ClassContainer : SourceContainer, IStaticModifier<ClassContainer>, IAbstractModifier<ClassContainer>, IPartialModifier<ClassContainer>,
         ISealedModifier<ClassContainer>, IPublicModifier<ClassContainer>, IPrivateModifier<ClassContainer>,

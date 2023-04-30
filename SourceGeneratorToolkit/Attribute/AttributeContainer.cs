@@ -1,7 +1,7 @@
 ﻿namespace SourceGeneratorToolkit
 {
     /// <summary>
-    /// A container represeting an attribute
+    /// A container representing a collection of attributes
     /// </summary>
     public class AttributeContainer : SourceContainer
     {

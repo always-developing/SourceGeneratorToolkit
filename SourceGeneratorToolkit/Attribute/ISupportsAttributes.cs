@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
-    public interface ISupportsAttributes<T> where T : SourceContainer
+    /// <summary>
+    /// Marker interface to indicate the container supports attributes
+    /// </summary>
+    /// <typeparam name="TContainer">The parent container type</typeparam>
+    public interface ISupportsAttributes<TContainer> where TContainer : SourceContainer
     {
+        /// <inheritdoc/>
         AttributeContainer AttributeList { get; }
     }
 }

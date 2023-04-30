@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// A contgainer representing a collection of arguments
+    /// </summary>
     public class ArgumentList : SourceContainer
     {
+        // <inheritdoc/>
         internal override string Name => nameof(ArgumentList);
 
-        public ArgumentList AddArgument(string argument)
+        /// <summary>
+        /// Adds an argument to the collection
+        /// </summary>
+        /// <param name="argumentValue">The argument value</param>
+        /// <returns>The argument collection</returns>
+        public ArgumentList AddArgument(string argumentValue)
         {
-            var argContainer = new ArgumentContainer(argument);
+            var argContainer = new ArgumentContainer(argumentValue);
 
             if (SourceItems.Any())
             {
@@ -23,9 +29,15 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
-        public ArgumentList AddArgument(string argumentName, string argument)
+        /// <summary>
+        /// Adds an argument to the container
+        /// </summary>
+        /// <param name="argumentName">The argument name</param>
+        /// <param name="argumentValue">The argument value</param>
+        /// <returns></returns>
+        public ArgumentList AddArgument(string argumentName, string argumentValue)
         {
-            var argContainer = new ArgumentContainer(argumentName, argument);
+            var argContainer = new ArgumentContainer(argumentName, argumentValue);
 
             if (SourceItems.Any())
             {

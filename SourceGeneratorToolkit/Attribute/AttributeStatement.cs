@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Xml.Linq;
+﻿using System.Linq;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// A container representing an attribute
+    /// </summary>
     public class AttributeStatement : SourceContainer, ISupportsArguments<AttributeStatement>
     {
+        /// <inheritdoc/>
         internal override string Name => nameof(AttributeStatement);
 
+        /// <inheritdoc/>
         public ArgumentList Arguments { get; } = new ArgumentList();
 
+        /// <inheritdoc/>
         public AppliesToStatement AttributeAppliesTo { get; internal set; }
 
+        /// <summary>
+        /// Constructor for the AttributeStatement class
+        /// </summary>
+        /// <param name="attributeName">The name of the attribute</param>
         public AttributeStatement(string attributeName)
         {
             SourceText = attributeName.StartsWith("[") && attributeName.EndsWith("]")
@@ -22,6 +27,7 @@ namespace SourceGeneratorToolkit
             : attributeName;
         }
 
+        /// <inheritdoc/>
         public override string ToSource()
         {
             _sourceItems.Add(new BracketStartStatement());
@@ -45,6 +51,11 @@ namespace SourceGeneratorToolkit
             return base.ToSource();
         }
         
+        /// <summary>
+        /// Specifies the target type the attribute applies to
+        /// </summary>
+        /// <param name="appliesTo">The target type</param>
+        /// <returns>The attribtue statement</returns>
         public AttributeStatement AppliesTo(AttributeAppliesTo appliesTo)
         {
             AttributeAppliesTo = new AppliesToStatement(appliesTo);
