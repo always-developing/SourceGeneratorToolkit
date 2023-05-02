@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// Global settings for the SourceGeneratorToolkit
+    /// </summary>
     public static class SourceToolkitSettings
     {
         public static string Indent = "    ";

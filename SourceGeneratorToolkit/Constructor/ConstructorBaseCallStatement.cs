@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// Container representing a constructor which calls "base"
+    /// </summary>
     public class ConstructorBaseCallStatement : ConstructorCallStatement
     {
+        /// <inheritdoc/>
         internal override string Name => nameof(ConstructorBaseCallStatement);
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ConstructorBaseCallStatement()
         {
             SourceText = "base";
         }
 
+        /// <inheritdoc/>
         public override string ToSource()
         {
             _sourceItems.Add(new ColonStatement());

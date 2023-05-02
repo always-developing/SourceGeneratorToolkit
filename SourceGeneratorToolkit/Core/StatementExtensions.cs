@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-
-namespace SourceGeneratorToolkit.Core
+﻿namespace SourceGeneratorToolkit.Core
 {
+    /// <summary>
+    /// Extension methods for the statement container
+    /// </summary>
     public static class StatementExtensions
     {
-        public static SourceContainer AddStatement<T>(this ISupportsMethods<T> @base, string statement) where T : SourceContainer
+        /// <summary>
+        /// Adds a C# statement to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <param name="statement">The C# statement</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AddStatement<TContainer>(this ISupportsMethods<TContainer> @base, string statement) where TContainer : SourceContainer
         {
             ((SourceContainer)@base)._sourceItems.Add(new Statement(statement));
 
-            return (T)@base;
+            return (TContainer)@base;
         }
     }
 }

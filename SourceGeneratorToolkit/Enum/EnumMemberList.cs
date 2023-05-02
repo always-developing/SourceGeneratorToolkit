@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// A container representing the members of an enum
+    /// </summary>
     public class EnumMemberList : SourceContainer
     {
+        /// <inheritdoc/>
         internal override string Name => nameof(EnumMemberList);
 
+        /// <summary>
+        /// Adds a member to the enum
+        /// </summary>
+        /// <param name="name">The member name</param>
+        /// <returns>The enum member container</returns>
         public EnumMemberContainer AddEnumMember(string name)
         {
             var memberContainer = new EnumMemberContainer(name);
@@ -23,6 +29,12 @@ namespace SourceGeneratorToolkit
             return memberContainer;
         }
 
+        /// <summary>
+        /// Adds a member to the enum with a specific value
+        /// </summary>
+        /// <param name="name">The enum name</param>
+        /// <param name="value">The enum value</param>
+        /// <returns>The enum member container</returns>
         public EnumMemberContainer AddEnumMember(string name, string value)
         {
             var memberContainer = new EnumMemberContainer(name, value);
@@ -37,6 +49,7 @@ namespace SourceGeneratorToolkit
             return memberContainer;
         }
 
+        /// <inheritdoc/>
         public override string ToSource()
         {
             return base.ToSource();

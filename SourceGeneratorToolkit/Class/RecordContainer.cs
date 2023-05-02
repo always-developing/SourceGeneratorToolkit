@@ -1,11 +1,12 @@
-﻿using Microsoft.CodeAnalysis.Operations;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SourceGeneratorToolkit
 {
+
+    /// <summary>
+    /// A container representing a c# record
+    /// </summary>
     public class RecordContainer : SourceContainer, IPublicModifier<RecordContainer>, IProtectedModifier<RecordContainer>, IPrivateModifier<RecordContainer>,
         IInternalModifier<RecordContainer>, IFileModifier<RecordContainer>, IProtectedInternalModifier<RecordContainer>,
         IPartialModifier<RecordContainer>, IAbstractModifier<RecordContainer>, IUnsafeModifier<RecordContainer>,
@@ -14,35 +15,52 @@ namespace SourceGeneratorToolkit
         ISupportsProperty<RecordContainer>, IPrivateProtectedModifier<RecordContainer>, ISealedModifier<RecordContainer>,
         ISupportsStatement<RecordContainer>
     {
+        /// <inheritdoc/>
         internal override string Name => nameof(RecordContainer);
 
+        /// <inheritdoc/>
         public GeneralModifierContainer GeneralModifiers { get; } = new GeneralModifierContainer();
 
+        /// <inheritdoc/>
         public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
+        /// <inheritdoc/>
         public GenericList GenericList { get; } = new GenericList();
 
+        /// <inheritdoc/>
         public AttributeContainer AttributeList { get; } = new AttributeContainer();
 
         public GenericConstraintList ConstraintContainer { get; } = new GenericConstraintList();
 
+        /// <inheritdoc/>
         public ImplementsContainer Implements { get; internal set; } = new ImplementsContainer();
 
         public DocumentationContainer Documentation { get; } = new DocumentationContainer();
 
+        /// <inheritdoc/>
         public InheritenceContainer Inherits { get; } = new InheritenceContainer();
 
+        /// <inheritdoc/>
         public PositionalParameterContainer PositionalParameters = new PositionalParameterContainer();
 
+        /// <inheritdoc/>
         public PropertyList Properties { get; } = new PropertyList();
 
-        private string recordType = "";
+        /// <summary>
+        ///  Stored if the record is class or struct
+        /// </summary>
+        private string _recordType = "";
 
+        /// <summary>
+        /// Constructor for RecordContainer class
+        /// </summary>
+        /// <param name="recordName">The record name</param>
         public RecordContainer(string recordName)
         {
             SourceText = recordName;
         }
 
+        /// <inheritdoc/>
         public override string ToSource()
         {
             var builderList = new List<SourceStatement>
@@ -51,7 +69,7 @@ namespace SourceGeneratorToolkit
                 AttributeList,
                 AccessModifier,
                 GeneralModifiers,
-                new Statement($"record {recordType}{SourceText}"),
+                new Statement($"record {_recordType}{SourceText}"),
                 GenericList
             };
 
@@ -80,6 +98,12 @@ namespace SourceGeneratorToolkit
             return base.ToSource();
         }
 
+        /// <summary>
+        /// Adds a positional parameter to the record
+        /// </summary>
+        /// <param name="type">The parameter type</param>
+        /// <param name="name">The parameter name</param>
+        /// <returns>The record container</returns>
         public RecordContainer AddPositionalParameter(string type, string name)
         {
             PositionalParameters.AddParameter(type, name);
@@ -87,15 +111,23 @@ namespace SourceGeneratorToolkit
             return this;
         }
 
+        /// <summary>
+        /// Flags the record as a struct
+        /// </summary>
+        /// <returns>The record container</returns>
         public RecordContainer AsStruct()
         {
-            recordType = "struct ";
+            _recordType = "struct ";
             return this;
         }
 
+        /// <summary>
+        /// Flags the record as a class
+        /// </summary>
+        /// <returns>The record container</returns>
         public RecordContainer AsClass()
         {
-            recordType = "class ";
+            _recordType = "class ";
             return this;
         }
 

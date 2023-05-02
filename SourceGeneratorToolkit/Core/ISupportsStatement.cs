@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
-    public interface ISupportsStatement<T> where T : SourceContainer
+    /// <summary>
+    /// Marker interface to indicate the container supports statements being added
+    /// </summary>
+    /// <typeparam name="TContainer">The parent container type</typeparam>
+    public interface ISupportsStatement<TContainer> where TContainer : SourceContainer
     {
     }
 }

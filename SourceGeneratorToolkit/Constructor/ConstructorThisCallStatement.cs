@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
-    internal class ConstructorThisCallStatement : ConstructorCallStatement
+    /// <summary>
+    /// A container representing a "this" calll in a constructor
+    /// </summary>
+    public class ConstructorThisCallStatement : ConstructorCallStatement
     {
+        /// <inheritdoc/>
         internal override string Name => nameof(ConstructorThisCallStatement);
 
+        /// <summary>
+        /// Constructor for ConstructorThisCallStatement
+        /// </summary>
         public ConstructorThisCallStatement()
         {
             SourceText = "this";
         }
 
+        /// <inheritdoc/>
         public override string ToSource()
         {
             _sourceItems.Add(new ColonStatement());
@@ -23,7 +27,5 @@ namespace SourceGeneratorToolkit
 
             return base.ToSource();
         }
-
-
     }
 }

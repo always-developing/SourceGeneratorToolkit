@@ -10,18 +10,18 @@ namespace SourceGeneratorToolkit
         /// <summary>
         /// Adds an attribute to the parent container
         /// </summary>
-        /// <typeparam name="T">The parent container type</typeparam>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
         /// <param name="base">The parent container</param>
         /// <param name="attributeName">The attribute name</param>
         /// <param name="builder">The builder used to modify the properties of the attribute</param>
         /// <returns>The parent container</returns>
-        public static T AddAttribute<T>(this ISupportsAttributes<T> @base, string attributeName, Action<AttributeStatement> builder = null) 
-            where T : SourceContainer
+        public static TContainer AddAttribute<TContainer>(this ISupportsAttributes<TContainer> @base, string attributeName, Action<AttributeStatement> builder = null) 
+            where TContainer : SourceContainer
         {
             var attribute = @base.AttributeList.AddAttribute(attributeName);
             builder?.Invoke(attribute);
 
-            return (T)@base;
+            return (TContainer)@base;
         }
     }
 }
