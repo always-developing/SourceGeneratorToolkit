@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// A container representing a get accessor
+    /// </summary>
     public class GetAccessorContainer : SourceContainer, IPublicModifier<GetAccessorContainer>, IPrivateModifier<GetAccessorContainer>,
         IInternalModifier<GetAccessorContainer>, IProtectedModifier<GetAccessorContainer>, IPrivateProtectedModifier<GetAccessorContainer>,
         IProtectedInternalModifier<GetAccessorContainer>
     {
+        /// <inheritdoc/>
         internal override string Name => nameof(GetAccessorContainer);
 
+        /// <inheritdoc/>
         public AccessModifierContainer AccessModifier { get; } = new AccessModifierContainer();
 
+        /// <inheritdoc/>
         public override string ToSource()
         {
             if (!SourceItems.Any())
