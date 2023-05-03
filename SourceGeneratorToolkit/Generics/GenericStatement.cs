@@ -1,18 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// A container representing a generic statement
+    /// </summary>
     public class GenericStatement : SourceStatement
     {
+        /// <inheritdoc/>
         internal override string Name => nameof(GenericStatement);
 
-        public GenericStatement(string genericsValue)
+        /// <summary>
+        /// Constructor for GenericStatement
+        /// </summary>
+        /// <param name="genericValue">The generic value</param>
+        public GenericStatement(string genericValue)
         {
-            SourceText = genericsValue;
+            SourceText = genericValue;
         }
 
+        /// <inheritdoc/>
         public override string ToSource()
         {
             return SourceText;

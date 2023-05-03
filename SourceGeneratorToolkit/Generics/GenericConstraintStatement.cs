@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
-    internal class GenericConstraintStatement : SourceStatement
+    /// <summary>
+    /// A container representing a generic constraint statement
+    /// </summary>
+    public class GenericConstraintStatement : SourceStatement
     {
+        /// <inheritdoc/>
         internal override string Name => nameof(GenericConstraintStatement);
 
-        public GenericConstraintStatement(string constraints)
+        /// <summary>
+        /// Constructor for GenericConstraintStatement
+        /// </summary>
+        /// <param name="constraint">The constraint name</param>
+        public GenericConstraintStatement(string constraint)
         {
-            SourceText = constraints;
+            SourceText = constraint;
         }
     }
 }
