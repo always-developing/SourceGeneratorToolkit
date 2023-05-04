@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// A container representing an access modifier
+    /// </summary>
     public class AccessModifierStatement : SourceStatement
     {
+        /// <inheritdoc/>
         internal override string Name => nameof(AccessModifierStatement);
     }
 }

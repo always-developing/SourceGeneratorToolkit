@@ -1,44 +1,85 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// Static class containing extensions for access modifiers
+    /// </summary>
     public static class AccessModifierExtensions
     {
-        public static T AsPublic<T>(this IPublicModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the public modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsPublic<TContainer>(this IPublicModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.AccessModifier.AsPublic((T)@base);
+            return @base.AccessModifier.AsPublic((TContainer)@base);
         }
 
-        public static T AsPrivate<T>(this IPrivateModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the private modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsPrivate<TContainer>(this IPrivateModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.AccessModifier.AsPrivate((T)@base);
+            return @base.AccessModifier.AsPrivate((TContainer)@base);
         }
 
-        public static T AsProtected<T>(this IProtectedModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the protected modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsProtected<TContainer>(this IProtectedModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.AccessModifier.AsProtected((T)@base);
+            return @base.AccessModifier.AsProtected((TContainer)@base);
         }
 
-        public static T AsInternal<T>(this IInternalModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the internal modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsInternal<TContainer>(this IInternalModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.AccessModifier.AsInternal((T)@base);
+            return @base.AccessModifier.AsInternal((TContainer)@base);
         }
 
-        public static T AsProtectedInternal<T>(this IProtectedInternalModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the protected internal modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsProtectedInternal<TContainer>(this IProtectedInternalModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.AccessModifier.AsProtectedInternal((T)@base);
+            return @base.AccessModifier.AsProtectedInternal((TContainer)@base);
         }
 
-        public static T AsPrivateProtected<T>(this IPrivateProtectedModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the private protected modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsPrivateProtected<TContainer>(this IPrivateProtectedModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.AccessModifier.AsPrivateProtected((T)@base);
+            return @base.AccessModifier.AsPrivateProtected((TContainer)@base);
         }
 
-        public static T AsFile<T>(this IFileModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the file modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsFile<TContainer>(this IFileModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.AccessModifier.AsFile((T)@base);
+            return @base.AccessModifier.AsFile((TContainer)@base);
         }
     }
 }

@@ -1,23 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// Static class containing extensions for inheritence
+    /// </summary>
     public static class InheritenceExtensions
     {
-        public static T WithInheritence<T>(this ISupportsInheritence<T> @base, string baseClassName) where T : SourceContainer
+        /// <summary>
+        /// Adds inheritence to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <param name="baseClassName">The base class name to inherit from</param>
+        /// <returns>The parent container</returns>
+        public static TContainer WithInheritence<TContainer>(this ISupportsInheritence<TContainer> @base, string baseClassName) where TContainer : SourceContainer
         {
             @base.Inherits.AddInheritence(baseClassName);
 
-            return (T)@base;
+            return (TContainer)@base;
         }
 
-        public static T WithInheritence<T>(this ISupportsInheritence<T> @base, Type baseClass) where T : SourceContainer
+        /// <summary>
+        /// Adds inheritence to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <param name="baseClass">The base class to inherit from</param>
+        /// <returns>The parent container</returns>
+        public static TContainer WithInheritence<TContainer>(this ISupportsInheritence<TContainer> @base, Type baseClass) where TContainer : SourceContainer
         {
             @base.Inherits.AddInheritence(baseClass.Name);
 
-            return (T)@base;
+            return (TContainer)@base;
         }
     }
 }

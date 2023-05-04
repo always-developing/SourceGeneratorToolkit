@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
-    public interface ISupportsInheritence<T> where T : SourceContainer
+    /// <summary>
+    /// Marker interface to indicate the container supports inheritence
+    /// </summary>
+    /// <typeparam name="TContainer">The parent container type</typeparam>
+    public interface ISupportsInheritence<TContainer> where TContainer : SourceContainer
     {
+        /// <inheritdoc/>
         public InheritenceContainer Inherits { get; }
     }
 }

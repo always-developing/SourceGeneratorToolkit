@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
-    public interface IAsyncModifier<T> where T : SourceContainer
+    /// <summary>
+    /// Marker interface to indicate the container supports the async modifier
+    /// </summary>
+    /// <typeparam name="TContainer">The parent container type</typeparam>
+    public interface IAsyncModifier<TContainer> where TContainer : SourceContainer
     {
+        /// <inheritdoc/>
         GeneralModifierContainer GeneralModifiers { get; }
     }
 }

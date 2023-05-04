@@ -1,52 +1,106 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// Static class containing extensions for general modifiers
+    /// </summary>
     public static class GeneralModifierExtensions
     {
-        public static T AsStatic<T>(this IStaticModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the static modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsStatic<TContainer>(this IStaticModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.GeneralModifiers.AsStatic((T)@base);
+            return @base.GeneralModifiers.AsStatic((TContainer)@base);
         }
 
-        public static T AsAbstract<T>(this IAbstractModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the abstract modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsAbstract<TContainer>(this IAbstractModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.GeneralModifiers.AsAbstract((T)@base);
+            return @base.GeneralModifiers.AsAbstract((TContainer)@base);
         }
 
-        public static T AsPartial<T>(this IPartialModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the partial modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsPartial<TContainer>(this IPartialModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.GeneralModifiers.AsPartial((T)@base);
+            return @base.GeneralModifiers.AsPartial((TContainer)@base);
         }
 
-        public static T AsSealed<T>(this ISealedModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the sealed modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsSealed<TContainer>(this ISealedModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.GeneralModifiers.AsSealed((T)@base);
+            return @base.GeneralModifiers.AsSealed((TContainer)@base);
         }
 
-        public static T AsReadOnly<T>(this IReadOnlyModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the readonly modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsReadOnly<TContainer>(this IReadOnlyModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.GeneralModifiers.AsReadOnly((T)@base);
+            return @base.GeneralModifiers.AsReadOnly((TContainer)@base);
         }
 
-        public static T AsVirtual<T>(this IVirtualModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the virtual modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsVirtual<TContainer>(this IVirtualModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.GeneralModifiers.AsVirtual((T)@base);
+            return @base.GeneralModifiers.AsVirtual((TContainer)@base);
         }
 
-        public static T AsOverride<T>(this IOverrideModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the override modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsOverride<TContainer>(this IOverrideModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.GeneralModifiers.AsOverride((T)@base);
+            return @base.GeneralModifiers.AsOverride((TContainer)@base);
         }
 
-        public static T AsUnsafe<T>(this IUnsafeModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the unsafe modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsUnsafe<TContainer>(this IUnsafeModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.GeneralModifiers.AsUnsafe((T)@base);
+            return @base.GeneralModifiers.AsUnsafe((TContainer)@base);
         }
+        /// <summary>
+        /// Adds the async modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <param name="enforceTaskReturnType">Flag to enforce the method return type to be wrapped in Task</param>
+        /// <returns>The parent container</returns>
 
-        public static T AsAsync<T>(this IAsyncModifier<T> @base, bool enforceTaskReturnType = true) where T : SourceContainer
+        public static TContainer AsAsync<TContainer>(this IAsyncModifier<TContainer> @base, bool enforceTaskReturnType = true) where TContainer : SourceContainer
         {
             if(@base as ISupportsReturnValue != null)
             {
@@ -56,15 +110,21 @@ namespace SourceGeneratorToolkit
             // TODO: something better here
             if (@base as InterfaceMethodContainer == null)
             {
-                return @base.GeneralModifiers.AsAsync((T)@base, enforceTaskReturnType);
+                return @base.GeneralModifiers.AsAsync((TContainer)@base, enforceTaskReturnType);
             }
 
-            return (T)@base;
+            return (TContainer)@base;
         }
 
-        public static T AsRequired<T>(this IRequiredModifier<T> @base) where T : SourceContainer
+        /// <summary>
+        /// Adds the required modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsRequired<TContainer>(this IRequiredModifier<TContainer> @base) where TContainer : SourceContainer
         {
-            return @base.GeneralModifiers.AsRequired((T)@base);
+            return @base.GeneralModifiers.AsRequired((TContainer)@base);
         }
     }
 }
