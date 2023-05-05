@@ -4,20 +4,36 @@ using System;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// The base generator class from which all generation occurs
+    /// </summary>
     public class SourceGenerator
     {
         private readonly Action<Generator> _rootGenerator;
 
-        public SourceGenerator(Action<Generator> root)
+        /// <summary>
+        /// Constructor for SourceGenerator
+        /// </summary>
+        /// <param name="builder">The builder used to modify the properties of the root source generation</param>
+        public SourceGenerator(Action<Generator> builder)
         {
-            _rootGenerator = root;
+            _rootGenerator = builder;
         }
 
-        public static SourceGenerator Generate(Action<Generator> root)
+        /// <summary>
+        /// The root method from which source generation will occur
+        /// </summary>
+        /// <param name="builder">The builder used to modify the properties of the root source generation</param>
+        /// <returns>The generated source</returns>
+        public static SourceGenerator Generate(Action<Generator> builder)
         {
-            return new SourceGenerator(root);
+            return new SourceGenerator(builder);
         }
 
+        /// <summary>
+        /// Invokes the generation actions to build and output the source code
+        /// </summary>
+        /// <returns>The generated, formatted source code</returns>
         public string Build()
         {
             var gen = new Generator();
@@ -27,6 +43,10 @@ namespace SourceGeneratorToolkit
 
         }
 
+        /// <summary>
+        /// Generates a tree view heirarchy of the source code
+        /// </summary>
+        /// <returns>The source code heirarchy</returns>
         public string ToTree()
         {
             var gen = new Generator();

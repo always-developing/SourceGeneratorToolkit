@@ -45,6 +45,11 @@ namespace SourceGeneratorToolkit
             return sb.ToString();
         }
 
+        /// <summary>
+        /// What is the prefix to use when ouputting the heirarchy
+        /// </summary>
+        /// <param name="treeLevel">The tree level</param>
+        /// <returns>The tree prefix for the specific level</returns>
         protected string TreePrefix(int treeLevel)
         {
             StringBuilder sb = new StringBuilder();

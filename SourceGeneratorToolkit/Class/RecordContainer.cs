@@ -30,11 +30,13 @@ namespace SourceGeneratorToolkit
         /// <inheritdoc/>
         public AttributeContainer AttributeList { get; } = new AttributeContainer();
 
+        /// <inheritdoc/>
         public GenericConstraintList ConstraintContainer { get; } = new GenericConstraintList();
 
         /// <inheritdoc/>
         public ImplementsContainer Implements { get; internal set; } = new ImplementsContainer();
 
+        /// <inheritdoc/>
         public DocumentationContainer Documentation { get; } = new DocumentationContainer();
 
         /// <inheritdoc/>

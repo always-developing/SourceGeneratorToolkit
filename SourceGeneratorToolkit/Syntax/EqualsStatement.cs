@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SourceGeneratorToolkit
+﻿namespace SourceGeneratorToolkit
 {
-    public class EqualsStatement : SourceStatement
+    internal class EqualsStatement : SourceStatement
     {
         internal override string Name => nameof(EqualsStatement);
 

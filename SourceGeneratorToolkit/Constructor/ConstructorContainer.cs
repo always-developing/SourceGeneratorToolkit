@@ -57,6 +57,11 @@ namespace SourceGeneratorToolkit
             return base.ToSource();            
         }
 
+        /// <summary>
+        /// Adds a "base" call to the constructor
+        /// </summary>
+        /// <param name="builder">The builder used to modify the properties of the constructor</param>
+        /// <returns></returns>
         public ConstructorContainer CallsBase(Action<ConstructorCallStatement> builder = null)
         {
             ConstructorCalls = new ConstructorBaseCallStatement();
