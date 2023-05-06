@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33326.253
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGeneratorToolkit", "SourceGeneratorToolkit\SourceGeneratorToolkit.csproj", "{AAC80609-5DDA-45ED-89E1-47D968B4206D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGeneratorToolkit", "SourceGeneratorToolkit\SourceGeneratorToolkit.csproj", "{AAC80609-5DDA-45ED-89E1-47D968B4206D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGeneratorToolkit.Test", "SourceGeneratorToolkit.Test\SourceGeneratorToolkit.Test.csproj", "{4444A957-FD22-42C7-AD4C-98B397E3FE32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceGeneratorToolkit.Test", "SourceGeneratorToolkit.Test\SourceGeneratorToolkit.Test.csproj", "{4444A957-FD22-42C7-AD4C-98B397E3FE32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGeneratorToolkit.SampleAnalyzer", "SourceGeneratorToolkit.SampleAnalyzer\SourceGeneratorToolkit.SampleAnalyzer.csproj", "{97D3D34B-FCB1-4217-935C-94526A9A5C55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGeneratorToolkit.SampleApp", "SourceGeneratorToolkit.SampleApp\SourceGeneratorToolkit.SampleApp.csproj", "{595CA7FA-7AC8-4F17-B2DC-009FDD9A7745}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{4444A957-FD22-42C7-AD4C-98B397E3FE32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4444A957-FD22-42C7-AD4C-98B397E3FE32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4444A957-FD22-42C7-AD4C-98B397E3FE32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97D3D34B-FCB1-4217-935C-94526A9A5C55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97D3D34B-FCB1-4217-935C-94526A9A5C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97D3D34B-FCB1-4217-935C-94526A9A5C55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97D3D34B-FCB1-4217-935C-94526A9A5C55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{595CA7FA-7AC8-4F17-B2DC-009FDD9A7745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{595CA7FA-7AC8-4F17-B2DC-009FDD9A7745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{595CA7FA-7AC8-4F17-B2DC-009FDD9A7745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{595CA7FA-7AC8-4F17-B2DC-009FDD9A7745}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

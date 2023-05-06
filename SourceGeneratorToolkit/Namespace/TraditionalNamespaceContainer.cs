@@ -21,10 +21,11 @@ namespace SourceGeneratorToolkit
         /// <inheritdoc/>
         public override string ToSource()
         {
-            var builderList = new List<SourceStatement>();
-
-            builderList.Add(new NewLineStatement($"namespace {SourceText}"));
-            builderList.Add(new BraceStartStatement());
+            var builderList = new List<SourceStatement>
+            {
+                new NewLineStatement($"namespace {SourceText}"),
+                new BraceStartStatement()
+            };
 
             _sourceItems.InsertRange(0, builderList);
 
