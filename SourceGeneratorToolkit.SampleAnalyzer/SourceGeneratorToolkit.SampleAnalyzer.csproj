@@ -16,7 +16,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\SourceGeneratorToolkit\SourceGeneratorToolkit.csproj" />
 	</ItemGroup>
+
+	<PropertyGroup>
+		<GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+	</PropertyGroup>
+
+	<Target Name="GetDependencyTargetPaths">
+		<ItemGroup>
+			<TargetPathWithTargetPlatformMoniker Include="C:\Development\Playground\SourceGeneratorToolkit\SourceGeneratorToolkit\bin\Debug\netstandard2.0\\SourceGeneratorToolkit.dll" IncludeRuntimeDependency="false" />
+		</ItemGroup>
+	</Target>
 
 </Project>
