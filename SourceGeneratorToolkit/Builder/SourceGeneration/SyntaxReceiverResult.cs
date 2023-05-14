@@ -12,5 +12,7 @@ namespace SourceGeneratorToolkit
         public string Namespace { get; set; }
 
         public SyntaxNode Node { get; set; }
+
+        public Dictionary<string, object> CustomMetadata { get; set; }
     }
 }

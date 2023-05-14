@@ -24,13 +24,16 @@ namespace SourceGeneratorToolkit
                 _ => GetNamespaceRoot(node.Parent)
             };
 
-        public static SyntaxReceiverResult BuildResult(this SyntaxNode node)
+        public static SyntaxReceiverResult BuildResult(this SyntaxNode node, Func<SyntaxNode, Dictionary<string, object>> customMetadataBuilder = null)
         {
+            var metadata = customMetadataBuilder?.Invoke(node);
+
             return new SyntaxReceiverResult
             {
                 Node = node,
                 Name = GetNodeName(node),
-                Namespace = node.GetNamespaceRoot()
+                Namespace = node.GetNamespaceRoot(),
+                CustomMetadata = metadata
             };
         }
 

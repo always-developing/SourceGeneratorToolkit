@@ -25,14 +25,26 @@ namespace SourceGeneratorToolkit
             return syntaxBuilder;
         }
 
+        public static SyntaxQualifierBuilder WithCheck(this SyntaxQualifierBuilder syntaxBuilder, Func<SyntaxNode, bool> builder = null)
+        {
+            if (builder != null)
+            {
+                var qualifies = builder.Invoke(syntaxBuilder.Node);
+                if(syntaxBuilder.Qualifies && !qualifies)
+                {
+                    syntaxBuilder.Qualifies = false;
+                }
+                
+            }
+
+            return syntaxBuilder;
+        }
+
         public static ClassQualifierBuilder WithName(this ClassQualifierBuilder syntaxBuilder, string className)
         {
             if (syntaxBuilder.Node is BaseTypeDeclarationSyntax declaration)
             {
-                if (declaration.Identifier.ValueText == className)
-                {
-                    syntaxBuilder.Qualifies = true;
-                }
+                syntaxBuilder.Qualifies = declaration.Identifier.ValueText == className;
             }
 
             return syntaxBuilder;

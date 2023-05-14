@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using SourceGeneratorToolkit;
 using System.Diagnostics;
+using System.Linq;
 
 namespace SourceGeneratorToolkit.SampleAnalyzer
 {
@@ -21,26 +22,27 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
             PartialClassSyntaxReceiver syntaxReceiver = (PartialClassSyntaxReceiver)context.SyntaxReceiver;
             Debug.Assert(syntaxReceiver != null);
 
-            if (syntaxReceiver != null && syntaxReceiver.Result != null)
+            if (syntaxReceiver != null && syntaxReceiver.Results != null && syntaxReceiver.Results.Any())
             {
-                var result = syntaxReceiver?.Result;
-
-                context.GenerateSource($"{result.Name}1", fileBuilder =>
+                foreach (var result in syntaxReceiver.Results)
                 {
-                    fileBuilder.WithNamespace($"{result.Namespace}2", nsBuilder =>
+                    context.GenerateSource($"{result.Name}1", fileBuilder =>
                     {
-                        nsBuilder.WithClass($"{result.Name}3", clsBuilder =>
+                        fileBuilder.WithNamespace($"{result.Namespace}2", nsBuilder =>
                         {
-                            clsBuilder.AsPublic();
-
-                            clsBuilder.WithMethod("Hello", "void", mthBuilder =>
+                            nsBuilder.WithClass($"{result.Name}3", clsBuilder =>
                             {
-                                mthBuilder.AsPublic()
-                                .WithBody(@"Console.WriteLine($""Generator says: Hello"");");
+                                clsBuilder.AsPublic();
+
+                                clsBuilder.WithMethod("Hello", "void", mthBuilder =>
+                                {
+                                    mthBuilder.AsPublic()
+                                    .WithBody(@"Console.WriteLine($""Generator says: Hello"");");
+                                });
                             });
                         });
                     });
-                });
+                }
             }
         }
 
@@ -53,43 +55,31 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
 
     class PartialClassSyntaxReceiver : ISyntaxReceiver
     {
-        public SyntaxReceiverResult Result { get; private set; }
-
-        public ClassDeclarationSyntax ClassToAugment { get; private set; }
-
-        public int IntValue{ get; private set; }
-
+        public List<SyntaxReceiverResult> Results { get; set; } = new List<SyntaxReceiverResult>();
+        
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
-            if(syntaxNode.NodeQualifiesWhen(node =>
+            var nodeQualifies = syntaxNode.NodeQualifiesWhen(node =>
             {
-                node.IsClass();
-            }))
+                node.IsClass(c => c
+                    .WithName("MyClass")
+                )
+                .WithCheck(checkNode =>
+                {
+                    return true;
+                });
+            });
+
+            if(nodeQualifies)
             {
-                Result = syntaxNode.BuildResult();
+                Results.Add(syntaxNode.BuildResult(r =>
+                {
+                    return new Dictionary<string, object>
+                    {
+                        ["name"] = r.ToFullString()
+                    };
+                }));
             }
-
-            if(Result != null) 
-            {
-                ClassToAugment = syntaxNode as ClassDeclarationSyntax;
-            }
-
-            //if (syntaxNode is ClassDeclarationSyntax cds)
-            //{
-            //    Result = new SyntaxReceiverResult
-            //    {
-            //        Name = "MyClass",
-            //        Namespace = "MyNs"
-            //    };
-            //}
-
-
-            //// Business logic to decide what we're interested in goes here
-            //if (syntaxNode is ClassDeclarationSyntax cds &&
-            //    cds.Identifier.ValueText == "UserClass")
-            //{
-            //    //ClassToAugment = cds;
-            //}
         }
     }
 }
