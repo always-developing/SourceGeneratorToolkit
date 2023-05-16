@@ -126,5 +126,41 @@
         {
             return @base.GeneralModifiers.AsRequired((TContainer)@base);
         }
+
+        /// <summary>
+        /// Adds the out modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsOut<TContainer>(this IOutModifier<TContainer> @base) where TContainer : SourceContainer
+        {
+            @base.GeneralModifiers.ClearModifiers();
+            return @base.GeneralModifiers.AsOut((TContainer)@base);
+        }
+
+        /// <summary>
+        /// Adds the in modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsIn<TContainer>(this IOutModifier<TContainer> @base) where TContainer : SourceContainer
+        {
+            @base.GeneralModifiers.ClearModifiers();
+            return @base.GeneralModifiers.AsIn((TContainer)@base);
+        }
+
+        /// <summary>
+        /// Adds the ref modifier to the parent container
+        /// </summary>
+        /// <typeparam name="TContainer">The parent container type</typeparam>
+        /// <param name="base">The parent container</param>
+        /// <returns>The parent container</returns>
+        public static TContainer AsRef<TContainer>(this IOutModifier<TContainer> @base) where TContainer : SourceContainer
+        {
+            @base.GeneralModifiers.ClearModifiers();
+            return @base.GeneralModifiers.AsRef((TContainer)@base);
+        }
     }
 }

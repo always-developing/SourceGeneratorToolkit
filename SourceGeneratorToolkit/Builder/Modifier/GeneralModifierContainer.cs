@@ -30,12 +30,20 @@ namespace SourceGeneratorToolkit
         }
 
         /// <summary>
+        /// Removes all modifiers from the collection
+        /// </summary>
+        internal void ClearModifiers()
+        {
+            _sourceItems.Clear();
+        }
+
+        /// <summary>
         /// Marks the container as abstract
         /// </summary>
         /// <typeparam name="T">The parent type</typeparam>
         /// <param name="parent">the parent container</param>
         /// <returns>The parent</returns>
-        internal T AsAbstract<T>(T parent) where T : SourceContainer =>  this.AddModifier(parent, new AbstractModifierStatement());
+        public T AsAbstract<T>(T parent) where T : SourceContainer =>  this.AddModifier(parent, new AbstractModifierStatement());
 
         /// <summary>
         /// Marks the container as static
@@ -109,6 +117,32 @@ namespace SourceGeneratorToolkit
         /// <param name="parent">the parent container</param>
         /// <returns>The parent</returns>
         public T AsRequired<T>(T parent) where T : SourceContainer => this.AddModifier(parent, new RequiredModifierStatement());
+
+        /// <summary>
+        /// Marks the container as out
+        /// </summary>
+        /// <typeparam name="T">The parent type</typeparam>
+        /// <param name="parent">the parent container</param>
+        /// <returns>The parent</returns>
+        public T AsOut<T>(T parent) where T : SourceContainer => this.AddModifier(parent, new OutModifierStatement());
+
+        /// <summary>
+        /// Marks the container as ref
+        /// </summary>
+        /// <typeparam name="T">The parent type</typeparam>
+        /// <param name="parent">the parent container</param>
+        /// <returns>The parent</returns>
+        public T AsRef<T>(T parent) where T : SourceContainer => this.AddModifier(parent, new RefModifierStatement());
+
+        /// <summary>
+        /// Marks the container as in
+        /// </summary>
+        /// <typeparam name="T">The parent type</typeparam>
+        /// <param name="parent">the parent container</param>
+        /// <returns>The parent</returns>
+        public T AsIn<T>(T parent) where T : SourceContainer => this.AddModifier(parent, new InModifierStatement());
+
+
 
     }
 }

@@ -15,13 +15,16 @@ namespace SourceGeneratorToolkit
         /// </summary>
         /// <param name="type">The parameter type</param>
         /// <param name="name">The parameter name</param>
-        public void AddParameter(string type, string name) 
+        public ParameterStatement AddParameter(string type, string name) 
         {
             if(_sourceItems.Any())
             {
                 _sourceItems.Add(new CommaStatement());
             }
-            _sourceItems.Add(new ParameterStatement(type, name));
+            var parameter = new ParameterStatement(type, name);
+            _sourceItems.Add(parameter);
+
+            return parameter;
         }
     }
 }

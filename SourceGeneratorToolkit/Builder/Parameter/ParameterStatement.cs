@@ -3,10 +3,13 @@
     /// <summary>
     /// A container representing a a parameter
     /// </summary>
-    public class ParameterStatement : SourceStatement
+    public class ParameterStatement : SourceContainer, IOutModifier<ParameterStatement>
     {
         /// <inheritdoc/>
         internal override string Name => nameof(ParameterStatement);
+
+        /// <inheritdoc/>
+        public GeneralModifierContainer GeneralModifiers { get; } = new GeneralModifierContainer();
 
         /// <summary>
         /// Constructor for ParameterStatement
@@ -21,7 +24,10 @@
         /// <inheritdoc/>
         public override string ToSource()
         {
-            return SourceText;
+            _sourceItems.Add(GeneralModifiers);
+            _sourceItems.Add(new Statement(SourceText));
+
+            return base.ToSource();
         }
     }
 }

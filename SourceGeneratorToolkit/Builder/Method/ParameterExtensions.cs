@@ -14,10 +14,13 @@ namespace SourceGeneratorToolkit
         /// <param name="base">The parent container</param>
         /// <param name="type">The parameter type</param>
         /// <param name="name">The parameter name</param>
+        /// <param name="builder">The parameter builder</param>
         /// <returns>The parent container</returns>
-        public static TContainer AddParameter<TContainer>(this ISupportsParameters<TContainer> @base, string type, string name) where TContainer : SourceContainer
+        public static TContainer AddParameter<TContainer>(this ISupportsParameters<TContainer> @base, string type, string name, 
+            Action<ParameterStatement> builder = null) where TContainer : SourceContainer
         {
-            @base.ParameterContainer.AddParameter(type, name);
+            var param = @base.ParameterContainer.AddParameter(type, name);
+            builder?.Invoke(param);
 
             return (TContainer)@base;
         }
@@ -29,10 +32,13 @@ namespace SourceGeneratorToolkit
         /// <param name="base">The parent container</param>
         /// <param name="type">The parameter type</param>
         /// <param name="name">The parameter name</param>
+        /// <param name="builder">The parameter builder</param>
         /// <returns>The parent container</returns>
-        public static TContainer AddParameter<TContainer>(this ISupportsParameters<TContainer> @base, Type type, string name) where TContainer : SourceContainer
+        public static TContainer AddParameter<TContainer>(this ISupportsParameters<TContainer> @base, Type type, string name,
+            Action<ParameterStatement> builder = null) where TContainer : SourceContainer
         {
-            @base.ParameterContainer.AddParameter(type.Name, name);
+            var param = @base.ParameterContainer.AddParameter(type.Name, name);
+            builder?.Invoke(param);
 
             return (TContainer)@base;
         }

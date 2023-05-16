@@ -47,6 +47,11 @@ public abstract class Temp//<T> : Task, IDisposable where T : new()
     {
     }
 
+    public void MyMethod(in int value)
+    {
+
+    }
+
     
 }
 
