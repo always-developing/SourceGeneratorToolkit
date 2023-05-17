@@ -145,7 +145,7 @@
         /// <typeparam name="TContainer">The parent container type</typeparam>
         /// <param name="base">The parent container</param>
         /// <returns>The parent container</returns>
-        public static TContainer AsIn<TContainer>(this IOutModifier<TContainer> @base) where TContainer : SourceContainer
+        public static TContainer AsIn<TContainer>(this IInModifier<TContainer> @base) where TContainer : SourceContainer
         {
             @base.GeneralModifiers.ClearModifiers();
             return @base.GeneralModifiers.AsIn((TContainer)@base);
@@ -157,7 +157,7 @@
         /// <typeparam name="TContainer">The parent container type</typeparam>
         /// <param name="base">The parent container</param>
         /// <returns>The parent container</returns>
-        public static TContainer AsRef<TContainer>(this IOutModifier<TContainer> @base) where TContainer : SourceContainer
+        public static TContainer AsRef<TContainer>(this IRefModifier<TContainer> @base) where TContainer : SourceContainer
         {
             @base.GeneralModifiers.ClearModifiers();
             return @base.GeneralModifiers.AsRef((TContainer)@base);

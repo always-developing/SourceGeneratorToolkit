@@ -231,4 +231,73 @@ public class ParameterTests
     }
 }", file);
     }
+
+    [TestMethod]
+    public void Single_Parameter_Default_Value()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.WithMethod("HelloWorld", "void", m =>
+                        {
+                            m.AddParameter("int", "intValue", p =>
+                            {
+                                p.WithDefaultValue("100");
+                            });
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        void HelloWorld(int intValue = 100)
+        {
+        }
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Multi_Parameter_Default_Value()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("myClass", cls =>
+                    {
+                        cls.WithMethod("HelloWorld", "void", m =>
+                        {
+                            m.AddParameter("int", "intValue")
+                            .AddParameter("string", "myString", p =>
+                            {
+                                p.WithDefaultValue(@"""defaultValue""");
+                            });
+                        });
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    class myClass
+    {
+        void HelloWorld(int intValue, string myString = ""defaultValue"")
+        {
+        }
+    }
+}", file);
+    }
 }

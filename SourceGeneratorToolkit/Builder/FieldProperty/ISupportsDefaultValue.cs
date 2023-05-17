@@ -7,6 +7,6 @@
     public interface ISupportsDefaultValue<TContainer> where TContainer : SourceContainer
     {
         /// <inheritdoc/>
-        public DefaultValueContainer DefaultValue{ get; }
+        public DefaultValueContainer DefaultValue { get; }
     }
 }

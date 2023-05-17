@@ -55,18 +55,23 @@ public abstract class Temp//<T> : Task, IDisposable where T : new()
     
 }
 
-public class Temp2 : Temp
+public class Temp2
 {
+    public Temp2(int intValue = 1)
+    {
+        intValue = 1;
+    }
+
+    public Temp2(ref string intValue)
+    {
+    }
+
     protected internal enum Season
     {
         Spring,
         Summer,
         Autumn,
         Winter
-    }
-
-    public Temp2(Action action) : base(action)
-    {
     }
 }
 
