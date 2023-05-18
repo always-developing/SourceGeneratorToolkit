@@ -7,10 +7,17 @@ namespace SourceGeneratorToolkit
 {
     public static class SyntaxNodeExtensions
     {
-        public static bool NodeQualifiesWhen(this SyntaxNode node, Action<SyntaxQualifierBuilder> builder)
+        public static bool NodeQualifiesWhen(this SyntaxNode node, List<SyntaxReceiverResult> results, 
+            Action<SyntaxQualifierBuilder> builder,
+            Func<SyntaxNode, Dictionary<string, object>> customMetadataBuilder = null)
         {
             var syntaxBuilder = new SyntaxQualifierBuilder(node);
             builder.Invoke(syntaxBuilder);
+
+            if(syntaxBuilder.Qualifies)
+            {
+                results.Add(node.BuildResult(customMetadataBuilder));
+            }
 
             return syntaxBuilder.Qualifies;
         }

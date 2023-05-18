@@ -59,27 +59,13 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
         
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
-            var nodeQualifies = syntaxNode.NodeQualifiesWhen(node =>
+            syntaxNode.NodeQualifiesWhen(Results, node =>
             {
                 node.IsClass(c => c
                     .WithName("MyClass")
-                )
-                .WithCheck(checkNode =>
-                {
-                    return true;
-                });
+                    .WithAccessModifier("")
+                );
             });
-
-            if(nodeQualifies)
-            {
-                Results.Add(syntaxNode.BuildResult(r =>
-                {
-                    return new Dictionary<string, object>
-                    {
-                        ["name"] = r.ToFullString()
-                    };
-                }));
-            }
         }
     }
 }

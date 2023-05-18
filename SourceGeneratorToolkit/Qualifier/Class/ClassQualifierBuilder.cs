@@ -11,6 +11,7 @@ namespace SourceGeneratorToolkit
         public ClassQualifierBuilder(SyntaxNode node)
         {
             Node = node;
+            Qualifies = true;
         }
     }
 }

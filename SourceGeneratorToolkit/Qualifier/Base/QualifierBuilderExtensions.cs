@@ -3,6 +3,8 @@ using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace SourceGeneratorToolkit
 {
@@ -10,14 +12,17 @@ namespace SourceGeneratorToolkit
     {
         public static SyntaxQualifierBuilder IsClass(this SyntaxQualifierBuilder syntaxBuilder, Action<ClassQualifierBuilder> builder = null)
         {
-            if (syntaxBuilder.Node is ClassDeclarationSyntax)
+            if (!syntaxBuilder.Node.IsKind(SyntaxKind.ClassDeclaration))
             {
-                syntaxBuilder.Qualifies = true;
+                return syntaxBuilder;
             }
+
+            syntaxBuilder.Qualifies = true;
 
             if (builder != null)
             {
                 var classBuilder = new ClassQualifierBuilder(syntaxBuilder.Node);
+
                 builder?.Invoke(classBuilder);
                 syntaxBuilder.Qualifies = classBuilder.Qualifies;
             }
@@ -25,26 +30,15 @@ namespace SourceGeneratorToolkit
             return syntaxBuilder;
         }
 
-        public static SyntaxQualifierBuilder WithCheck(this SyntaxQualifierBuilder syntaxBuilder, Func<SyntaxNode, bool> builder = null)
+        public static SyntaxQualifierBuilder WithQualifyingCheck(this SyntaxQualifierBuilder syntaxBuilder, Func<SyntaxNode, bool> builder = null)
         {
             if (builder != null)
             {
                 var qualifies = builder.Invoke(syntaxBuilder.Node);
-                if(syntaxBuilder.Qualifies && !qualifies)
+                if (syntaxBuilder.Qualifies && !qualifies)
                 {
                     syntaxBuilder.Qualifies = false;
                 }
-                
-            }
-
-            return syntaxBuilder;
-        }
-
-        public static ClassQualifierBuilder WithName(this ClassQualifierBuilder syntaxBuilder, string className)
-        {
-            if (syntaxBuilder.Node is BaseTypeDeclarationSyntax declaration)
-            {
-                syntaxBuilder.Qualifies = declaration.Identifier.ValueText == className;
             }
 
             return syntaxBuilder;
