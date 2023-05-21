@@ -6,6 +6,7 @@ using System.Text;
 using SourceGeneratorToolkit;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace SourceGeneratorToolkit.SampleAnalyzer
 {
@@ -63,7 +64,7 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
             {
                 node.IsClass(c => c
                     .WithName("MyClass")
-                    .WithAccessModifier("")
+                    .WithAnyAccessModifier(AccessModifier.Public, AccessModifier.PrivateProtected)
                 );
             });
         }
