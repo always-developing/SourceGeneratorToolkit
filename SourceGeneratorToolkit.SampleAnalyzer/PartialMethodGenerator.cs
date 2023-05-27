@@ -7,7 +7,6 @@ using SourceGeneratorToolkit;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
-using SourceGeneratorToolkit.Qualifier.Modifier;
 
 namespace SourceGeneratorToolkit.SampleAnalyzer
 {
@@ -65,7 +64,8 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
             {
                 node.IsClass(c => c
                     .WithName("MyClass")
-                    .WithoutAccessModifier(AccessModifier.Private)
+                    .WithModifier(GeneralModifier.Static)
+                    .IsPublic()
                 );
             });
         }

@@ -10,11 +10,20 @@ namespace SourceGeneratorToolkit
 {
     public static class AccessModifierQualifierExtensions
     {
+        public static TBuilder IsPublic<TBuilder>(this IAccessModifierQualifier<TBuilder> syntaxBuilder)
+            where TBuilder : QualfierBuilder
+        {
+            var qualifierBuilder = syntaxBuilder as QualfierBuilder;
+            return (TBuilder)ModifierHelper.WithModifier(qualifierBuilder, SyntaxKind.PublicKeyword);
+        }
+
         public static TBuilder WithAccessModifier<TBuilder>(this IAccessModifierQualifier<TBuilder> syntaxBuilder, AccessModifier accessModifier)
             where TBuilder : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
-            return (TBuilder)ModifierHelper.WithModifier(qualifierBuilder, accessModifier);
+
+            var modifiers = ModifierHelper.GetSyntaxKindFromAccessModifier(accessModifier);
+            return (TBuilder)ModifierHelper.WithModifiers(qualifierBuilder, modifiers.ToArray());
         }
 
         public static TBuilder WithAccessModifier<TBuilder>(this IAccessModifierQualifier<TBuilder> syntaxBuilder, SyntaxKind accessModifier)
@@ -28,7 +37,19 @@ namespace SourceGeneratorToolkit
             where TBuilder : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
-            return (TBuilder)ModifierHelper.WithoutModifier(qualifierBuilder, accessModifier);
+            var syntaxModifiers = ModifierHelper.GetSyntaxKindFromAccessModifier(accessModifier);
+
+            foreach (var modifier in syntaxModifiers)
+            {
+                ModifierHelper.WithoutModifier(qualifierBuilder, modifier);
+
+                if (!qualifierBuilder.Qualifies)
+                {
+                    return (TBuilder)qualifierBuilder;
+                }
+            }
+
+            return (TBuilder)qualifierBuilder;
         }
 
         public static TBuilder WithoutAccessModifier<TBuilder>(this IAccessModifierQualifier<TBuilder> syntaxBuilder, SyntaxKind accessModifier)
@@ -42,28 +63,51 @@ namespace SourceGeneratorToolkit
             where TBuilder : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
-            return (TBuilder)ModifierHelper.WithModifiers(qualifierBuilder, accessModifiers);
+            foreach (var accessModifier in accessModifiers)
+            {
+                var syntaxModifiers = ModifierHelper.GetSyntaxKindFromAccessModifier(accessModifier);
+
+                foreach (var modifier in syntaxModifiers)
+                {
+                    ModifierHelper.WithModifier(qualifierBuilder, modifier);
+
+                    if (!qualifierBuilder.Qualifies)
+                    {
+                        return (TBuilder)qualifierBuilder;
+                    }
+                }
+            }
+            return (TBuilder)qualifierBuilder;
         }
 
         public static TBuilder WithAccessModifiers<TBuilder>(this IAccessModifierQualifier<TBuilder> syntaxBuilder, params SyntaxKind[] accessModifiers)
             where TBuilder : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
-            return (TBuilder)ModifierHelper.WithAccessModifiers(qualifierBuilder, accessModifiers);
+            return (TBuilder)ModifierHelper.WithModifiers(qualifierBuilder, accessModifiers);
         }
 
         public static TBuilder WithAnyAccessModifier<TBuilder>(this IAccessModifierQualifier<TBuilder> syntaxBuilder, params AccessModifier[] accessModifiers)
             where TBuilder : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
-            return (TBuilder)ModifierHelper.WithAnyAccessModifier(qualifierBuilder, accessModifiers);
+
+            if (!qualifierBuilder.Qualifies)
+            {
+                return (TBuilder)qualifierBuilder;
+            }
+
+            var syntaxModifiers = accessModifiers.ToList()
+                .SelectMany(m => ModifierHelper.GetSyntaxKindFromAccessModifier(m));
+
+            return (TBuilder)ModifierHelper.WithModifiers(qualifierBuilder, syntaxModifiers.ToArray());
         }
 
         public static TBuilder WithAnyAccessModifier<TBuilder>(this IAccessModifierQualifier<TBuilder> syntaxBuilder, params SyntaxKind[] accessModifiers)
              where TBuilder : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
-            return (TBuilder)ModifierHelper.WithAnyAccessModifier(qualifierBuilder, accessModifiers);
+            return (TBuilder)ModifierHelper.WithAnyModifier(qualifierBuilder, accessModifiers);
         }
     }
 }

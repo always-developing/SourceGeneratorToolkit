@@ -28,39 +28,39 @@ namespace SourceGeneratorToolkit
             return qualifierBuilder;
         }
 
-        internal static QualfierBuilder WithModifier(QualfierBuilder qualifierBuilder, AccessModifier accessModifier)
-        {
-            var syntaxModifiers = GetSyntaxKindFromAccessModifier(accessModifier);
+        //internal static QualfierBuilder WithModifier(QualfierBuilder qualifierBuilder, AccessModifier accessModifier)
+        //{
+        //    var syntaxModifiers = GetSyntaxKindFromAccessModifier(accessModifier);
 
-            foreach (var modifier in syntaxModifiers)
-            {
-                WithModifier(qualifierBuilder, modifier);
+        //    foreach (var modifier in syntaxModifiers)
+        //    {
+        //        WithModifier(qualifierBuilder, modifier);
 
-                if (!qualifierBuilder.Qualifies)
-                {
-                    return qualifierBuilder;
-                }
-            }
+        //        if (!qualifierBuilder.Qualifies)
+        //        {
+        //            return qualifierBuilder;
+        //        }
+        //    }
 
-            return qualifierBuilder;
-        }
+        //    return qualifierBuilder;
+        //}
 
-        internal static QualfierBuilder WithoutModifier(QualfierBuilder qualifierBuilder, AccessModifier accessModifier)
-        {
-            var syntaxModifiers = GetSyntaxKindFromAccessModifier(accessModifier);
+        //internal static QualfierBuilder WithoutModifier(QualfierBuilder qualifierBuilder, AccessModifier accessModifier)
+        //{
+        //    var syntaxModifiers = GetSyntaxKindFromAccessModifier(accessModifier);
 
-            foreach (var modifier in syntaxModifiers)
-            {
-                WithoutModifier(qualifierBuilder,modifier);
+        //    foreach (var modifier in syntaxModifiers)
+        //    {
+        //        WithoutModifier(qualifierBuilder,modifier);
 
-                if (!qualifierBuilder.Qualifies)
-                {
-                    return qualifierBuilder;
-                }
-            }
+        //        if (!qualifierBuilder.Qualifies)
+        //        {
+        //            return qualifierBuilder;
+        //        }
+        //    }
 
-            return qualifierBuilder;
-        }
+        //    return qualifierBuilder;
+        //}
 
         internal static QualfierBuilder WithoutModifier(QualfierBuilder qualifierBuilder, SyntaxKind accessModifier) 
         {
@@ -80,27 +80,27 @@ namespace SourceGeneratorToolkit
             return qualifierBuilder;
         }
 
-        internal static QualfierBuilder WithModifiers(QualfierBuilder qualifierBuilder, AccessModifier[] accessModifiers) 
-        {
-            foreach (var accessModifier in accessModifiers)
-            {
-                var syntaxModifiers = GetSyntaxKindFromAccessModifier(accessModifier);
+        //internal static QualfierBuilder WithModifiers(QualfierBuilder qualifierBuilder, AccessModifier[] accessModifiers) 
+        //{
+        //    foreach (var accessModifier in accessModifiers)
+        //    {
+        //        var syntaxModifiers = GetSyntaxKindFromAccessModifier(accessModifier);
 
-                foreach (var modifier in syntaxModifiers)
-                {
-                    //ModifierHelper.WithAccessModifier(syntaxBuilder, modifier);
+        //        foreach (var modifier in syntaxModifiers)
+        //        {
+        //            //ModifierHelper.WithAccessModifier(syntaxBuilder, modifier);
 
-                    if (!qualifierBuilder.Qualifies)
-                    {
-                        return qualifierBuilder;
-                    }
-                }
-            }
+        //            if (!qualifierBuilder.Qualifies)
+        //            {
+        //                return qualifierBuilder;
+        //            }
+        //        }
+        //    }
 
-            return qualifierBuilder;
-        }
+        //    return qualifierBuilder;
+        //}
 
-        internal static QualfierBuilder WithAccessModifiers(QualfierBuilder qualifierBuilder, SyntaxKind[] accessModifiers)
+        internal static QualfierBuilder WithModifiers(QualfierBuilder qualifierBuilder, SyntaxKind[] accessModifiers)
         {
             foreach (var accessModifier in accessModifiers)
             {
@@ -115,19 +115,19 @@ namespace SourceGeneratorToolkit
             return qualifierBuilder;
         }
 
-        internal static QualfierBuilder WithAnyAccessModifier(QualfierBuilder qualifierBuilder, AccessModifier[] accessModifiers) 
-        {
-            if (!qualifierBuilder.Qualifies)
-            {
-                return qualifierBuilder;
-            }
+        //internal static QualfierBuilder WithAnyModifier(QualfierBuilder qualifierBuilder, AccessModifier[] accessModifiers) 
+        //{
+        //    if (!qualifierBuilder.Qualifies)
+        //    {
+        //        return qualifierBuilder;
+        //    }
 
-            var syntaxModifiers = accessModifiers.ToList().SelectMany(m => GetSyntaxKindFromAccessModifier(m));
+        //    var syntaxModifiers = accessModifiers.ToList().SelectMany(m => GetSyntaxKindFromAccessModifier(m));
 
-            return WithAccessModifiers(qualifierBuilder, syntaxModifiers.ToArray());
-        }
+        //    return WithModifiers(qualifierBuilder, syntaxModifiers.ToArray());
+        //}
 
-        internal static QualfierBuilder WithAnyAccessModifier(QualfierBuilder qualifierBuilder, SyntaxKind[] accessModifiers) 
+        internal static QualfierBuilder WithAnyModifier(QualfierBuilder qualifierBuilder, SyntaxKind[] accessModifiers) 
         {
             if (!qualifierBuilder.Qualifies)
             {
@@ -153,7 +153,7 @@ namespace SourceGeneratorToolkit
             return qualifierBuilder;
         }
 
-        private static List<SyntaxKind> GetSyntaxKindFromAccessModifier(AccessModifier accessModifier) => accessModifier switch
+        internal static List<SyntaxKind> GetSyntaxKindFromAccessModifier(AccessModifier accessModifier) => accessModifier switch
         {
             AccessModifier.Public => new List<SyntaxKind> { SyntaxKind.PublicKeyword },
             AccessModifier.Private => new List<SyntaxKind> { SyntaxKind.PrivateKeyword },
@@ -162,5 +162,20 @@ namespace SourceGeneratorToolkit
             AccessModifier.ProtectedInternal => new List<SyntaxKind> { SyntaxKind.ProtectedKeyword, SyntaxKind.InternalKeyword },
             AccessModifier.PrivateProtected => new List<SyntaxKind> { SyntaxKind.ProtectedKeyword, SyntaxKind.PrivateKeyword }
         };
+
+        internal static List<SyntaxKind> GetSyntaxKindFromGeneralModifier(GeneralModifier generalModifier) => generalModifier switch
+        {
+            GeneralModifier.Abstract => new List<SyntaxKind> { SyntaxKind.AbstractKeyword },
+            GeneralModifier.Async => new List<SyntaxKind> { SyntaxKind.AsyncKeyword },
+            GeneralModifier.Override => new List<SyntaxKind> { SyntaxKind.OverrideKeyword },
+            GeneralModifier.Partial => new List<SyntaxKind> { SyntaxKind.PartialKeyword },
+            GeneralModifier.Readonly => new List<SyntaxKind> { SyntaxKind.ReadOnlyKeyword },
+            GeneralModifier.Required => new List<SyntaxKind> { SyntaxKind.RequiredKeyword },
+            GeneralModifier.Sealed => new List<SyntaxKind> { SyntaxKind.SealedKeyword },
+            GeneralModifier.Static => new List<SyntaxKind> { SyntaxKind.StaticKeyword },
+            GeneralModifier.Unsafe => new List<SyntaxKind> { SyntaxKind.UnsafeKeyword },
+            GeneralModifier.Virtual => new List<SyntaxKind> { SyntaxKind.VirtualKeyword}
+        };
+
     }
 }
