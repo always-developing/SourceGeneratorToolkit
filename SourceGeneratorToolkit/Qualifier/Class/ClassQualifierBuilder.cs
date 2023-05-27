@@ -6,7 +6,8 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    public class ClassQualifierBuilder : QualfierBuilder, IAccessModifierQualifier<ClassQualifierBuilder>
+    public class ClassQualifierBuilder : QualfierBuilder, IAccessModifierQualifier<ClassQualifierBuilder>,
+        IGeneralModifierQualifier<ClassQualifierBuilder>
     {
         public ClassQualifierBuilder(SyntaxNode node)
         {
