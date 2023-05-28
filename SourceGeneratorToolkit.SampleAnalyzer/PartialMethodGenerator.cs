@@ -64,7 +64,7 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
             {
                 node.IsClass(c => c
                     .WithName("MyClass")
-                    .WithModifier(GeneralModifier.Static)
+                    .IsNotStatic()
                     .IsNotPrivateProtected()
                 );
             });

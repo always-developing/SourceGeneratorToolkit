@@ -5,7 +5,7 @@ using System.Linq;
 namespace SourceGeneratorToolkit
 {
     /// <summary>
-    /// Extension methods for access modifier
+    /// Extension methods for access modifiers
     /// </summary>
     public static class AccessModifierQualifierExtensions
     {
@@ -327,6 +327,7 @@ namespace SourceGeneratorToolkit
 
             return (TBuilder)ModifierHelper.WithModifier(qualifierBuilder, accessModifier);
         }
+
         /// <summary>
         /// Checks that the syntax does not have the access modifier specified
         /// </summary>
