@@ -9,19 +9,6 @@ namespace SourceGeneratorToolkit
 {
     public static class ClassQualifierExtensions
     {
-        public static ClassQualifierBuilder WithName(this ClassQualifierBuilder syntaxBuilder, string className)
-        {
-            if (!syntaxBuilder.Qualifies)
-            {
-                return syntaxBuilder;
-            }
-
-            if (syntaxBuilder.Node is BaseTypeDeclarationSyntax declaration)
-            {
-                syntaxBuilder.Qualifies = syntaxBuilder.Qualifies && declaration.Identifier.ValueText == className;
-            }
-
-            return syntaxBuilder;
-        }
+        
     }
 }

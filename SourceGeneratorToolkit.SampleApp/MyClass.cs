@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace SourceGeneratorToolkit.SampleApp;
 
-public static class MyClass
+public class MyClass
 {
-
 }
