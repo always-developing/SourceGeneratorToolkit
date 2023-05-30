@@ -29,10 +29,18 @@ namespace SourceGeneratorToolkit
                 return this;
             }
 
-            var methodBuilder = new MethodQualifierBuilder(Node, Qualifies);
+            foreach(var member in cls.Members) 
+            {
+                var methodBuilder = new MethodQualifierBuilder(member, Qualifies);
+                builder(methodBuilder);
 
-            builder.Invoke(methodBuilder);
-
+                if(methodBuilder.Qualifies)
+                {
+                    return this;
+                }
+            }
+            
+            Qualifies = false;
             return this;
         }
     }

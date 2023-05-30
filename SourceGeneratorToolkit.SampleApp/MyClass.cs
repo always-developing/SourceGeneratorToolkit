@@ -8,4 +8,8 @@ namespace SourceGeneratorToolkit.SampleApp;
 
 public class MyClass
 {
+    public void MyMethod()
+    {
+
+    }
 }

@@ -66,10 +66,10 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
                     .WithName("MyClass")
                     .IsNotStatic()
                     .IsNotPrivateProtected()
-                    //.WithMethod(m =>
-                    //{
-                        
-                    //})
+                    .WithMethod(m =>
+                    {
+                        m.WithName("MyMethod");
+                    })
                 );
             });
         }

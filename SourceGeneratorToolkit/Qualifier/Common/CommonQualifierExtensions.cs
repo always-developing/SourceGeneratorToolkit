@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,12 +18,18 @@ namespace SourceGeneratorToolkit
                 return (TParent)syntaxBuilder;
             }
 
-            if (qualifierBuilder.Node is BaseTypeDeclarationSyntax declaration)
-            {
-                qualifierBuilder.Qualifies = qualifierBuilder.Qualifies && declaration.Identifier.ValueText == className;
-            }
+            qualifierBuilder.Qualifies = qualifierBuilder.Qualifies && GetNodeIdentifier(qualifierBuilder.Node) == className;
 
             return (TParent)syntaxBuilder;
         }
+
+        private static string GetNodeIdentifier(SyntaxNode node) =>
+            node switch
+            {
+                BaseTypeDeclarationSyntax baseDeclaration => baseDeclaration.Identifier.ValueText,
+                MethodDeclarationSyntax methodDeclaration => methodDeclaration.Identifier.ValueText,
+                null => string.Empty,
+                _ => string.Empty
+            };
     }
 }
