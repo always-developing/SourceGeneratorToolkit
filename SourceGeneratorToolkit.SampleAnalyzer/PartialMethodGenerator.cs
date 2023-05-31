@@ -7,6 +7,7 @@ using SourceGeneratorToolkit;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp;
+using System.Threading.Tasks;
 
 namespace SourceGeneratorToolkit.SampleAnalyzer
 {
@@ -66,9 +67,12 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
                     .WithName("MyClass")
                     .IsNotStatic()
                     .IsNotPrivateProtected()
+                    .IsPublic()
                     .WithMethod(m =>
                     {
-                        m.WithName("MyMethod");
+                        m.WithName("MyMethod")
+                        .IsAsync()
+                        .WithReturnType(typeof(Task));
                     })
                 );
             });

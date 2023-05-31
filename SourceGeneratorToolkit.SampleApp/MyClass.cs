@@ -8,7 +8,7 @@ namespace SourceGeneratorToolkit.SampleApp;
 
 public class MyClass
 {
-    public void MyMethod()
+    public async Task MyMethod()
     {
 
     }

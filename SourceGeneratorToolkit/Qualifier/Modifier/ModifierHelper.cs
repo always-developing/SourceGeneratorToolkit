@@ -17,88 +17,24 @@ namespace SourceGeneratorToolkit
                 return qualifierBuilder;
             }
 
-            if (qualifierBuilder.Node.IsKind(SyntaxKind.ClassDeclaration))
-            {
-                var declaration = qualifierBuilder.Node as BaseTypeDeclarationSyntax;
-                var modifiers = declaration.Modifiers;
-
-                qualifierBuilder.Qualifies = qualifierBuilder.Qualifies && modifiers.Any(m => m.IsKind(accessModifier));
-            }
+            var modifiers = GetNodeModifiers(qualifierBuilder.Node);
+            qualifierBuilder.Qualifies = qualifierBuilder.Qualifies && modifiers.Any(m => m.IsKind(accessModifier));
 
             return qualifierBuilder;
         }
 
-        //internal static QualfierBuilder WithModifier(QualfierBuilder qualifierBuilder, AccessModifier accessModifier)
-        //{
-        //    var syntaxModifiers = GetSyntaxKindFromAccessModifier(accessModifier);
-
-        //    foreach (var modifier in syntaxModifiers)
-        //    {
-        //        WithModifier(qualifierBuilder, modifier);
-
-        //        if (!qualifierBuilder.Qualifies)
-        //        {
-        //            return qualifierBuilder;
-        //        }
-        //    }
-
-        //    return qualifierBuilder;
-        //}
-
-        //internal static QualfierBuilder WithoutModifier(QualfierBuilder qualifierBuilder, AccessModifier accessModifier)
-        //{
-        //    var syntaxModifiers = GetSyntaxKindFromAccessModifier(accessModifier);
-
-        //    foreach (var modifier in syntaxModifiers)
-        //    {
-        //        WithoutModifier(qualifierBuilder,modifier);
-
-        //        if (!qualifierBuilder.Qualifies)
-        //        {
-        //            return qualifierBuilder;
-        //        }
-        //    }
-
-        //    return qualifierBuilder;
-        //}
-
-        internal static QualfierBuilder WithoutModifier(QualfierBuilder qualifierBuilder, SyntaxKind accessModifier) 
+        internal static QualfierBuilder WithoutModifier(QualfierBuilder qualifierBuilder, SyntaxKind accessModifier)
         {
             if (!qualifierBuilder.Qualifies)
             {
                 return qualifierBuilder;
             }
 
-            if (qualifierBuilder.Node.IsKind(SyntaxKind.ClassDeclaration))
-            {
-                var declaration = qualifierBuilder.Node as BaseTypeDeclarationSyntax;
-                var modifiers = declaration.Modifiers;
-
-                qualifierBuilder.Qualifies = qualifierBuilder.Qualifies && !modifiers.Any(m => m.IsKind(accessModifier));
-            }
+            var modifiers = GetNodeModifiers(qualifierBuilder.Node);
+            qualifierBuilder.Qualifies = qualifierBuilder.Qualifies && !modifiers.Any(m => m.IsKind(accessModifier));
 
             return qualifierBuilder;
         }
-
-        //internal static QualfierBuilder WithModifiers(QualfierBuilder qualifierBuilder, AccessModifier[] accessModifiers) 
-        //{
-        //    foreach (var accessModifier in accessModifiers)
-        //    {
-        //        var syntaxModifiers = GetSyntaxKindFromAccessModifier(accessModifier);
-
-        //        foreach (var modifier in syntaxModifiers)
-        //        {
-        //            //ModifierHelper.WithAccessModifier(syntaxBuilder, modifier);
-
-        //            if (!qualifierBuilder.Qualifies)
-        //            {
-        //                return qualifierBuilder;
-        //            }
-        //        }
-        //    }
-
-        //    return qualifierBuilder;
-        //}
 
         internal static QualfierBuilder WithModifiers(QualfierBuilder qualifierBuilder, SyntaxKind[] accessModifiers)
         {
@@ -115,19 +51,7 @@ namespace SourceGeneratorToolkit
             return qualifierBuilder;
         }
 
-        //internal static QualfierBuilder WithAnyModifier(QualfierBuilder qualifierBuilder, AccessModifier[] accessModifiers) 
-        //{
-        //    if (!qualifierBuilder.Qualifies)
-        //    {
-        //        return qualifierBuilder;
-        //    }
-
-        //    var syntaxModifiers = accessModifiers.ToList().SelectMany(m => GetSyntaxKindFromAccessModifier(m));
-
-        //    return WithModifiers(qualifierBuilder, syntaxModifiers.ToArray());
-        //}
-
-        internal static QualfierBuilder WithAnyModifier(QualfierBuilder qualifierBuilder, SyntaxKind[] accessModifiers) 
+        internal static QualfierBuilder WithAnyModifier(QualfierBuilder qualifierBuilder, SyntaxKind[] accessModifiers)
         {
             if (!qualifierBuilder.Qualifies)
             {
@@ -136,17 +60,14 @@ namespace SourceGeneratorToolkit
 
             var anyQualifies = false;
             foreach (var accessModifier in accessModifiers)
+            {
+                var modifiers = GetNodeModifiers(qualifierBuilder.Node);
 
-                if (qualifierBuilder.Node.IsKind(SyntaxKind.ClassDeclaration))
+                if (modifiers.Any(m => m.IsKind(accessModifier)))
                 {
-                    var declaration = qualifierBuilder.Node as BaseTypeDeclarationSyntax;
-                    var modifiers = declaration.Modifiers;
-
-                    if (modifiers.Any(m => m.IsKind(accessModifier)))
-                    {
-                        anyQualifies = true;
-                    }
+                    anyQualifies = true;
                 }
+            }
 
             qualifierBuilder.Qualifies = anyQualifies;
 
@@ -174,8 +95,17 @@ namespace SourceGeneratorToolkit
             GeneralModifier.Sealed => new List<SyntaxKind> { SyntaxKind.SealedKeyword },
             GeneralModifier.Static => new List<SyntaxKind> { SyntaxKind.StaticKeyword },
             GeneralModifier.Unsafe => new List<SyntaxKind> { SyntaxKind.UnsafeKeyword },
-            GeneralModifier.Virtual => new List<SyntaxKind> { SyntaxKind.VirtualKeyword}
+            GeneralModifier.Virtual => new List<SyntaxKind> { SyntaxKind.VirtualKeyword }
         };
+
+        private static SyntaxTokenList GetNodeModifiers(SyntaxNode node) =>
+            node switch
+            {
+                BaseTypeDeclarationSyntax declaration => declaration.Modifiers,
+                MemberDeclarationSyntax memberDeclatation => memberDeclatation.Modifiers,
+                null => default,
+                _ => default
+            };
 
     }
 }
