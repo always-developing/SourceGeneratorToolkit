@@ -7,41 +7,21 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// The qualifier builder for classes
+    /// </summary>
     public class ClassQualifierBuilder : QualfierBuilder, IAccessModifierQualifier<ClassQualifierBuilder>,
-        IGeneralModifierQualifier<ClassQualifierBuilder>, INameQualifier<ClassQualifierBuilder>
+        IGeneralModifierQualifier<ClassQualifierBuilder>, INameQualifier<ClassQualifierBuilder>, IMethodQualifier<ClassQualifierBuilder>,
+        IAttributeQualifier<ClassQualifierBuilder>
     {
+        /// <summary>
+        /// Construnctor
+        /// </summary>
+        /// <param name="node">The node being checked for qualification</param>
         public ClassQualifierBuilder(SyntaxNode node)
         {
             Node = node;
             Qualifies = true;
-        }
-
-        public ClassQualifierBuilder WithMethod(Action<MethodQualifierBuilder> builder)
-        {
-            if(!(Node is ClassDeclarationSyntax cls))
-            {
-                return this;
-            }
-
-            if (!cls.Members.Any())
-            {
-                Qualifies = false;
-                return this;
-            }
-
-            foreach(var member in cls.Members) 
-            {
-                var methodBuilder = new MethodQualifierBuilder(member, Qualifies);
-                builder(methodBuilder);
-
-                if(methodBuilder.Qualifies)
-                {
-                    return this;
-                }
-            }
-            
-            Qualifies = false;
-            return this;
         }
     }
 }

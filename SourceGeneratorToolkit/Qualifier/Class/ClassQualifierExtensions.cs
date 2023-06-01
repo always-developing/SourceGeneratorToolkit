@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace SourceGeneratorToolkit
 {
+
     public static class ClassQualifierExtensions
     {
         

@@ -36,8 +36,9 @@ namespace SourceGeneratorToolkit
         private static string GetNodeIdentifier(SyntaxNode node) =>
             node switch
             {
-                BaseTypeDeclarationSyntax baseDeclaration => baseDeclaration.Identifier.ValueText,
+                TypeDeclarationSyntax baseDeclaration => baseDeclaration.Identifier.ValueText,
                 MethodDeclarationSyntax methodDeclaration => methodDeclaration.Identifier.ValueText,
+                AttributeSyntax attributeDeclaration => attributeDeclaration.Name.ToString(),
                 null => string.Empty,
                 _ => string.Empty
             };

@@ -1,43 +1,43 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Xml.Linq;
+using System.Linq;
 
 namespace SourceGeneratorToolkit
 {
     /// <summary>
-    /// Extension methods for method related qualfiiers
+    /// Extension methods for attribute related qualifier
     /// </summary>
-    public static class MethodQualifierExtensions
+    public static class AttributeQualifierExtensions
     {
         /// <summary>
-        /// Checks if the node has a method with the specified criteria
+        /// Checks if the node has an attribute with the specified criteria
         /// </summary>
         /// <typeparam name="TBuilder">The parent type</typeparam>
         /// <param name="syntaxBuilder">The qualifier</param>
         /// <param name="builder">The qualifier builder</param>
         /// <returns>The qualifier builder</returns>
-        public static TBuilder WithMethod<TBuilder>(this IMethodQualifier<TBuilder> syntaxBuilder, Action<MethodQualifierBuilder> builder)
+        public static TBuilder WithAttribute<TBuilder>(this IAttributeQualifier<TBuilder> syntaxBuilder, Action<AttributeQualifierBuilder> builder)
             where TBuilder : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
 
-            var members = GetNodeMembers(qualifierBuilder.Node);
+            var attributes = GetNodeAttributes(qualifierBuilder.Node);
 
-            if (!members.Any())
+            if (!attributes.Any())
             {
                 qualifierBuilder.Qualifies = false;
                 return (TBuilder)qualifierBuilder;
             }
 
-            foreach (var member in members)
+            foreach (var attribute in attributes.SelectMany(a => a.Attributes))
             {
-                var methodBuilder = new MethodQualifierBuilder(member, qualifierBuilder.Qualifies);
-                builder(methodBuilder);
+                var attributeBuilder = new AttributeQualifierBuilder(attribute, qualifierBuilder.Qualifies);
+                builder(attributeBuilder);
 
-                if (methodBuilder.Qualifies)
+                if (attributeBuilder.Qualifies)
                 {
                     return (TBuilder)qualifierBuilder;
                 }
@@ -47,10 +47,10 @@ namespace SourceGeneratorToolkit
             return (TBuilder)qualifierBuilder;
         }
 
-        private static SyntaxList<MemberDeclarationSyntax> GetNodeMembers(SyntaxNode node) =>
+        private static SyntaxList<AttributeListSyntax> GetNodeAttributes(SyntaxNode node) =>
             node switch
             {
-                TypeDeclarationSyntax declaration => declaration.Members,
+                TypeDeclarationSyntax declaration => declaration.AttributeLists,
                 null => default,
                 _ => default
             };

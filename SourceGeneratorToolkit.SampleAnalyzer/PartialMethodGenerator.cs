@@ -68,6 +68,10 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
                     .IsNotStatic()
                     .IsNotPrivateProtected()
                     .IsPublic()
+                    .WithAttribute(a =>
+                    {
+                        a.WithName("Serializable");
+                    })
                     .WithMethod(m =>
                     {
                         m.WithName("MyMethod")
