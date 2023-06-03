@@ -3,17 +3,17 @@
 namespace SourceGeneratorToolkit
 {
     /// <summary>
-    /// Qualifier for attributes
+    /// Qualifier for arguments
     /// </summary>
-    public class AttributeQualifierBuilder : QualfierBuilder, INameQualifier<AttributeQualifierBuilder>,
-        IHasArgumentQualifier<AttributeQualifierBuilder>
+    public class ArgumentQualifierBuilder : QualfierBuilder, INameQualifier<ArgumentQualifierBuilder>, 
+        IArgumentQualifier<ArgumentQualifierBuilder>
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="node">The node being tested for qualification</param>
         /// <param name="qualifies">Bool to indicate the starting qualification state</param>
-        public AttributeQualifierBuilder(SyntaxNode node, bool qualifies)
+        public ArgumentQualifierBuilder(SyntaxNode node, bool qualifies)
         {
             Node = node;
             Qualifies = qualifies;

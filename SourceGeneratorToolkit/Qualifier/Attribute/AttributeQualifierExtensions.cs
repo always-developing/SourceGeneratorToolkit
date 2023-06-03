@@ -19,7 +19,7 @@ namespace SourceGeneratorToolkit
         /// <param name="syntaxBuilder">The qualifier</param>
         /// <param name="builder">The qualifier builder</param>
         /// <returns>The qualifier builder</returns>
-        public static TBuilder WithAttribute<TBuilder>(this IAttributeQualifier<TBuilder> syntaxBuilder, Action<AttributeQualifierBuilder> builder)
+        public static TBuilder WithAttribute<TBuilder>(this IHasAttributeQualifier<TBuilder> syntaxBuilder, Action<AttributeQualifierBuilder> builder)
             where TBuilder : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
@@ -51,6 +51,7 @@ namespace SourceGeneratorToolkit
             node switch
             {
                 TypeDeclarationSyntax declaration => declaration.AttributeLists,
+                MethodDeclarationSyntax method => method.AttributeLists,
                 null => default,
                 _ => default
             };

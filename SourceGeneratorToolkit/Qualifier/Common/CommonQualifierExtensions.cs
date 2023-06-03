@@ -39,6 +39,7 @@ namespace SourceGeneratorToolkit
                 TypeDeclarationSyntax baseDeclaration => baseDeclaration.Identifier.ValueText,
                 MethodDeclarationSyntax methodDeclaration => methodDeclaration.Identifier.ValueText,
                 AttributeSyntax attributeDeclaration => attributeDeclaration.Name.ToString(),
+                AttributeArgumentSyntax attributeArgument => attributeArgument.NameColon == null ? string.Empty : attributeArgument.NameColon.Name.Identifier.ValueText,
                 null => string.Empty,
                 _ => string.Empty
             };

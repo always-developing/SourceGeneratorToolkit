@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SourceGeneratorToolkit.SampleApp;
 
-[Serializable]
-[Obsolete]
+
+[Obsolete(message:"error", error:true)]
 public class MyClass
 {
+    [Obsolete(message: "error", error: true)]
     public async Task MyMethod()
     {
 

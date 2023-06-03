@@ -70,12 +70,21 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
                     .IsPublic()
                     .WithAttribute(a =>
                     {
-                        a.WithName("Serializable");
+                        a.WithName("Obsolete");
                     })
                     .WithMethod(m =>
                     {
                         m.WithName("MyMethod")
                         .IsAsync()
+                        .WithAttribute(a =>
+                        {
+                            a.WithName("Obsolete")
+                            .WithArgument(arg =>
+                            {
+                                arg.WithPosition(1)
+                                .WithName("error");
+                            });
+                        })
                         .WithReturnType(typeof(Task));
                     })
                 );

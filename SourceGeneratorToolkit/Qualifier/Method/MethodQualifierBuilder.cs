@@ -9,7 +9,8 @@ namespace SourceGeneratorToolkit
     /// Qualifier for methods
     /// </summary>
     public class MethodQualifierBuilder : QualfierBuilder, IAccessModifierQualifier<MethodQualifierBuilder>,
-        IGeneralModifierQualifier<MethodQualifierBuilder>, INameQualifier<MethodQualifierBuilder>
+        IGeneralModifierQualifier<MethodQualifierBuilder>, INameQualifier<MethodQualifierBuilder>,
+        IHasAttributeQualifier<MethodQualifierBuilder>
     {
         /// <summary>
         /// Constructor

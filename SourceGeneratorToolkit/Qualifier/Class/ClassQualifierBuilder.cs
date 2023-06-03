@@ -12,7 +12,7 @@ namespace SourceGeneratorToolkit
     /// </summary>
     public class ClassQualifierBuilder : QualfierBuilder, IAccessModifierQualifier<ClassQualifierBuilder>,
         IGeneralModifierQualifier<ClassQualifierBuilder>, INameQualifier<ClassQualifierBuilder>, IMethodQualifier<ClassQualifierBuilder>,
-        IAttributeQualifier<ClassQualifierBuilder>
+        IHasAttributeQualifier<ClassQualifierBuilder>
     {
         /// <summary>
         /// Construnctor
