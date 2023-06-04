@@ -30,6 +30,26 @@ namespace SourceGeneratorToolkit
             return syntaxBuilder;
         }
 
+        public static SyntaxQualifierBuilder IsAttribute(this SyntaxQualifierBuilder syntaxBuilder, Action<AttributeQualifierBuilder> builder = null)
+        {
+            if (!syntaxBuilder.Node.IsKind(SyntaxKind.Attribute))
+            {
+                return syntaxBuilder;
+            }
+
+            syntaxBuilder.Qualifies = true;
+
+            if (builder != null)
+            {
+                var attributeBuilder = new AttributeQualifierBuilder(syntaxBuilder.Node, syntaxBuilder.Qualifies);
+
+                builder?.Invoke(attributeBuilder);
+                syntaxBuilder.Qualifies = attributeBuilder.Qualifies;
+            }
+
+            return syntaxBuilder;
+        }
+
         public static SyntaxQualifierBuilder WithQualifyingCheck(this SyntaxQualifierBuilder syntaxBuilder, Func<SyntaxNode, bool> builder = null)
         {
             if (builder != null)

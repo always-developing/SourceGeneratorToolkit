@@ -6,7 +6,7 @@ namespace SourceGeneratorToolkit
     /// Qualifier for attributes
     /// </summary>
     public class AttributeQualifierBuilder : QualfierBuilder, INameQualifier<AttributeQualifierBuilder>,
-        IHasArgumentQualifier<AttributeQualifierBuilder>
+        IHasArgumentQualifier<AttributeQualifierBuilder>, IAttributeQualifier<AttributeQualifierBuilder>
     {
         /// <summary>
         /// Constructor

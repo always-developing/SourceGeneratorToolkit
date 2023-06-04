@@ -63,31 +63,39 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
         {
             syntaxNode.NodeQualifiesWhen(Results, node =>
             {
-                node.IsClass(c => c
-                    .WithName("MyClass")
-                    .IsNotStatic()
-                    .IsNotPrivateProtected()
-                    .IsPublic()
-                    .WithAttribute(a =>
-                    {
-                        a.WithName("Obsolete");
-                    })
-                    .WithMethod(m =>
-                    {
-                        m.WithName("MyMethod")
-                        .IsAsync()
-                        .WithAttribute(a =>
-                        {
-                            a.WithName("Obsolete")
-                            .WithArgument(arg =>
-                            {
-                                arg.WithPosition(1)
-                                .WithName("error");
-                            });
-                        })
-                        .WithReturnType(typeof(Task));
-                    })
-                );
+                node.IsAttribute(att =>
+                {
+                    att.WithName("Obsolete")
+                    .AppliesTo(AttributeAppliesTo.Assembly);
+                });
+
+                #region class example
+                //node.IsClass(c => c
+                //    .WithName("MyClass")
+                //    .IsNotStatic()
+                //    .IsNotPrivateProtected()
+                //    .IsPublic()
+                //    .WithAttribute(a =>
+                //    {
+                //        a.WithName("Obsolete");
+                //    })
+                //    .WithMethod(m =>
+                //    {
+                //        m.WithName("MyMethod")
+                //        .IsAsync()
+                //        .WithAttribute(a =>
+                //        {
+                //            a.WithName("Obsolete")
+                //            .WithArgument(arg =>
+                //            {
+                //                arg.WithPosition(1)
+                //                .WithName("error");
+                //            });
+                //        })
+                //        .WithReturnType(typeof(Task));
+                //    })
+                //);
+                #endregion
             });
         }
     }

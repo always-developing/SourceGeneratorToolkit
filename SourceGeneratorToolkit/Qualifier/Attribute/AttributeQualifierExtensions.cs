@@ -1,8 +1,7 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace SourceGeneratorToolkit
@@ -45,6 +44,54 @@ namespace SourceGeneratorToolkit
 
             qualifierBuilder.Qualifies = false;
             return (TBuilder)qualifierBuilder;
+        }
+
+        public static TParent AppliesTo<TParent>(this IAttributeQualifier<TParent> syntaxBuilder, AttributeAppliesTo appliesTo)
+            where TParent : QualfierBuilder
+        {
+            var qualifierBuilder = syntaxBuilder as QualfierBuilder;
+
+            if (!qualifierBuilder.Qualifies)
+            {
+                return (TParent)syntaxBuilder;
+            }
+
+            var attributes = GetNodeAppliesTo(qualifierBuilder.Node);
+
+            var result = qualifierBuilder.Node.SyntaxTree.GetRoot()
+                .DescendantNodes()
+                .Where(n => n.IsKind(SyntaxKind.ClassDeclaration))
+                .Select(n => n as ClassDeclarationSyntax)
+                .Where(c =>
+                    c.AttributeLists.SelectMany(al => al.Attributes)
+                    .Any(a => a.Span.Start == qualifierBuilder.Node.Span.Start));
+
+            //foreach (var attribute in attributes.SelectMany(a => a.Attributes))
+            //{
+            //    var attributeBuilder = new AttributeQualifierBuilder(attribute, qualifierBuilder.Qualifies);
+            //    builder(attributeBuilder);
+
+            //    if (attributeBuilder.Qualifies)
+            //    {
+            //        return (TBuilder)qualifierBuilder;
+            //    }
+            //}
+
+            qualifierBuilder.Qualifies = false;
+            return (TParent)qualifierBuilder;
+        }
+
+        private static AttributeAppliesTo GetNodeAppliesTo(SyntaxNode node) =>
+            node switch
+            {
+                AttributeSyntax attribute => GetAttributeSyntaxAppliesTo(attribute),
+                _ => default
+            };
+
+        private static AttributeAppliesTo GetAttributeSyntaxAppliesTo(AttributeSyntax attribute)
+        {
+
+            return AttributeAppliesTo.Return;
         }
 
         private static SyntaxList<AttributeListSyntax> GetNodeAttributes(SyntaxNode node) =>
