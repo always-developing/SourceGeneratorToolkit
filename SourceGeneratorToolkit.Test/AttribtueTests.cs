@@ -221,7 +221,7 @@ public class AttribtueTests
     }
 
     [TestMethod]
-    public void Empty_Class_Default_Attribute_AppliesTo()
+    public void Empty_Class_Default_Attribute_Targets()
     {
         var file = SourceGenerator.Generate(gen =>
         {
@@ -233,7 +233,7 @@ public class AttribtueTests
                     {
                         cls.AddAttribute("Serializable", att =>
                         {
-                            att.AppliesTo(AttributeAppliesTo.Method);
+                            att.TargetsType(AttributeTarget.Method);
                         });
                     });
                 });

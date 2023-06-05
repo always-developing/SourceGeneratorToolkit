@@ -46,7 +46,7 @@ namespace SourceGeneratorToolkit
             return (TBuilder)qualifierBuilder;
         }
 
-        public static TParent AppliesTo<TParent>(this IAttributeQualifier<TParent> syntaxBuilder, AttributeAppliesTo appliesTo)
+        public static TParent TargetsType<TParent>(this IAttributeQualifier<TParent> syntaxBuilder, AttributeTarget target)
             where TParent : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
@@ -56,43 +56,46 @@ namespace SourceGeneratorToolkit
                 return (TParent)syntaxBuilder;
             }
 
-            var attributes = GetNodeAppliesTo(qualifierBuilder.Node);
+            var targetData = GetTargetSyntaxData(target);
+            qualifierBuilder.Qualifies = GetQualifyingTargetNodes(targetData.TargetType, qualifierBuilder, targetData.Kind); 
 
-            var result = qualifierBuilder.Node.SyntaxTree.GetRoot()
-                .DescendantNodes()
-                .Where(n => n.IsKind(SyntaxKind.ClassDeclaration))
-                .Select(n => n as ClassDeclarationSyntax)
-                .Where(c =>
-                    c.AttributeLists.SelectMany(al => al.Attributes)
-                    .Any(a => a.Span.Start == qualifierBuilder.Node.Span.Start));
-
-            //foreach (var attribute in attributes.SelectMany(a => a.Attributes))
-            //{
-            //    var attributeBuilder = new AttributeQualifierBuilder(attribute, qualifierBuilder.Qualifies);
-            //    builder(attributeBuilder);
-
-            //    if (attributeBuilder.Qualifies)
-            //    {
-            //        return (TBuilder)qualifierBuilder;
-            //    }
-            //}
-
-            qualifierBuilder.Qualifies = false;
             return (TParent)qualifierBuilder;
         }
 
-        private static AttributeAppliesTo GetNodeAppliesTo(SyntaxNode node) =>
-            node switch
-            {
-                AttributeSyntax attribute => GetAttributeSyntaxAppliesTo(attribute),
-                _ => default
-            };
-
-        private static AttributeAppliesTo GetAttributeSyntaxAppliesTo(AttributeSyntax attribute)
+        private static (SyntaxKind Kind, Type TargetType) GetTargetSyntaxData(AttributeTarget target) => target switch
         {
+            AttributeTarget.Event => (SyntaxKind.EventDeclaration, typeof(EventDeclarationSyntax)),
+            AttributeTarget.Return => (SyntaxKind.ReturnKeyword, typeof(ReturnStatementSyntax)),
+            AttributeTarget.Type => (SyntaxKind.ClassDeclaration, typeof(MemberDeclarationSyntax)),
+            AttributeTarget.Method => (SyntaxKind.MethodDeclaration, typeof(MethodDeclarationSyntax)),
+            AttributeTarget.Param => (SyntaxKind.Parameter, typeof(ParameterSyntax)),
+            AttributeTarget.Assembly => (SyntaxKind.AssemblyKeyword, default),
+            AttributeTarget.Module => (SyntaxKind.ModuleKeyword, default),
+            AttributeTarget.Field => (SyntaxKind.FieldDeclaration, typeof(FieldDeclarationSyntax)),
+            AttributeTarget.Property => (SyntaxKind.PropertyDeclaration, typeof(PropertyDeclarationSyntax)),
+            _ => (default, default)
+        };
 
-            return AttributeAppliesTo.Return;
+
+        private static bool GetQualifyingTargetNodes(Type targetType, QualfierBuilder qualifierBuilder, SyntaxKind syntaxKind)
+        {
+            var result = qualifierBuilder.Node.SyntaxTree.GetRoot()
+                .DescendantNodes()
+                .Where(n => n.IsKind(syntaxKind));
+
+            if(targetType == typeof(MemberDeclarationSyntax))
+            {
+                return result
+                    .Select(n => n as MemberDeclarationSyntax)
+                    .Where(c =>
+                    c.AttributeLists.SelectMany(al => al.Attributes)
+                    .Any(a => a.Span.Start == qualifierBuilder.Node.Span.Start))
+                    .Any();
+            }
+
+            return false;
         }
+
 
         private static SyntaxList<AttributeListSyntax> GetNodeAttributes(SyntaxNode node) =>
             node switch

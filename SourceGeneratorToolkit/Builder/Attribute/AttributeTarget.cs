@@ -3,7 +3,7 @@
     /// <summary>
     /// All valid entity types an attribute can be applied to
     /// </summary>
-    public enum AttributeAppliesTo
+    public enum AttributeTarget
     {
         /// <summary>
         ///The attribute can be applied to an assembly

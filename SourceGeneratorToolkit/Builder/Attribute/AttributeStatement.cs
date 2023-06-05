@@ -14,7 +14,7 @@ namespace SourceGeneratorToolkit
         public ArgumentList Arguments { get; } = new ArgumentList();
 
         /// <inheritdoc/>
-        public AppliesToStatement AttributeAppliesTo { get; internal set; }
+        public TargetsStatement AttributeTarget { get; internal set; }
 
         /// <summary>
         /// Constructor for the AttributeStatement class
@@ -32,9 +32,9 @@ namespace SourceGeneratorToolkit
         {
             _sourceItems.Add(new BracketStartStatement());
 
-            if(AttributeAppliesTo != null)
+            if(AttributeTarget != null)
             {
-                _sourceItems.Add(AttributeAppliesTo);
+                _sourceItems.Add(AttributeTarget);
             }
 
             _sourceItems.Add(new Statement(SourceText));
@@ -54,11 +54,11 @@ namespace SourceGeneratorToolkit
         /// <summary>
         /// Specifies the target type the attribute applies to
         /// </summary>
-        /// <param name="appliesTo">The target type</param>
+        /// <param name="target">The target type</param>
         /// <returns>The attribtue statement</returns>
-        public AttributeStatement AppliesTo(AttributeAppliesTo appliesTo)
+        public AttributeStatement TargetsType(AttributeTarget target)
         {
-            AttributeAppliesTo = new AppliesToStatement(appliesTo);
+            AttributeTarget = new TargetsStatement(target);
             return this;
         }
     }
