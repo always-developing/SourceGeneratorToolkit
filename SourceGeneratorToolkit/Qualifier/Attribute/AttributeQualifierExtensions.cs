@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SourceGeneratorToolkit
@@ -56,25 +57,75 @@ namespace SourceGeneratorToolkit
                 return (TParent)syntaxBuilder;
             }
 
-            var targetData = GetTargetSyntaxData(target);
-            qualifierBuilder.Qualifies = GetQualifyingTargetNodes(targetData.TargetType, qualifierBuilder, targetData.Kind); 
+            var targetDataList = GetTargetSyntaxData(target);
+
+            if(!targetDataList.Any())
+            {
+                qualifierBuilder.Qualifies = false;
+                return (TParent)syntaxBuilder;
+            }
+
+            var qualifies = false;
+            foreach (var targetData in targetDataList)
+            {
+                qualifies = GetQualifyingTargetNodes(targetData.TargetType, qualifierBuilder, targetData.Kind);
+
+                if(!qualifies) 
+                {
+                    break;
+                }
+            }
+            qualifierBuilder.Qualifies = qualifies;
 
             return (TParent)qualifierBuilder;
         }
 
-        private static (SyntaxKind Kind, Type TargetType) GetTargetSyntaxData(AttributeTarget target) => target switch
+        private static List<(SyntaxKind Kind, Type TargetType)> GetTargetSyntaxData(AttributeTarget target)
         {
-            AttributeTarget.Event => (SyntaxKind.EventDeclaration, typeof(EventDeclarationSyntax)),
-            AttributeTarget.Return => (SyntaxKind.ReturnKeyword, typeof(ReturnStatementSyntax)),
-            AttributeTarget.Type => (SyntaxKind.ClassDeclaration, typeof(MemberDeclarationSyntax)),
-            AttributeTarget.Method => (SyntaxKind.MethodDeclaration, typeof(MethodDeclarationSyntax)),
-            AttributeTarget.Param => (SyntaxKind.Parameter, typeof(ParameterSyntax)),
-            AttributeTarget.Assembly => (SyntaxKind.AssemblyKeyword, default),
-            AttributeTarget.Module => (SyntaxKind.ModuleKeyword, default),
-            AttributeTarget.Field => (SyntaxKind.FieldDeclaration, typeof(FieldDeclarationSyntax)),
-            AttributeTarget.Property => (SyntaxKind.PropertyDeclaration, typeof(PropertyDeclarationSyntax)),
-            _ => (default, default)
-        };
+            var targetData = new List<(SyntaxKind, Type)>();
+
+            foreach(var targetType in Enum.GetValues(typeof(AttributeTarget)))
+            {
+                if((target & AttributeTarget.Event) != 0)
+                {
+                    targetData.Add((SyntaxKind.EventDeclaration, typeof(EventDeclarationSyntax)));
+                }
+                if ((target & AttributeTarget.Return) != 0)
+                {
+                    targetData.Add((SyntaxKind.ReturnKeyword, typeof(ReturnStatementSyntax)));
+                }
+                if ((target & AttributeTarget.Type) != 0)
+                {
+                    targetData.Add((SyntaxKind.ClassDeclaration, typeof(MemberDeclarationSyntax)));
+                }
+                if ((target & AttributeTarget.Method) != 0)
+                {
+                    targetData.Add((SyntaxKind.MethodDeclaration, typeof(MethodDeclarationSyntax)));
+                }
+                if ((target & AttributeTarget.Param) != 0)
+                {
+                    targetData.Add((SyntaxKind.Parameter, typeof(ParameterSyntax)));
+                }
+                if ((target & AttributeTarget.Assembly) != 0)
+                {
+                    targetData.Add((SyntaxKind.AssemblyKeyword, default));
+                }
+                if ((target & AttributeTarget.Module) != 0)
+                {
+                    targetData.Add((SyntaxKind.ModuleKeyword, default));
+                }
+                if ((target & AttributeTarget.Field) != 0)
+                {
+                    targetData.Add((SyntaxKind.FieldDeclaration, typeof(FieldDeclarationSyntax)));
+                }
+                if ((target & AttributeTarget.Property) != 0)
+                {
+                    targetData.Add((SyntaxKind.PropertyDeclaration, typeof(PropertyDeclarationSyntax)));
+                }
+            }
+
+            return targetData;
+        }
 
 
         private static bool GetQualifyingTargetNodes(Type targetType, QualfierBuilder qualifierBuilder, SyntaxKind syntaxKind)

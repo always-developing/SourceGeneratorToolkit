@@ -1,8 +1,11 @@
-﻿namespace SourceGeneratorToolkit
+﻿using System;
+
+namespace SourceGeneratorToolkit
 {
     /// <summary>
     /// All valid entity types an attribute can be applied to
     /// </summary>
+    [Flags]
     public enum AttributeTarget
     {
         /// <summary>
