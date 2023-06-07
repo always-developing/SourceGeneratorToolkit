@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace SourceGeneratorToolkit
 {
@@ -56,7 +57,7 @@ namespace SourceGeneratorToolkit
         /// </summary>
         /// <param name="target">The target type</param>
         /// <returns>The attribtue statement</returns>
-        public AttributeStatement TargetsType(AttributeTarget target)
+        public AttributeStatement TargetsType(AttributeTargets target)
         {
             AttributeTarget = new TargetsStatement(target);
             return this;

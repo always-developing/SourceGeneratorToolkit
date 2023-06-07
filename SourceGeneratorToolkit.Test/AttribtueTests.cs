@@ -233,7 +233,7 @@ public class AttribtueTests
                     {
                         cls.AddAttribute("Serializable", att =>
                         {
-                            att.TargetsType(AttributeTarget.Method);
+                            att.TargetsType(AttributeTargets.Method);
                         });
                     });
                 });
@@ -244,6 +244,37 @@ public class AttribtueTests
 {
     [method: Serializable]
     class myClass
+    {
+    }
+}", file);
+    }
+
+    [TestMethod]
+    public void Empty_Class_Attribute_Usage()
+    {
+        var file = SourceGenerator.Generate(gen =>
+        {
+            gen.WithFile("file1", file =>
+            {
+                file.WithNamespace("testns", ns =>
+                {
+                    ns.WithClass("ClassMethodTargetAttribute ", cls =>
+                    {
+                        cls.AddAttribute("AttributeUsage", att =>
+                        {
+                            att.AddArgument("AttributeTargets.Class | AttributeTargets.Method");
+                        })
+                        .AsPublic()
+                        .WithInheritence("Attribute");
+                    });
+                });
+            });
+        }).Build();
+
+        Assert.AreEqual(@"namespace testns
+{
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    public class ClassMethodTargetAttribute : Attribute
     {
     }
 }", file);

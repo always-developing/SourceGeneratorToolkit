@@ -47,7 +47,7 @@ namespace SourceGeneratorToolkit
             return (TBuilder)qualifierBuilder;
         }
 
-        public static TParent TargetsType<TParent>(this IAttributeQualifier<TParent> syntaxBuilder, AttributeTarget target)
+        public static TParent TargetsType<TParent>(this IAttributeQualifier<TParent> syntaxBuilder, AttributeTargets target)
             where TParent : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
@@ -66,9 +66,9 @@ namespace SourceGeneratorToolkit
             }
 
             var qualifies = false;
-            foreach (var targetData in targetDataList)
+            foreach (var (Kind, TargetType) in targetDataList)
             {
-                qualifies = GetQualifyingTargetNodes(targetData.TargetType, qualifierBuilder, targetData.Kind);
+                qualifies = GetQualifyingTargetNodes(TargetType, qualifierBuilder, Kind);
 
                 if(!qualifies) 
                 {
@@ -80,45 +80,49 @@ namespace SourceGeneratorToolkit
             return (TParent)qualifierBuilder;
         }
 
-        private static List<(SyntaxKind Kind, Type TargetType)> GetTargetSyntaxData(AttributeTarget target)
+        private static List<(SyntaxKind Kind, Type TargetType)> GetTargetSyntaxData(AttributeTargets target)
         {
             var targetData = new List<(SyntaxKind, Type)>();
 
-            foreach(var targetType in Enum.GetValues(typeof(AttributeTarget)))
+            foreach(var targetType in Enum.GetValues(typeof(AttributeTargets)))
             {
-                if((target & AttributeTarget.Event) != 0)
+                if((target & AttributeTargets.Event) != 0)
                 {
                     targetData.Add((SyntaxKind.EventDeclaration, typeof(EventDeclarationSyntax)));
                 }
-                if ((target & AttributeTarget.Return) != 0)
+                if ((target & AttributeTargets.ReturnValue) != 0)
                 {
                     targetData.Add((SyntaxKind.ReturnKeyword, typeof(ReturnStatementSyntax)));
                 }
-                if ((target & AttributeTarget.Type) != 0)
+                if ((target & AttributeTargets.Class) != 0)
                 {
                     targetData.Add((SyntaxKind.ClassDeclaration, typeof(MemberDeclarationSyntax)));
                 }
-                if ((target & AttributeTarget.Method) != 0)
+                if ((target & AttributeTargets.Method) != 0)
                 {
                     targetData.Add((SyntaxKind.MethodDeclaration, typeof(MethodDeclarationSyntax)));
                 }
-                if ((target & AttributeTarget.Param) != 0)
+                if ((target & AttributeTargets.Parameter) != 0)
                 {
                     targetData.Add((SyntaxKind.Parameter, typeof(ParameterSyntax)));
                 }
-                if ((target & AttributeTarget.Assembly) != 0)
+                if ((target & AttributeTargets.GenericParameter) != 0)
+                {
+                    targetData.Add((SyntaxKind.GenericName, default));
+                }
+                if ((target & AttributeTargets.Assembly) != 0)
                 {
                     targetData.Add((SyntaxKind.AssemblyKeyword, default));
                 }
-                if ((target & AttributeTarget.Module) != 0)
+                if ((target & AttributeTargets.Module) != 0)
                 {
                     targetData.Add((SyntaxKind.ModuleKeyword, default));
                 }
-                if ((target & AttributeTarget.Field) != 0)
+                if ((target & AttributeTargets.Field) != 0)
                 {
                     targetData.Add((SyntaxKind.FieldDeclaration, typeof(FieldDeclarationSyntax)));
                 }
-                if ((target & AttributeTarget.Property) != 0)
+                if ((target & AttributeTargets.Property) != 0)
                 {
                     targetData.Add((SyntaxKind.PropertyDeclaration, typeof(PropertyDeclarationSyntax)));
                 }

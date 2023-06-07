@@ -1,4 +1,6 @@
-﻿namespace SourceGeneratorToolkit
+﻿using System;
+
+namespace SourceGeneratorToolkit
 {
     /// <summary>
     /// A container representing a type of entity an attribute applies to
@@ -12,7 +14,7 @@
         /// Constructor for the TargetsStatement class
         /// </summary>
         /// <param name="target">An entity type the attribute applies to</param>
-        public TargetsStatement(AttributeTarget target)
+        public TargetsStatement(AttributeTargets target)
         {
             _sourceItems.Add(new Statement(target.ToString().ToLower()));
             _sourceItems.Add(new ColonStatement());

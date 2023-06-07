@@ -66,7 +66,7 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
                 node.IsAttribute(att =>
                 {
                     att.WithName("Obsolete")
-                    .TargetsType(AttributeTarget.Type | AttributeTarget.Assembly);
+                    .TargetsType(AttributeTargets.Class | AttributeTargets.Assembly);
                 });
 
                 #region class example
