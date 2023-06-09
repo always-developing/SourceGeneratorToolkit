@@ -9,8 +9,13 @@ namespace SourceGeneratorToolkit.SampleApp;
 
 
 [Obsolete(message:"error", error:true)]
-public class MyClass //: MyOtherClass
+public class MyClass : ISerializable
 {
+    public void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        throw new NotImplementedException();
+    }
+
     [Obsolete(message: "error", error: true)]
     public async Task MyMethod()
     {

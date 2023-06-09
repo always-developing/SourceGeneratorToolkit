@@ -77,7 +77,7 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
                     .IsNotStatic()
                     .IsNotPrivateProtected()
                     .IsPublic()
-                    //.InheritsFrom("MyOtherClass")
+                    .Implements("ISerializable")
                     .WithAttribute(a =>
                     {
                         a.WithName("Obsolete");
