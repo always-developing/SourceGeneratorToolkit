@@ -58,43 +58,46 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
     class PartialClassSyntaxReceiver : ISyntaxReceiver
     {
         public List<SyntaxReceiverResult> Results { get; set; } = new List<SyntaxReceiverResult>();
-        
+
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
             syntaxNode.NodeQualifiesWhen(Results, node =>
             {
-                node.IsAttribute(att =>
-                {
-                    att.WithName("Obsolete")
-                    .TargetsType(AttributeTargets.Class | AttributeTargets.Assembly);
-                });
+                #region attribute example
+                //node.IsAttribute(att =>
+                //{
+                //    att.WithName("Obsolete")
+                //    .TargetsType(AttributeTargets.Class);
+                //});
+                #endregion
 
                 #region class example
-                //node.IsClass(c => c
-                //    .WithName("MyClass")
-                //    .IsNotStatic()
-                //    .IsNotPrivateProtected()
-                //    .IsPublic()
-                //    .WithAttribute(a =>
-                //    {
-                //        a.WithName("Obsolete");
-                //    })
-                //    .WithMethod(m =>
-                //    {
-                //        m.WithName("MyMethod")
-                //        .IsAsync()
-                //        .WithAttribute(a =>
-                //        {
-                //            a.WithName("Obsolete")
-                //            .WithArgument(arg =>
-                //            {
-                //                arg.WithPosition(1)
-                //                .WithName("error");
-                //            });
-                //        })
-                //        .WithReturnType(typeof(Task));
-                //    })
-                //);
+                node.IsClass(c => c
+                    .WithName("MyClass")
+                    .IsNotStatic()
+                    .IsNotPrivateProtected()
+                    .IsPublic()
+                    //.InheritsFrom("MyOtherClass")
+                    .WithAttribute(a =>
+                    {
+                        a.WithName("Obsolete");
+                    })
+                    .WithMethod(m =>
+                    {
+                        m.WithName("MyMethod")
+                        .IsAsync()
+                        .WithAttribute(a =>
+                        {
+                            a.WithName("Obsolete")
+                            .WithArgument(arg =>
+                            {
+                                arg.WithPosition(1);
+                                //.WithName("error");
+                            });
+                        })
+                        .WithReturnType(typeof(Task));
+                    })
+                );
                 #endregion
             });
         }
