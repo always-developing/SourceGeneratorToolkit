@@ -34,7 +34,7 @@ namespace SourceGeneratorToolkit
 
             foreach (var attribute in attributes.SelectMany(a => a.Attributes))
             {
-                var attributeBuilder = new AttributeQualifierBuilder(attribute, qualifierBuilder.Qualifies);
+                var attributeBuilder = new AttributeQualifierBuilder(attribute, qualifierBuilder.Result, qualifierBuilder.Qualifies);
                 builder(attributeBuilder);
 
                 if (attributeBuilder.Qualifies)

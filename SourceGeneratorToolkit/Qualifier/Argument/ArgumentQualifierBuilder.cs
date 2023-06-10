@@ -13,7 +13,7 @@ namespace SourceGeneratorToolkit
         /// </summary>
         /// <param name="node">The node being tested for qualification</param>
         /// <param name="qualifies">Bool to indicate the starting qualification state</param>
-        public ArgumentQualifierBuilder(SyntaxNode node, bool qualifies)
+        public ArgumentQualifierBuilder(SyntaxNode node,  bool qualifies)
         {
             Node = node;
             Qualifies = qualifies;

@@ -13,11 +13,15 @@ namespace SourceGeneratorToolkit
             Func<SyntaxNode, Dictionary<string, object>> customMetadataBuilder = null)
         {
             var syntaxBuilder = new SyntaxQualifierBuilder(node);
+            syntaxBuilder.Result.Metadata.Add(Metadata.Namespace, node.GetNamespaceRoot());
+
             builder.Invoke(syntaxBuilder);
 
             if(syntaxBuilder.Qualifies)
             {
-                results.Add(node.BuildResult(customMetadataBuilder));
+                //TODO - sort out custom metadata
+                syntaxBuilder.Result.Node = node;
+                results.Add(syntaxBuilder.Result);
             }
 
             return syntaxBuilder.Qualifies;
@@ -26,22 +30,24 @@ namespace SourceGeneratorToolkit
         public static string GetNamespaceRoot(this SyntaxNode node) =>
             node.Parent switch
             {
+                // TODO - does this work on attribute?
                 NamespaceDeclarationSyntax namespaceDeclarationSyntax => namespaceDeclarationSyntax.Name.ToString(),
                 FileScopedNamespaceDeclarationSyntax fsnamespaceDeclarationSyntax => fsnamespaceDeclarationSyntax.Name.ToString(),
                 null => string.Empty, 
                 _ => GetNamespaceRoot(node.Parent)
             };
 
-        public static SyntaxReceiverResult BuildResult(this SyntaxNode node, Func<SyntaxNode, Dictionary<string, object>> customMetadataBuilder = null)
+        public static SyntaxReceiverResult BuildResult(this SyntaxNode node, Dictionary<string, string> metadata, Func<SyntaxNode, Dictionary<string, object>> customMetadataBuilder = null)
         {
-            var metadata = customMetadataBuilder?.Invoke(node);
+            var customMetadata = customMetadataBuilder?.Invoke(node);
 
             return new SyntaxReceiverResult
             {
                 Node = node,
-                Name = GetNodeName(node),
-                Namespace = node.GetNamespaceRoot(),
-                CustomMetadata = metadata
+                Metadata = metadata,
+                CustomMetadata = customMetadata
+                //Name = GetNodeName(node),
+                //Namespace = node.GetNamespaceRoot(),
             };
         }
 

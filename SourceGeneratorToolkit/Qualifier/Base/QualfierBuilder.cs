@@ -11,5 +11,7 @@ namespace SourceGeneratorToolkit
         internal bool Qualifies { get; set; } = false;
 
         internal SyntaxNode Node { get; set; }
+
+        internal SyntaxReceiverResult Result { get; set; } = new SyntaxReceiverResult();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 
@@ -28,7 +29,8 @@ namespace SourceGeneratorToolkit
                 return (TParent)syntaxBuilder;
             }
 
-            qualifierBuilder.Qualifies = qualifierBuilder.Qualifies && name.Equals(GetNodeIdentifier(qualifierBuilder.Node), comparison);
+            var identifier = GetNodeIdentifier(qualifierBuilder.Node);
+            qualifierBuilder.Qualifies = qualifierBuilder.Qualifies && name.Equals(identifier, comparison);
 
             return (TParent)syntaxBuilder;
         }
