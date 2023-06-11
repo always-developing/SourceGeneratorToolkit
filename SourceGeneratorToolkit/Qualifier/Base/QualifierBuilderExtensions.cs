@@ -21,7 +21,7 @@ namespace SourceGeneratorToolkit
 
             if (builder != null)
             {
-                var classBuilder = new ClassQualifierBuilder(syntaxBuilder.Node, syntaxBuilder.Result);
+                var classBuilder = new ClassQualifierBuilder(syntaxBuilder.Node);
 
                 builder?.Invoke(classBuilder);
                 syntaxBuilder.Qualifies = classBuilder.Qualifies;
@@ -41,7 +41,7 @@ namespace SourceGeneratorToolkit
 
             if (builder != null)
             {
-                var attributeBuilder = new AttributeQualifierBuilder(syntaxBuilder.Node, syntaxBuilder.Result, syntaxBuilder.Qualifies);
+                var attributeBuilder = new AttributeQualifierBuilder(syntaxBuilder.Node, syntaxBuilder.Qualifies);
 
                 builder?.Invoke(attributeBuilder);
                 syntaxBuilder.Qualifies = attributeBuilder.Qualifies;

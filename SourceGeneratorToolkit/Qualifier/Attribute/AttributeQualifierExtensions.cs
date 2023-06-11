@@ -34,7 +34,7 @@ namespace SourceGeneratorToolkit
 
             foreach (var attribute in attributes.SelectMany(a => a.Attributes))
             {
-                var attributeBuilder = new AttributeQualifierBuilder(attribute, qualifierBuilder.Result, qualifierBuilder.Qualifies);
+                var attributeBuilder = new AttributeQualifierBuilder(attribute, qualifierBuilder.Qualifies);
                 builder(attributeBuilder);
 
                 if (attributeBuilder.Qualifies)
@@ -84,7 +84,7 @@ namespace SourceGeneratorToolkit
         {
             var targetData = new List<(SyntaxKind, Type)>();
 
-            foreach(var targetType in Enum.GetValues(typeof(AttributeTargets)))
+            foreach(var _ in Enum.GetValues(typeof(AttributeTargets)))
             {
                 if((target & AttributeTargets.Event) != 0)
                 {

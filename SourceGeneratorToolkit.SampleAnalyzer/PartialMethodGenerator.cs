@@ -28,11 +28,13 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
             {
                 foreach (var result in syntaxReceiver.Results)
                 {
-                    context.GenerateSource($"{result[Metadata.ClassName]}1", fileBuilder =>
+                    var cls = result.Node.AsClass();
+
+                    context.GenerateSource($"{cls.GetNamespace()}1", fileBuilder =>
                     {
-                        fileBuilder.WithNamespace($"{result[Metadata.Namespace]}2", nsBuilder =>
+                        fileBuilder.WithNamespace($"{cls.GetNamespace()}2", nsBuilder =>
                         {
-                            nsBuilder.WithClass($"{result[Metadata.ClassName]}3", clsBuilder =>
+                            nsBuilder.WithClass($"{cls.GetName()}3", clsBuilder =>
                             {
                                 clsBuilder.AsPublic();
 

@@ -35,7 +35,7 @@ namespace SourceGeneratorToolkit
             return (TParent)syntaxBuilder;
         }
 
-        private static string GetNodeIdentifier(SyntaxNode node) =>
+        internal static string GetNodeIdentifier(SyntaxNode node) =>
             node switch
             {
                 TypeDeclarationSyntax baseDeclaration => baseDeclaration.Identifier.ValueText,

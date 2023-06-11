@@ -5,32 +5,19 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// The result of a qualifiying node
+    /// </summary>
     public class SyntaxReceiverResult
     {
+        /// <summary>
+        ///  The qualifying node
+        /// </summary>
         public SyntaxNode Node { get; set; }
 
-        //public string this[string key]
-        //{
-        //    get => GetMetadataFromKey(key);
-        //}
-
-        //public Dictionary<string, string> Metadata { get; set; } = new Dictionary<string, string>();
-
+        /// <summary>
+        /// Custom metadata configured by the caller
+        /// </summary>
         public Dictionary<string, object> CustomMetadata { get; set; }
-
-        //private string GetMetadataFromKey(string key)
-        //{
-        //    if(Metadata.TryGetValue(key, out var value))
-        //    {
-        //        return value;
-        //    }
-
-        //    if (CustomMetadata!= null && CustomMetadata.TryGetValue(key, out var customValue))
-        //    {
-        //        return customValue.ToString();
-        //    }
-
-        //    return string.Empty;
-        //}
     }
 }

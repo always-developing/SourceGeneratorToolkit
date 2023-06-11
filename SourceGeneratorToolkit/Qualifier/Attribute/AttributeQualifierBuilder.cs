@@ -13,16 +13,12 @@ namespace SourceGeneratorToolkit
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="node">The node being tested for qualification</param>
+        /// <param name="node">The node being tested</param>
         /// <param name="qualifies">Bool to indicate the starting qualification state</param>
-        public AttributeQualifierBuilder(SyntaxNode node, SyntaxReceiverResult result, bool qualifies)
+        public AttributeQualifierBuilder(SyntaxNode node, bool qualifies)
         {
             Node = node;
             Qualifies = qualifies;
-            Result = result;
-
-            //var attributeDeclaration = node as AttributeSyntax;
-            //Result.Metadata.Add(Metadata.ClassName, attributeDeclaration.Name.ToString());
         }
     }
 }
