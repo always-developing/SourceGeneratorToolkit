@@ -18,7 +18,8 @@ namespace SourceGeneratorToolkit
         /// <returns>The parent container</returns>
         public static TContainer WithClass<TContainer>(this ISupportsClasses<TContainer> @base, string className, Action<ClassContainer> builder) where TContainer : SourceContainer
         {
-            var classContainer = new ClassContainer(className);
+            var classContainer = new ClassContainer(className, ((SourceContainer)@base).Configuration);
+            classContainer.AddGenerateCodeAttribute();
 
             ((SourceContainer)@base)._sourceItems.Add(classContainer);
             builder.Invoke(classContainer);
@@ -36,7 +37,7 @@ namespace SourceGeneratorToolkit
         /// <returns>The parent container</returns>
         public static TContainer WithStruct<TContainer>(this ISupportsStructs<TContainer> @base, string structName, Action<StructContainer> builder) where TContainer : SourceContainer
         {
-            var structContainer = new StructContainer(structName);
+            var structContainer = new StructContainer(structName, ((SourceContainer)@base).Configuration);
 
             ((SourceContainer)@base)._sourceItems.Add(structContainer);
             builder.Invoke(structContainer);
@@ -54,7 +55,7 @@ namespace SourceGeneratorToolkit
         /// <returns>The parent container</returns>
         public static TContainer WithRecord<TContainer>(this ISupportsRecords<TContainer> @base, string recordName, Action<RecordContainer> builder) where TContainer : SourceContainer
         {
-            var recordContainer = new RecordContainer(recordName);
+            var recordContainer = new RecordContainer(recordName, ((SourceContainer)@base).Configuration);
 
             ((SourceContainer)@base)._sourceItems.Add(recordContainer);
             builder.Invoke(recordContainer);

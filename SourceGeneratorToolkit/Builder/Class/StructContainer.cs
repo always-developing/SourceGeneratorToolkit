@@ -39,9 +39,11 @@ namespace SourceGeneratorToolkit
         /// Constructor for the StructContainer class
         /// </summary>
         /// <param name="structName">The struct name</param>
-        public StructContainer(string structName)
+        /// <param name="configuration">The build configuration to be used for the build</param>
+        public StructContainer(string structName, BuilderConfiguration configuration)
         {
             SourceText = structName;
+            Configuration = configuration;
         }
 
         /// <inheritdoc/>

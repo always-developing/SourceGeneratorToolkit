@@ -23,6 +23,11 @@ namespace SourceGeneratorToolkit
         internal string SourceText { get; set; }
 
         /// <summary>
+        /// The specific configuration for this build
+        /// </summary>
+        internal BuilderConfiguration Configuration { get; set; }
+
+        /// <summary>
         /// Convert the container (represented by a list of statements) or statement into C# source code
         /// </summary>
         /// <returns>A string representing the source code</returns>

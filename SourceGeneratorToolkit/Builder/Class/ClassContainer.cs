@@ -53,9 +53,11 @@ namespace SourceGeneratorToolkit
         /// Contructor for the class container
         /// </summary>
         /// <param name="className">The class name</param>
-        public ClassContainer(string className)
+        /// <param name="configuration">The build configuration to be used for the build</param>
+        public ClassContainer(string className, BuilderConfiguration configuration)
         {
             SourceText = className;
+            Configuration = configuration;
         }
 
         /// <inheritdoc/>

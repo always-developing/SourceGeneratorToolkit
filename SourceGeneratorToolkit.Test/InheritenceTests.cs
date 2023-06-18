@@ -28,6 +28,7 @@ public class InheritenceTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass : StringBuilder
     {
     }
@@ -53,6 +54,7 @@ public class InheritenceTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass : StringBuilder
     {
     }
@@ -80,6 +82,7 @@ public class InheritenceTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass : Task
     {
     }

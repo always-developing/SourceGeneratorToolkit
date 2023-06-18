@@ -1,6 +1,5 @@
 ﻿using ns;
-//using SourceGeneratorToolkit.SampleApp2;
-
+using SourceGeneratorToolkit.SampleApp2;
 
 // See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");

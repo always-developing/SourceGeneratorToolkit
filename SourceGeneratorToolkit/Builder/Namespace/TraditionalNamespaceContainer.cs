@@ -14,7 +14,8 @@ namespace SourceGeneratorToolkit
         /// Creates a traditional namespace
         /// </summary>
         /// <param name="namespace">The name of the namespace</param>
-        public TraditionalNamespaceContainer(string @namespace) : base(@namespace)
+        /// <param name="configuration">The build configuration</param>
+        public TraditionalNamespaceContainer(string @namespace, BuilderConfiguration configuration) : base(@namespace, configuration)
         {
         }
 

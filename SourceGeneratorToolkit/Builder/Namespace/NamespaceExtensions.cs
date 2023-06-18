@@ -17,7 +17,7 @@ namespace SourceGeneratorToolkit
         /// <returns>The file container</returns>
         public static TContainer WithNamespace<TContainer>(this ISupportsNamespaces<TContainer> @base, string @namespace, Action<NamespaceContainer> builder) where TContainer : SourceContainer
         {
-            var ns = new TraditionalNamespaceContainer(@namespace);
+            var ns = new TraditionalNamespaceContainer(@namespace, ((SourceContainer)@base).Configuration);
             ((SourceContainer)@base)._sourceItems.Add(ns);
 
             builder.Invoke(ns);
@@ -35,7 +35,7 @@ namespace SourceGeneratorToolkit
         /// <returns>The file container</returns>
         public static TContainer WithFilescopedNamespace<TContainer>(this ISupportsNamespaces<TContainer> @base, string @namespace, Action<NamespaceContainer> builder) where TContainer : SourceContainer
         {
-            var ns = new FilescopedNamespaceContainer(@namespace);
+            var ns = new FilescopedNamespaceContainer(@namespace, ((SourceContainer)@base).Configuration);
             ((SourceContainer)@base)._sourceItems.Add(ns);
 
             builder.Invoke(ns);

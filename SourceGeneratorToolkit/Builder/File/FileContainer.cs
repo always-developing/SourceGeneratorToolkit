@@ -23,9 +23,11 @@ namespace SourceGeneratorToolkit
         /// Creates a source generated file instance with the given file name
         /// </summary>
         /// <param name="fileName">The name of the file</param>
-        public FileContainer(string fileName)
+        /// <param name="configuration">The build configuration to be used for the build</param>
+        public FileContainer(string fileName, BuilderConfiguration configuration)
         {
             SourceText = fileName;
+            Configuration = configuration;
         }
 
         /// <inheritdoc/>

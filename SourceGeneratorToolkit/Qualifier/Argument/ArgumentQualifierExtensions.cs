@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SourceGeneratorToolkit
 {
-    // <summary>
+    /// <summary>
     /// Extension methods for argument related qualifier
     /// </summary>
     public static class ArgumentQualifierExtensions

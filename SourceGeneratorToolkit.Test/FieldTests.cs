@@ -29,6 +29,7 @@ public class FieldTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         int myIntField;
@@ -60,6 +61,7 @@ public class FieldTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         public int myIntField = 100;
@@ -91,6 +93,7 @@ public class FieldTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         internal string myStringField = ""value"";
@@ -123,6 +126,7 @@ public class FieldTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         protected readonly int myIntField = 100;
@@ -156,6 +160,7 @@ public class FieldTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         internal static readonly int myIntField = 100;
@@ -182,6 +187,7 @@ public class FieldTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     interface IMyInterface
     {
         int myIntField;

@@ -16,9 +16,11 @@ namespace SourceGeneratorToolkit
         /// Creates a namespace namespace
         /// </summary>
         /// <param name="namespace">The name of the namespace</param>
-        public NamespaceContainer(string @namespace)
+        /// <param name="configuration">The build configuration</param>
+        public NamespaceContainer(string @namespace, BuilderConfiguration configuration)
         {
             SourceText = @namespace;
+            Configuration = configuration;
         }
     
     }

@@ -44,9 +44,11 @@ namespace SourceGeneratorToolkit
         /// Constructor for InterfaceContainer
         /// </summary>
         /// <param name="interfaceName">The interface name</param>
-        public InterfaceContainer(string interfaceName)
+        /// <param name="configuration">The builder configuration</param>
+        public InterfaceContainer(string interfaceName, BuilderConfiguration configuration)
         {
             SourceText = interfaceName;
+            Configuration = configuration;
         }
 
         /// <inheritdoc/>

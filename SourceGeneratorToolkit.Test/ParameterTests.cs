@@ -31,6 +31,7 @@ public class ParameterTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void HelloWorld(int intValue)
@@ -63,6 +64,7 @@ public class ParameterTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void HelloWorld(int intValue, string myString)
@@ -95,6 +97,7 @@ public class ParameterTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void HelloWorld(in int intValue, string myString)
@@ -127,6 +130,7 @@ public class ParameterTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void HelloWorld(int intValue, out string myString)
@@ -159,6 +163,7 @@ public class ParameterTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void HelloWorld(ref int intValue, ref string myString)
@@ -191,6 +196,7 @@ public class ParameterTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void HelloWorld(out int intValue, string myString)
@@ -223,6 +229,7 @@ public class ParameterTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void HelloWorld(ref int intValue, out string myString)
@@ -257,6 +264,7 @@ public class ParameterTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void HelloWorld(int intValue = 100)
@@ -292,6 +300,7 @@ public class ParameterTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void HelloWorld(int intValue, string myString = ""defaultValue"")

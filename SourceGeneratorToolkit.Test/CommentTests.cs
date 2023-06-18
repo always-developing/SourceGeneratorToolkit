@@ -48,6 +48,7 @@ public class CommentTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
     // A description about the class
@@ -77,6 +78,7 @@ public class CommentTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         myClass()
@@ -106,6 +108,7 @@ public class CommentTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     interface IMyInterface
     {
     // comment for interface
@@ -139,6 +142,7 @@ public class CommentTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     public interface IMyInterface
     {
         void MyMethod()
@@ -173,6 +177,7 @@ public class CommentTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         public async Task HelloWorld()

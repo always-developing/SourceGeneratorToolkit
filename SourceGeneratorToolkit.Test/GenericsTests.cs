@@ -28,6 +28,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass<T>
     {
     }
@@ -55,6 +56,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass<T, T2>
     {
     }
@@ -82,6 +84,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass<T>
         where T : new()
     {
@@ -111,6 +114,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass<T>
         where T : new(), ITemp
     {
@@ -140,6 +144,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass<T, T1>
         where T : new()
     {
@@ -171,6 +176,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass<T, T1>
         where T : new(), ITemp where T1 : new()
     {
@@ -201,6 +207,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass<T> : StringBuilder where T : new(), ITemp
     {
     }
@@ -232,6 +239,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass<T, T1> : Task where T : new(), ITemp where T1 : new()
     {
     }
@@ -260,6 +268,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void Hello<T>()
@@ -293,6 +302,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         void Hello<T, T1, T2>()
@@ -326,6 +336,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         internal void myMethod<T>()
@@ -361,6 +372,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         static void myMethod<T>()
@@ -397,6 +409,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         private void myMethod<T, T1>()
@@ -436,6 +449,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         protected void myMethod<T, T1, T2>()
@@ -475,6 +489,7 @@ public class GenericsTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         protected void myMethod<T, T1, T2>()

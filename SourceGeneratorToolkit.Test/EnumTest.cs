@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SourceGeneratorToolkit.Test;
 
 [TestClass]
-public class EnumText
+public class EnumTest
 {
     [TestMethod]
     public void Enum_No_Values()

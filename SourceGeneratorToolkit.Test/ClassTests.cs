@@ -26,6 +26,7 @@ public class ClassTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
     }
@@ -43,7 +44,8 @@ public class ClassTests
             });
         }).Build();
 
-        Assert.AreEqual(@"class myClass
+        Assert.AreEqual(@"[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+class myClass
 {
 }", file);
     }
@@ -62,6 +64,7 @@ public class ClassTests
 
         Assert.AreEqual(@"using System;
 
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 class myClass
 {
 }", file);
@@ -82,6 +85,7 @@ class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 class myClass
 {
 }", file);
@@ -106,6 +110,7 @@ class myClass
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     public class myClass
     {
     }
@@ -131,6 +136,7 @@ class myClass
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     private class myClass
     {
     }
@@ -156,6 +162,7 @@ class myClass
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     internal class myClass
     {
     }
@@ -181,6 +188,7 @@ class myClass
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     protected class myClass
     {
     }
@@ -206,6 +214,7 @@ class myClass
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     file class myClass
     {
     }
@@ -230,6 +239,7 @@ class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 public class myClass
 {
 }", file);
@@ -253,6 +263,7 @@ public class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 private class myClass
 {
 }", file);
@@ -278,6 +289,7 @@ private class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 private abstract class myClass
 {
 }", file);
@@ -304,6 +316,7 @@ private abstract class myClass
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     public abstract class myClass
     {
     }
@@ -331,6 +344,7 @@ private abstract class myClass
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     public static class myClass
     {
     }
@@ -358,6 +372,7 @@ private abstract class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 protected partial static class myClass
 {
 }", file);
@@ -385,6 +400,7 @@ protected partial static class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 protected partial sealed static class myClass
 {
 }", file);
@@ -410,6 +426,7 @@ protected partial sealed static class myClass
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 unsafe static class myClass
 {
 }", file);

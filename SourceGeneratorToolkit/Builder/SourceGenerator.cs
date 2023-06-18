@@ -34,9 +34,9 @@ namespace SourceGeneratorToolkit
         /// Invokes the generation actions to build and output the source code
         /// </summary>
         /// <returns>The generated, formatted source code</returns>
-        public string Build()
+        public string Build(BuilderConfiguration configuration = null)
         {
-            var gen = new Generator();
+            var gen = new Generator(configuration ?? new BuilderConfiguration());
             _rootGenerator.Invoke(gen);
 
             return CSharpSyntaxTree.ParseText(gen.ToSource()).GetRoot().NormalizeWhitespace().SyntaxTree.GetText().ToString();
@@ -49,7 +49,7 @@ namespace SourceGeneratorToolkit
         /// <returns>The source code heirarchy</returns>
         public string ToTree()
         {
-            var gen = new Generator();
+            var gen = new Generator(default);
             _rootGenerator.Invoke(gen);
 
             return gen.ToTree(1);

@@ -25,6 +25,7 @@ public class InterfaceTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     interface IMyInterface
     {
     }
@@ -50,6 +51,7 @@ public class InterfaceTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     public interface IMyInterface
     {
     }
@@ -78,6 +80,7 @@ public class InterfaceTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     public interface IMyInterface
     {
         void MyMethod();
@@ -110,6 +113,7 @@ public class InterfaceTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     public interface IMyInterface
     {
         public int MyMethod();
@@ -142,6 +146,7 @@ public class InterfaceTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     public interface IMyInterface
     {
         public Task<int> MyMethod();
@@ -174,6 +179,7 @@ public class InterfaceTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     public interface IMyInterface
     {
         private int MyMethod();
@@ -205,6 +211,7 @@ public class InterfaceTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     public interface IMyInterface
     {
         void MyMethod()

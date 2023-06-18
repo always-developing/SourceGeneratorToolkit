@@ -35,6 +35,7 @@ public class DocumentationTests
     /// <summary>
     /// Description for 'myClass'
     /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
     }
@@ -62,6 +63,7 @@ public class DocumentationTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
     }
@@ -94,6 +96,7 @@ public class DocumentationTests
     /// Summary line 1
     /// Summary line 2
     /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
     }
@@ -128,6 +131,7 @@ public class DocumentationTests
     /// Description for 'myClass'
     /// </summary>
     /// <param name = ""NoParam"">Class still allows params</param>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
     }
@@ -162,6 +166,7 @@ public class DocumentationTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         /// <summary>
@@ -203,6 +208,7 @@ public class DocumentationTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         /// <summary>
@@ -246,6 +252,7 @@ public class DocumentationTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         /// <summary>
@@ -292,6 +299,7 @@ public class DocumentationTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
         /// <summary>

@@ -13,6 +13,15 @@ namespace SourceGeneratorToolkit
         internal override string Name => nameof(Generator);
 
         /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="configuration">The configuration to be used for the build</param>
+        public Generator(BuilderConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        /// <summary>
         /// Adds a file to the base generator
         /// </summary>
         /// <param name="fileName">The filename</param>
@@ -20,7 +29,7 @@ namespace SourceGeneratorToolkit
         /// <returns>The generator</returns>
         public Generator WithFile(string fileName, Action<FileContainer> builder)
         {
-            var internalFile = new FileContainer(fileName);
+            var internalFile = new FileContainer(fileName, Configuration);
             _sourceItems.Add(internalFile);
 
             builder.Invoke(internalFile);

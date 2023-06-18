@@ -3,6 +3,7 @@
 
 using SourceGeneratorToolkit;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace SourceGeneratorToolkit.Test
 {
+    [GeneratedCode("SourceGeneratorToolKit", "2.0.0")]
     public unsafe struct MyStruct<T> where T : new()
     {
         public static async Task<int> GetInt()

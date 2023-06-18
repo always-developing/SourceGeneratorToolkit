@@ -57,9 +57,11 @@ namespace SourceGeneratorToolkit
         /// Constructor for RecordContainer class
         /// </summary>
         /// <param name="recordName">The record name</param>
-        public RecordContainer(string recordName)
+        /// <param name="configuration">The build configuration to be used for the build</param>
+        public RecordContainer(string recordName, BuilderConfiguration configuration)
         {
             SourceText = recordName;
+            Configuration = configuration;
         }
 
         /// <inheritdoc/>
