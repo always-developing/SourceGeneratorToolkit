@@ -14,5 +14,11 @@ namespace SourceGeneratorToolkit
         ///  Default is true
         /// </summary>
         public bool OutputGeneratedCodeAttribute { get; set; } = true;
+
+        /// <summary>
+        /// Flag to indicate if the DebuggerStepThroughAttribute should be output on generated code
+        ///  Default is false
+        /// </summary>
+        public bool OutputDebuggerStepThroughAttribute { get; set; } = false;
     }
 }

@@ -18,7 +18,7 @@ namespace SourceGeneratorToolkit
         public static TContainer WithInterface<TContainer>(this ISupportsInterfaces<TContainer> @base, string interfaceName, Action<InterfaceContainer> builder) where TContainer : SourceContainer
         {
             var interfaceContainer = new InterfaceContainer(interfaceName, ((SourceContainer)@base).Configuration);
-            interfaceContainer.AddGenerateCodeAttribute();
+            interfaceContainer.AddBuildConfigurationOptions();
 
             ((SourceContainer)@base)._sourceItems.Add(interfaceContainer);
             builder.Invoke(interfaceContainer);
