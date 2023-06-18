@@ -31,9 +31,11 @@ namespace SourceGeneratorToolkit
         /// Constructor for the EnumContainer class
         /// </summary>
         /// <param name="enumName">The enum name</param>
-        public EnumContainer(string enumName)
+        /// <param name="configuration">The build configuration settings</param>
+        public EnumContainer(string enumName, BuilderConfiguration configuration)
         {
             SourceText = enumName;
+            Configuration = configuration;
         }
 
         /// <summary>
@@ -41,10 +43,12 @@ namespace SourceGeneratorToolkit
         /// </summary>
         /// <param name="enumName">The enum name</param>
         /// <param name="type">The enum type</param>
-        public EnumContainer(string enumName, string type)
+        /// <param name="configuration">The build configuration settings</param>
+        public EnumContainer(string enumName, string type, BuilderConfiguration configuration)
         {
             SourceText = enumName;
             EnumType = new EnumTypeStatement(type);
+            Configuration = configuration;
         }
 
         /// <summary>

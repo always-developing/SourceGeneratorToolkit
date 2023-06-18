@@ -25,6 +25,7 @@ public class StructTests
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     struct TestStruct
     {
     }
@@ -49,6 +50,7 @@ public class StructTests
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 public struct TestStruct
 {
 }", file);
@@ -73,6 +75,7 @@ public struct TestStruct
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 internal readonly struct TestStruct
 {
 }", file);
@@ -100,6 +103,7 @@ internal readonly struct TestStruct
         }).Build();
 
         Assert.AreEqual(@"namespace testns;
+[System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
 public struct TestStruct
 {
     public async Task<int> GetIntAsync()

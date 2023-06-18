@@ -16,6 +16,21 @@ namespace SourceGeneratorToolkit
             AddGenerateAttribute<InterfaceContainer>(container);
         }
 
+        internal static void AddGenerateCodeAttribute(this EnumContainer container)
+        {
+            AddGenerateAttribute<EnumContainer>(container);
+        }
+
+        internal static void AddGenerateCodeAttribute(this RecordContainer container)
+        {
+            AddGenerateAttribute<RecordContainer>(container);
+        }
+
+        internal static void AddGenerateCodeAttribute(this StructContainer container)
+        {
+            AddGenerateAttribute<StructContainer>(container);
+        }
+
         private static void AddGenerateAttribute<TParent>(SourceStatement container) where TParent : SourceContainer
         {
             if (container.Configuration.OutputGeneratedCodeAttribute)

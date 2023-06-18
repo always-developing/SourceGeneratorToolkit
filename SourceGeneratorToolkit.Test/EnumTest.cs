@@ -32,6 +32,7 @@ public class EnumTest
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     enum Season
     {
         Spring,
@@ -65,6 +66,7 @@ public class EnumTest
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     enum Season
     {
         Spring = 1,
@@ -98,6 +100,7 @@ public class EnumTest
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     enum Season : ushort
     {
         Spring,
@@ -132,6 +135,7 @@ public class EnumTest
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     enum Season : ushort
     {
         Spring,
@@ -165,6 +169,7 @@ public class EnumTest
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     enum Season : ushort
     {
         Spring = 1,
@@ -199,6 +204,7 @@ public class EnumTest
 
         Assert.AreEqual(@"namespace testns
 {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     enum Season : ushort
     {
         Spring = 1,

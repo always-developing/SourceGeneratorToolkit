@@ -17,7 +17,8 @@ namespace SourceGeneratorToolkit
         /// <returns>The namespace container</returns>
         public static TContainer WithEnum<TContainer>(this ISupportsEnums<TContainer> @base, string enumName, Action<EnumContainer> builder) where TContainer : SourceContainer
         {
-            var enumContainer = new EnumContainer(enumName);
+            var enumContainer = new EnumContainer(enumName, ((SourceContainer)@base).Configuration);
+            enumContainer.AddGenerateCodeAttribute();
 
             ((SourceContainer)@base)._sourceItems.Add(enumContainer);
             builder.Invoke(enumContainer);
@@ -36,7 +37,8 @@ namespace SourceGeneratorToolkit
         /// <returns>The namespace container</returns>
         public static TContainer WithEnum<TContainer>(this ISupportsEnums<TContainer> @base, string enumName, string type, Action<EnumContainer> builder) where TContainer : SourceContainer
         {
-            var enumContainer = new EnumContainer(enumName, type);
+            var enumContainer = new EnumContainer(enumName, type, ((SourceContainer)@base).Configuration);
+            enumContainer.AddGenerateCodeAttribute();
 
             ((SourceContainer)@base)._sourceItems.Add(enumContainer);
             builder.Invoke(enumContainer);
