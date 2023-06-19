@@ -42,7 +42,7 @@ namespace SourceGeneratorToolkit
             {
                 if (container is ISupportsAttributes<TParent> attContainer)
                 {
-                    attContainer.AddAttribute("System.CodeDom.Compiler.GeneratedCodeAttribute", att =>
+                    attContainer.AddAttribute("System.CodeDom.Compiler.GeneratedCode", att =>
                     {
                         att.AddArgument("\"SourceGeneratorToolkit\"");
                         att.AddArgument($"\"{typeof(ConfigurationExtensions).Assembly.GetName().Version}\"");
@@ -57,7 +57,7 @@ namespace SourceGeneratorToolkit
             {
                 if (container is ISupportsAttributes<TParent> attContainer)
                 {
-                    attContainer.AddAttribute("System.Diagnostics.DebuggerStepThroughAttribute");
+                    attContainer.AddAttribute("System.Diagnostics.DebuggerStepThrough");
                 }
             }
         }

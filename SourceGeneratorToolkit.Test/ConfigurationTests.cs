@@ -25,7 +25,7 @@ public class ConfigurationTests
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
     class myClass
     {
     }
@@ -70,8 +70,8 @@ public class ConfigurationTests
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCodeAttribute(""SourceGeneratorToolkit"", ""1.0.0.0"")]
-    [System.Diagnostics.DebuggerStepThroughAttribute]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.Diagnostics.DebuggerStepThrough]
     class myClass
     {
     }
@@ -98,7 +98,7 @@ public class ConfigurationTests
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.Diagnostics.DebuggerStepThroughAttribute]
+    [System.Diagnostics.DebuggerStepThrough]
     class myClass
     {
     }
