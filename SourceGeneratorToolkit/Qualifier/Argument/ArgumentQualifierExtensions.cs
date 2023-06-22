@@ -107,6 +107,13 @@ namespace SourceGeneratorToolkit
             return (TBuilder)qualifierBuilder;
         }
 
+        /// <summary>
+        /// Checks if the node has an argument in the given position
+        /// </summary>
+        /// <typeparam name="TBuilder">The parent type</typeparam>
+        /// <param name="syntaxBuilder">The qualifier</param>
+        /// <param name="position">The argument position</param>
+        /// <returns>The qualifier builder</returns>
         public static TBuilder WithPosition<TBuilder>(this IArgumentQualifier<TBuilder> syntaxBuilder, int position)
             where TBuilder : QualfierBuilder
         {

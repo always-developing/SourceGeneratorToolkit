@@ -18,7 +18,6 @@ namespace SourceGeneratorToolkit
         /// Construnctor
         /// </summary>
         /// <param name="node">The syntax node being operated on</param>
-        /// <param name="result">The result being built up</param>
         public ClassQualifierBuilder(SyntaxNode node)
         {
             Node = node;

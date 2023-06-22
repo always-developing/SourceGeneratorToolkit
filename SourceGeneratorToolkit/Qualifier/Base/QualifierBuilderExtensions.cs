@@ -8,8 +8,17 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// Extension methods for the root of qualification
+    /// </summary>
     public static class QualifierBuilderExtensions
     {
+        /// <summary>
+        /// Checks if the node is a class
+        /// </summary>
+        /// <param name="syntaxBuilder">The qualifier</param>
+        /// <param name="builder">The class qualifier builder</param>
+        /// <returns>The qualifier builder</returns>
         public static SyntaxQualifierBuilder IsClass(this SyntaxQualifierBuilder syntaxBuilder, Action<ClassQualifierBuilder> builder = null)
         {
             if (!syntaxBuilder.Node.IsKind(SyntaxKind.ClassDeclaration))
@@ -30,6 +39,12 @@ namespace SourceGeneratorToolkit
             return syntaxBuilder;
         }
 
+        /// <summary>
+        /// Checks if the node is an attribute
+        /// </summary>
+        /// <param name="syntaxBuilder">The qualifier</param>
+        /// <param name="builder">The attribute qualifier builder</param>
+        /// <returns>The qualifier builder</returns>
         public static SyntaxQualifierBuilder IsAttribute(this SyntaxQualifierBuilder syntaxBuilder, Action<AttributeQualifierBuilder> builder = null)
         {
             if (!syntaxBuilder.Node.IsKind(SyntaxKind.Attribute))
@@ -50,6 +65,12 @@ namespace SourceGeneratorToolkit
             return syntaxBuilder;
         }
 
+        /// <summary>
+        /// A
+        /// </summary>
+        /// <param name="syntaxBuilder"></param>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         public static SyntaxQualifierBuilder WithQualifyingCheck(this SyntaxQualifierBuilder syntaxBuilder, Func<SyntaxNode, bool> builder = null)
         {
             if (builder != null)

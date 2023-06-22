@@ -81,7 +81,9 @@ namespace SourceGeneratorToolkit
             AccessModifier.Protected => new List<SyntaxKind> { SyntaxKind.ProtectedKeyword },
             AccessModifier.Internal => new List<SyntaxKind> { SyntaxKind.InternalKeyword },
             AccessModifier.ProtectedInternal => new List<SyntaxKind> { SyntaxKind.ProtectedKeyword, SyntaxKind.InternalKeyword },
-            AccessModifier.PrivateProtected => new List<SyntaxKind> { SyntaxKind.ProtectedKeyword, SyntaxKind.PrivateKeyword }
+            AccessModifier.PrivateProtected => new List<SyntaxKind> { SyntaxKind.ProtectedKeyword, SyntaxKind.PrivateKeyword },
+            AccessModifier.File => new List<SyntaxKind> { SyntaxKind.FileKeyword },
+            _ => new List<SyntaxKind> {}
         };
 
         internal static List<SyntaxKind> GetSyntaxKindFromGeneralModifier(GeneralModifier generalModifier) => generalModifier switch
@@ -95,7 +97,8 @@ namespace SourceGeneratorToolkit
             GeneralModifier.Sealed => new List<SyntaxKind> { SyntaxKind.SealedKeyword },
             GeneralModifier.Static => new List<SyntaxKind> { SyntaxKind.StaticKeyword },
             GeneralModifier.Unsafe => new List<SyntaxKind> { SyntaxKind.UnsafeKeyword },
-            GeneralModifier.Virtual => new List<SyntaxKind> { SyntaxKind.VirtualKeyword }
+            GeneralModifier.Virtual => new List<SyntaxKind> { SyntaxKind.VirtualKeyword },
+            _ => new List<SyntaxKind> { }
         };
 
         private static SyntaxTokenList GetNodeModifiers(SyntaxNode node) =>

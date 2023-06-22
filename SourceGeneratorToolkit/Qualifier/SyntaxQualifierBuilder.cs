@@ -1,13 +1,16 @@
 ﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SourceGeneratorToolkit
 {
+    /// <summary>
+    /// The base syntax qualifier builder
+    /// </summary>
     public class SyntaxQualifierBuilder : QualfierBuilder
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="syntaxNode">The syntax node</param>
         public SyntaxQualifierBuilder(SyntaxNode syntaxNode)
         {
             Node = syntaxNode;

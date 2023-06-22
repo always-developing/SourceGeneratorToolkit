@@ -47,14 +47,21 @@ namespace SourceGeneratorToolkit
             return (TBuilder)qualifierBuilder;
         }
 
-        public static TParent TargetsType<TParent>(this IAttributeQualifier<TParent> syntaxBuilder, AttributeTargets target)
-            where TParent : QualfierBuilder
+        /// <summary>
+        /// Checks if the node has an attribute which targets the specified attribtue target
+        /// </summary>
+        /// <typeparam name="TBuilder">The parent type</typeparam>
+        /// <param name="syntaxBuilder">The qualifier</param>
+        /// <param name="target">The attribute target types</param>
+        /// <returns>The qualifier builder</returns>
+        public static TBuilder TargetsType<TBuilder>(this IAttributeQualifier<TBuilder> syntaxBuilder, AttributeTargets target)
+            where TBuilder : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
 
             if (!qualifierBuilder.Qualifies)
             {
-                return (TParent)syntaxBuilder;
+                return (TBuilder)syntaxBuilder;
             }
 
             var targetDataList = GetTargetSyntaxData(target);
@@ -62,7 +69,7 @@ namespace SourceGeneratorToolkit
             if(!targetDataList.Any())
             {
                 qualifierBuilder.Qualifies = false;
-                return (TParent)syntaxBuilder;
+                return (TBuilder)syntaxBuilder;
             }
 
             var qualifies = false;
@@ -77,7 +84,7 @@ namespace SourceGeneratorToolkit
             }
             qualifierBuilder.Qualifies = qualifies;
 
-            return (TParent)qualifierBuilder;
+            return (TBuilder)qualifierBuilder;
         }
 
         private static List<(SyntaxKind Kind, Type TargetType)> GetTargetSyntaxData(AttributeTargets target)
