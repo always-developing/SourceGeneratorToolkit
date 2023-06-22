@@ -7,8 +7,8 @@ namespace SourceGeneratorToolkit
     /// <summary>
     /// Marker interface to indicate the parent can have interface related qualifiing methods applied
     /// </summary>
-    /// <typeparam name="TParent"></typeparam>
-    public interface IHasImplementationQualifier<TParent> where TParent : QualfierBuilder
+    /// <typeparam name="TBuilder">The qualifier builder</typeparam>
+    public interface IHasImplementationQualifier<TBuilder> where TBuilder : QualfierBuilder
     {
     }
 }

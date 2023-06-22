@@ -13,26 +13,26 @@ namespace SourceGeneratorToolkit
         /// <summary>
         /// Checks to determine if the name of the syntax (class, method) matches the supplied name
         /// </summary>
-        /// <typeparam name="TParent">The parent type</typeparam>
+        /// <typeparam name="TBuilder">The qualifier builder</typeparam>
         /// <param name="syntaxBuilder">The qualifier builder</param>
         /// <param name="name">The name of the syntax node</param>
         /// <param name="comparison">The string comparison to be applied when checking the return types</param>
         /// <returns>The qualifier builder</returns>
-        public static TParent WithName<TParent>(this INameQualifier<TParent> syntaxBuilder, string name, 
+        public static TBuilder WithName<TBuilder>(this INameQualifier<TBuilder> syntaxBuilder, string name, 
             StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)
-            where TParent : QualfierBuilder
+            where TBuilder : QualfierBuilder
         {
             var qualifierBuilder = syntaxBuilder as QualfierBuilder;
 
             if (!qualifierBuilder.Qualifies)
             {
-                return (TParent)syntaxBuilder;
+                return (TBuilder)syntaxBuilder;
             }
 
             var identifier = GetNodeIdentifier(qualifierBuilder.Node);
             qualifierBuilder.Qualifies = qualifierBuilder.Qualifies && name.Equals(identifier, comparison);
 
-            return (TParent)syntaxBuilder;
+            return (TBuilder)syntaxBuilder;
         }
 
         internal static string GetNodeIdentifier(SyntaxNode node) =>

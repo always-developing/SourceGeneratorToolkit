@@ -36,11 +36,11 @@ namespace SourceGeneratorToolkit
             AddStepThroughAttribute<StructContainer>(container);
         }
 
-        private static void AddGenerateAttribute<TParent>(SourceStatement container) where TParent : SourceContainer
+        private static void AddGenerateAttribute<TContainer>(SourceStatement container) where TContainer : SourceContainer
         {
             if (container.Configuration.OutputGeneratedCodeAttribute)
             {
-                if (container is ISupportsAttributes<TParent> attContainer)
+                if (container is ISupportsAttributes<TContainer> attContainer)
                 {
                     attContainer.AddAttribute("System.CodeDom.Compiler.GeneratedCode", att =>
                     {
@@ -51,11 +51,11 @@ namespace SourceGeneratorToolkit
             }
         }
 
-        private static void AddStepThroughAttribute<TParent>(SourceStatement container) where TParent : SourceContainer
+        private static void AddStepThroughAttribute<TContainer>(SourceStatement container) where TContainer : SourceContainer
         {
             if (container.Configuration.OutputDebuggerStepThroughAttribute)
             {
-                if (container is ISupportsAttributes<TParent> attContainer)
+                if (container is ISupportsAttributes<TContainer> attContainer)
                 {
                     attContainer.AddAttribute("System.Diagnostics.DebuggerStepThrough");
                 }
