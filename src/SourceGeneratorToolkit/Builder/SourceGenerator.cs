@@ -12,10 +12,22 @@ namespace SourceGeneratorToolkit
         private readonly Action<Generator> _rootGenerator;
 
         /// <summary>
+        /// Generate the source using the builder and configuration specified
+        /// </summary>
+        /// <param name="builder">The builder parameters</param>
+        /// <param name="configuration">The configuration settings</param>
+        /// <returns>A string representation of the generated code</returns>
+        public static string GenerateSource(Action<Generator> builder, BuilderConfiguration configuration = null)
+        {
+            var generator = SourceGenerator.Generate(builder);
+            return generator.Build(configuration);
+        }
+
+        /// <summary>
         /// Constructor for SourceGenerator
         /// </summary>
         /// <param name="builder">The builder used to modify the properties of the root source generation</param>
-        public SourceGenerator(Action<Generator> builder)
+        internal SourceGenerator(Action<Generator> builder)
         {
             _rootGenerator = builder;
         }
@@ -25,7 +37,7 @@ namespace SourceGeneratorToolkit
         /// </summary>
         /// <param name="builder">The builder used to modify the properties of the root source generation</param>
         /// <returns>The generated source</returns>
-        public static SourceGenerator Generate(Action<Generator> builder)
+        internal static SourceGenerator Generate(Action<Generator> builder)
         {
             return new SourceGenerator(builder);
         }
@@ -34,7 +46,7 @@ namespace SourceGeneratorToolkit
         /// Invokes the generation actions to build and output the source code
         /// </summary>
         /// <returns>The generated, formatted source code</returns>
-        public string Build(BuilderConfiguration configuration = null)
+        internal string Build(BuilderConfiguration configuration = null)
         {
             var gen = new Generator(configuration ?? new BuilderConfiguration());
             _rootGenerator.Invoke(gen);

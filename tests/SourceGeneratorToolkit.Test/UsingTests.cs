@@ -13,13 +13,13 @@ public class UsingTests
     [TestMethod]
     public void One_Using()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
                 file.WithUsing("System");
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"using System;", file);
     }
@@ -27,7 +27,7 @@ public class UsingTests
     [TestMethod]
     public void Multi_Using()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -36,7 +36,7 @@ public class UsingTests
                 .WithUsing("System.Text")
                 .WithUsing("System.IO");
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"using System;
 using System.IO;
@@ -46,13 +46,13 @@ using System.Text;", file);
     [TestMethod]
     public void One_External_Alias()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
                 file.WithExternAlias("MyExample");
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"extern alias MyExample;", file);
     }
@@ -60,14 +60,14 @@ using System.Text;", file);
     [TestMethod]
     public void Multi_External_Alias()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
                 file.WithExternAlias("MyExample")
                 .WithExternAlias("MyOtherExample"); 
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"extern alias MyExample;
 extern alias MyOtherExample;", file);
@@ -76,7 +76,7 @@ extern alias MyOtherExample;", file);
     [TestMethod]
     public void Multi_External_Alias_Using()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -84,7 +84,7 @@ extern alias MyOtherExample;", file);
                 .WithExternAlias("MyOtherExample")
                 .WithUsing("System");
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"extern alias MyExample;
 extern alias MyOtherExample;
@@ -95,7 +95,7 @@ using System;", file);
     [TestMethod]
     public void One_Static_Using()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -104,7 +104,7 @@ using System;", file);
                     use.AsStatic();
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"using static System;", file);
     }
@@ -112,7 +112,7 @@ using System;", file);
     [TestMethod]
     public void Multi_Static_Using()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -121,7 +121,7 @@ using System;", file);
                .WithUsing("System.Text", u => u.AsStatic())
                .WithUsing("System.IO", u => u.AsStatic());
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"using static System;
 using static System.IO;
@@ -131,7 +131,7 @@ using static System.Text;", file);
     [TestMethod]
     public void Multi_Static_And_NonStatic_Using()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -140,7 +140,7 @@ using static System.Text;", file);
                .WithUsing("System.Text", u => u.AsStatic())
                .WithUsing("System.IO");
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"using static System;
 using System.IO;
@@ -150,7 +150,7 @@ using static System.Text;", file);
     [TestMethod]
     public void One_Global_Using()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -159,7 +159,7 @@ using static System.Text;", file);
                     u.AsGlobal();
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"global using System;", file);
     }
@@ -167,7 +167,7 @@ using static System.Text;", file);
     [TestMethod]
     public void Multi_Using_One_Global()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -179,7 +179,7 @@ using static System.Text;", file);
                 })
                 .WithUsing("System.IO");
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"global using System.Text;
 using System;
@@ -189,7 +189,7 @@ using System.IO;", file);
     //    [TestMethod]
     //    public void One_Using_Tree()
     //    {
-    //        var tree = SourceGenerator.Generate(gen =>
+    //        var tree = SourceGenerator.GenerateSource(gen =>
     //        {
     //            gen.WithFile("file1", file =>
     //            {
@@ -207,7 +207,7 @@ using System.IO;", file);
     //    [TestMethod]
     //    public void Multi_Using_Tree()
     //    {
-    //        var tree = SourceGenerator.Generate(gen =>
+    //        var tree = SourceGenerator.GenerateSource(gen =>
     //        {
     //            gen.WithFile("file1", file =>
     //            {

@@ -12,7 +12,7 @@ public class EnumTest
     [TestMethod]
     public void Enum_No_Values()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -28,11 +28,11 @@ public class EnumTest
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     enum Season
     {
         Spring,
@@ -46,7 +46,7 @@ public class EnumTest
     [TestMethod]
     public void Enum_With_Values()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -62,11 +62,11 @@ public class EnumTest
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     enum Season
     {
         Spring = 1,
@@ -80,7 +80,7 @@ public class EnumTest
     [TestMethod]
     public void Enum_With_Param_Type_No_Values()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -96,11 +96,11 @@ public class EnumTest
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     enum Season : ushort
     {
         Spring,
@@ -114,7 +114,7 @@ public class EnumTest
     [TestMethod]
     public void Enum_With_Method_Type_No_Values()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -131,11 +131,11 @@ public class EnumTest
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     enum Season : ushort
     {
         Spring,
@@ -149,7 +149,7 @@ public class EnumTest
     [TestMethod]
     public void Enum_With_Param_Type_With_Values()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -165,11 +165,11 @@ public class EnumTest
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     enum Season : ushort
     {
         Spring = 1,
@@ -183,7 +183,7 @@ public class EnumTest
     [TestMethod]
     public void Enum_With_Method_Type_With_Values()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -200,11 +200,11 @@ public class EnumTest
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     enum Season : ushort
     {
         Spring = 1,

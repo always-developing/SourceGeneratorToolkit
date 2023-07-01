@@ -13,7 +13,7 @@ public class FieldTests
     [TestMethod]
     public void Class_Default_Field()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -25,11 +25,11 @@ public class FieldTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         int myIntField;
@@ -40,7 +40,7 @@ public class FieldTests
     [TestMethod]
     public void Class_Public_Int_Field_Value()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -57,11 +57,11 @@ public class FieldTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         public int myIntField = 100;
@@ -72,7 +72,7 @@ public class FieldTests
     [TestMethod]
     public void Class_Internal_Int_Field_Value()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -89,11 +89,11 @@ public class FieldTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         internal string myStringField = ""value"";
@@ -104,7 +104,7 @@ public class FieldTests
     [TestMethod]
     public void Class_Protected_Int_Field_Readonly_Value()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -122,11 +122,11 @@ public class FieldTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         protected readonly int myIntField = 100;
@@ -137,7 +137,7 @@ public class FieldTests
     [TestMethod]
     public void Class_Internal_Int_Field_Readonly_Static_Value()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -156,11 +156,11 @@ public class FieldTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         internal static readonly int myIntField = 100;
@@ -171,7 +171,7 @@ public class FieldTests
     [TestMethod]
     public void Interface_Default_Field()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -183,11 +183,11 @@ public class FieldTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     interface IMyInterface
     {
         int myIntField;

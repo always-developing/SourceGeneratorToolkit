@@ -12,7 +12,7 @@ public class AttribtueTests
     [TestMethod]
     public void Empty_Class_Default_Attribute()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -24,11 +24,11 @@ public class AttribtueTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     [Serializable]
     class myClass
     {
@@ -39,7 +39,7 @@ public class AttribtueTests
     [TestMethod]
     public void Empty_Class_OneValue_Attribute()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -54,11 +54,11 @@ public class AttribtueTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     [Serializable(1)]
     class myClass
     {
@@ -69,7 +69,7 @@ public class AttribtueTests
     [TestMethod]
     public void Empty_Class_OneNamedValue_Attribute()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -84,11 +84,11 @@ public class AttribtueTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     [Serializable(intValue = 1)]
     class myClass
     {
@@ -99,7 +99,7 @@ public class AttribtueTests
     [TestMethod]
     public void Empty_Class_MultiValue_Attribute()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -117,11 +117,11 @@ public class AttribtueTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     [Serializable(1, ""hello"")]
     public class myClass
     {
@@ -132,7 +132,7 @@ public class AttribtueTests
     [TestMethod]
     public void Empty_Class_MultiNamedValue_Attribute()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -148,11 +148,11 @@ public class AttribtueTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     [Serializable(intValue = 1, hello = ""world"")]
     class myClass
     {
@@ -163,7 +163,7 @@ public class AttribtueTests
     [TestMethod]
     public void Empty_Class_Multi_Attributes()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -176,11 +176,11 @@ public class AttribtueTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     [Serializable]
     [OtherAttribute]
     class myClass
@@ -192,7 +192,7 @@ public class AttribtueTests
     [TestMethod]
     public void Empty_Class_Multi_Attributes_Named()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -214,11 +214,11 @@ public class AttribtueTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     [Serializable(intValue = 1, hello = ""world"")]
     [OtherAttribute(doubleValue = 1.00)]
     class myClass
@@ -230,7 +230,7 @@ public class AttribtueTests
     [TestMethod]
     public void Empty_Class_Default_Attribute_Targets()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -245,11 +245,11 @@ public class AttribtueTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     [method: Serializable]
     class myClass
     {
@@ -260,7 +260,7 @@ public class AttribtueTests
     [TestMethod]
     public void Empty_Class_Attribute_Usage()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -277,11 +277,11 @@ public class AttribtueTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class ClassMethodTargetAttribute : Attribute
     {

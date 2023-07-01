@@ -12,7 +12,7 @@ public class ConstructorTests
     [TestMethod]
     public void Default_Constructor()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -24,11 +24,11 @@ public class ConstructorTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         myClass()
@@ -41,7 +41,7 @@ public class ConstructorTests
     [TestMethod]
     public void One_Param_Constructor()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -56,11 +56,11 @@ public class ConstructorTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         myClass(int abc)
@@ -73,7 +73,7 @@ public class ConstructorTests
     [TestMethod]
     public void Multi_Param_Constructor()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -90,11 +90,11 @@ public class ConstructorTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         myClass(int abc, string stringValue)
@@ -107,7 +107,7 @@ public class ConstructorTests
     [TestMethod]
     public void Multi_Param_Public_Constructor()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -125,11 +125,11 @@ public class ConstructorTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         public myClass(int abc, Type testType)
@@ -142,7 +142,7 @@ public class ConstructorTests
     [TestMethod]
     public void One_Param_Protected_Internal_Constructor()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -159,11 +159,11 @@ public class ConstructorTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         protected internal myClass(Class<T> @class)
@@ -176,7 +176,7 @@ public class ConstructorTests
     [TestMethod]
     public void Default_Constructor_Base()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -191,11 +191,11 @@ public class ConstructorTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         myClass() : base()
@@ -208,7 +208,7 @@ public class ConstructorTests
     [TestMethod]
     public void Default_Constructor_Base_With_Argument()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -227,11 +227,11 @@ public class ConstructorTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         myClass() : base(10, ""hello"")
@@ -244,7 +244,7 @@ public class ConstructorTests
     [TestMethod]
     public void Default_Constructor_This()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -259,11 +259,11 @@ public class ConstructorTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         myClass() : this()
@@ -276,7 +276,7 @@ public class ConstructorTests
     [TestMethod]
     public void Default_Constructor_This_With_Argument()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -295,11 +295,11 @@ public class ConstructorTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         myClass() : this(10, 33)

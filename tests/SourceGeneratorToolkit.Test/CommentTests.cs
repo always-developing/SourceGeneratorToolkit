@@ -12,7 +12,7 @@ public class CommentTests
     [TestMethod]
     public void Empty_Namespace_With_Comment()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -21,7 +21,7 @@ public class CommentTests
                     ns.AddComment("custom namespace for the test");
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace tstNamespace
 {
@@ -32,7 +32,7 @@ public class CommentTests
     [TestMethod]
     public void Empty_Class_Trad_Namespace_Comment()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -44,11 +44,11 @@ public class CommentTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
     // A description about the class
@@ -59,7 +59,7 @@ public class CommentTests
     [TestMethod]
     public void Default_Constructor_Comment()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -74,11 +74,11 @@ public class CommentTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         myClass()
@@ -92,7 +92,7 @@ public class CommentTests
     [TestMethod]
     public void Default_Interface_Comment()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -104,11 +104,11 @@ public class CommentTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     interface IMyInterface
     {
     // comment for interface
@@ -119,7 +119,7 @@ public class CommentTests
     [TestMethod]
     public void Interface_Default_Method_Default_Implementation_Comment()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -138,11 +138,11 @@ public class CommentTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     public interface IMyInterface
     {
         void MyMethod()
@@ -157,7 +157,7 @@ public class CommentTests
     [TestMethod]
     public void Empty_Async_Method_Enforced_Task_Comment()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -173,11 +173,11 @@ public class CommentTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
         public async Task HelloWorld()

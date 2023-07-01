@@ -13,7 +13,7 @@ public class ClassTests
     [TestMethod]
     public void Empty_Class_NoModifiers_Trad_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -22,11 +22,11 @@ public class ClassTests
                     ns.WithClass("myClass", cls => { });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
     }
@@ -36,15 +36,15 @@ public class ClassTests
     [TestMethod]
     public void Empty_Class_NoModifiers_No_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
                 file.WithClass("myClass", cls => { });
             });
-        }).Build();
+        });
 
-        Assert.AreEqual(@"[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+        Assert.AreEqual(@"[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 class myClass
 {
 }", file);
@@ -53,18 +53,18 @@ class myClass
     [TestMethod]
     public void Empty_Class_NoModifiers_No_Namespace_Using()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
                 file.WithClass("myClass", cls => { })
                 .WithUsing("System");
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"using System;
 
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 class myClass
 {
 }", file);
@@ -73,7 +73,7 @@ class myClass
     [TestMethod]
     public void Empty_Class_NoModifiers_Filescoped_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -82,10 +82,10 @@ class myClass
                     ns.WithClass("myClass", cls => { });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns;
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 class myClass
 {
 }", file);
@@ -94,7 +94,7 @@ class myClass
     [TestMethod]
     public void Empty_Class_Public_Trad_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -106,11 +106,11 @@ class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     public class myClass
     {
     }
@@ -120,7 +120,7 @@ class myClass
     [TestMethod]
     public void Empty_Class_Private_Trad_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -132,11 +132,11 @@ class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     private class myClass
     {
     }
@@ -146,7 +146,7 @@ class myClass
     [TestMethod]
     public void Empty_Class_Internal_Trad_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -158,11 +158,11 @@ class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     internal class myClass
     {
     }
@@ -172,7 +172,7 @@ class myClass
     [TestMethod]
     public void Empty_Class_Protected_Trad_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -184,11 +184,11 @@ class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     protected class myClass
     {
     }
@@ -198,7 +198,7 @@ class myClass
     [TestMethod]
     public void Empty_Class_File_Trad_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -210,11 +210,11 @@ class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     file class myClass
     {
     }
@@ -224,7 +224,7 @@ class myClass
     [TestMethod]
     public void Empty_Class_Public_Filescoped_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -236,10 +236,10 @@ class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns;
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 public class myClass
 {
 }", file);
@@ -248,7 +248,7 @@ public class myClass
     [TestMethod]
     public void Empty_Class_Private_Filescoped_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -260,10 +260,10 @@ public class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns;
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 private class myClass
 {
 }", file);
@@ -272,7 +272,7 @@ private class myClass
     [TestMethod]
     public void Empty_Class_Private_Abstract_Filescoped_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -286,10 +286,10 @@ private class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns;
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 private abstract class myClass
 {
 }", file);
@@ -298,7 +298,7 @@ private abstract class myClass
     [TestMethod]
     public void Empty_Class_Public_Abstract_Trad_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -312,11 +312,11 @@ private abstract class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     public abstract class myClass
     {
     }
@@ -326,7 +326,7 @@ private abstract class myClass
     [TestMethod]
     public void Empty_Class_Public_Static_Trad_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -340,11 +340,11 @@ private abstract class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     public static class myClass
     {
     }
@@ -354,7 +354,7 @@ private abstract class myClass
     [TestMethod]
     public void Empty_Class_Protected_Partial_Static_Filescoped_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -369,10 +369,10 @@ private abstract class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns;
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 protected partial static class myClass
 {
 }", file);
@@ -381,7 +381,7 @@ protected partial static class myClass
     [TestMethod]
     public void Empty_Class_Internal_Partial_Sealed_Static_Filescoped_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -397,10 +397,10 @@ protected partial static class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns;
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 protected partial sealed static class myClass
 {
 }", file);
@@ -409,7 +409,7 @@ protected partial sealed static class myClass
     [TestMethod]
     public void Empty_Class_Unsafe_Static_Filescoped_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -423,10 +423,10 @@ protected partial sealed static class myClass
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns;
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 unsafe static class myClass
 {
 }", file);

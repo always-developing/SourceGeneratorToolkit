@@ -12,7 +12,7 @@ public class StructTests
     [TestMethod]
     public void Empty_Struct_Trad_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -21,11 +21,11 @@ public class StructTests
                     ns.WithStruct("TestStruct", cls => { });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     struct TestStruct
     {
     }
@@ -35,7 +35,7 @@ public class StructTests
     [TestMethod]
     public void Empty_Struct_Public_FileScoped_Namespace()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -47,10 +47,10 @@ public class StructTests
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns;
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 public struct TestStruct
 {
 }", file);
@@ -59,7 +59,7 @@ public struct TestStruct
     [TestMethod]
     public void Empty_Struct_Internal_Readonly()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -72,10 +72,10 @@ public struct TestStruct
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns;
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 internal readonly struct TestStruct
 {
 }", file);
@@ -84,7 +84,7 @@ internal readonly struct TestStruct
     [TestMethod]
     public void Struct_With_Public_Async_Method()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -100,10 +100,10 @@ internal readonly struct TestStruct
                     });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns;
-[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+[System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
 public struct TestStruct
 {
     public async Task<int> GetIntAsync()

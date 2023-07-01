@@ -12,7 +12,7 @@ public class ConfigurationTests
     [TestMethod]
     public void Class_With_GeneratedCodeAttribute()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -21,11 +21,11 @@ public class ConfigurationTests
                     ns.WithClass("myClass", cls => { });
                 });
             });
-        }).Build();
+        });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     class myClass
     {
     }
@@ -35,7 +35,7 @@ public class ConfigurationTests
     [TestMethod]
     public void Class_WithOut_GeneratedCodeAttribute()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -44,7 +44,7 @@ public class ConfigurationTests
                     ns.WithClass("myClass", cls => { });
                 });
             });
-        }).Build(new BuilderConfiguration { OutputGeneratedCodeAttribute = false });
+        }, new BuilderConfiguration { OutputGeneratedCodeAttribute = false });
 
         Assert.AreEqual(@"namespace testns
 {
@@ -57,7 +57,7 @@ public class ConfigurationTests
     [TestMethod]
     public void Class_With_GeneratedCode_And_StepThrough_Attribute()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -66,11 +66,11 @@ public class ConfigurationTests
                     ns.WithClass("myClass", cls => { });
                 });
             });
-        }).Build(new BuilderConfiguration { OutputDebuggerStepThroughAttribute = true });
+        }, new BuilderConfiguration { OutputDebuggerStepThroughAttribute = true });
 
         Assert.AreEqual(@"namespace testns
 {
-    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""1.0.0.0"")]
+    [System.CodeDom.Compiler.GeneratedCode(""SourceGeneratorToolkit"", ""0.0.0.1"")]
     [System.Diagnostics.DebuggerStepThrough]
     class myClass
     {
@@ -81,7 +81,7 @@ public class ConfigurationTests
     [TestMethod]
     public void Class_With_Only_StepThrough_Attribute()
     {
-        var file = SourceGenerator.Generate(gen =>
+        var file = SourceGenerator.GenerateSource(gen =>
         {
             gen.WithFile("file1", file =>
             {
@@ -90,7 +90,7 @@ public class ConfigurationTests
                     ns.WithClass("myClass", cls => { });
                 });
             });
-        }).Build(new BuilderConfiguration
+        }, new BuilderConfiguration
         {
             OutputDebuggerStepThroughAttribute = true,
             OutputGeneratedCodeAttribute = false

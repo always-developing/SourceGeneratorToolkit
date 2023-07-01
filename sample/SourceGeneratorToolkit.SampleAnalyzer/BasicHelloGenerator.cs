@@ -25,6 +25,10 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
                         });
                     });
                 });
+            }, configuration =>
+            {
+                configuration.OutputGeneratedCodeAttribute = false;
+                configuration.OutputDebuggerStepThroughAttribute = true;
             });
         }
 
