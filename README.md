@@ -98,7 +98,7 @@ When using the .NET Roslyn Source Generator process, the actual _generation_ of 
 
 The `OnVisitSyntaxNode` method takes a `SyntaxNode` as an argument (this is part of the normal Roslyn Source Generator process) - the `Source Generator Toolkit` provides an extension method (`NodeQualifiesWhen`) which accepts a _qualificaiton builder_ which is used to determine if the SyntaxNode qualifies to have source code generated.
 
-The _fluent builder_ pattern is again used to build up the qualification check for for the syntax. See the below example:
+The _fluent builder_ pattern is again used to build up the qualification check for for the syntax:
 
 ``` csharp
 class SampleClassSyntaxReceiver : ISyntaxReceiver
@@ -120,4 +120,138 @@ class SampleClassSyntaxReceiver : ISyntaxReceiver
 }
 ```
 
-If the source generator (leveraging the `Source Generator Toolkit` methods), determines the node is a _class named `SampleClass` which is not static, public and implements `ISerializable`_, then the specific `SyntaxNode` qualifies, and the _Results_ list will be populated and passed to the _Execute_ method of the generator.
+In the above example, if the qualification checks determines the node is:
+- a _class named `SampleClass` 
+- which is public
+- and not static
+- and also implements `ISerializable`_
+
+then the specific `SyntaxNode` qualifies, and the _Results_ list will be populated and passed to the _Execute_ method of the generator.
+
+A most complex, but _less practical_ example:
+
+``` csharp
+syntaxNode.NodeQualifiesWhen(Results, node =>
+{
+    node.IsClass(c => c
+        .WithName("SampleClass")
+        .IsNotStatic()
+        .IsNotPrivateProtected()
+        .IsPublic()
+        .Implements("ISerializable")
+        // the class must have the Obsolete attribute 
+        .WithAttribute(a =>
+        {
+            a.WithName("Obsolete");
+        })
+        .WithMethod(m =>
+        {
+            // the class must have a method called "SampleMethod"
+            m.WithName("SampleMethod")
+            // which is async
+            .IsAsync()
+            // with the Obsolete attribute with a parameter in position 1 supplied
+            .WithAttribute(a =>
+            {
+                a.WithName("Obsolete")
+                .WithArgument(arg =>
+                {
+                    arg.WithPosition(1);
+                });
+            })
+            // method must have a return type of Task
+            .WithReturnType(typeof(Task));
+        })
+    );
+});
+```
+
+# Code Generation - Roslyn Source Generator process (with ISyntaxReceiver implementation)
+
+When generating code based on the output of the _qualification process_ (`OnVisitSyntaxNode` method in the `ISyntaxReceiver` implementation, shown above), the `Results` list is populated with the qualifying `SyntaxNode(s)`, and passed to the `Execute` method of the `ISourceGenerator` implementation.
+
+Using the same `ISyntaxReceiver` implementation as above:
+
+``` csharp
+class SampleClassSyntaxReceiver : ISyntaxReceiver
+{
+    public List<SyntaxReceiverResult> Results { get; set; } = new List<SyntaxReceiverResult>();
+
+    public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
+    {
+        syntaxNode.NodeQualifiesWhen(Results, node =>
+        {
+            node.IsClass(c => c
+                .WithName("SampleClass")
+                .IsNotStatic()
+                .IsPublic()
+                .Implements("ISerializable")
+            );
+        });
+    }
+}
+```
+
+If a qualifying node is found, the `Results` property is populated with the `SyntaxNode`.
+
+Below is a sample of a `ISourceGenerator` which used the _Results_ output from the `OnVisitSyntaxNode` method to generate source code:
+
+``` csharp
+[Generator]
+public class PartialMethodGenerator : ISourceGenerator
+{
+    public void Initialize(GeneratorInitializationContext context)
+    {
+        // Register our custom syntax receiver
+        context.RegisterForSyntaxNotifications(() => new PartialClassSyntaxReceiver());
+    }
+
+    public void Execute(GeneratorExecutionContext context)
+    {
+        if (context.SyntaxReceiver == null)
+        {
+            return;
+        }
+
+        PartialClassSyntaxReceiver syntaxReceiver = (PartialClassSyntaxReceiver)context.SyntaxReceiver;
+
+        if (syntaxReceiver != null && syntaxReceiver.Results != null && syntaxReceiver.Results.Any())
+        {
+            foreach (SyntaxReceiverResult result in syntaxReceiver.Results)
+            {
+                ClassDeclarationSyntax cls = result.Node.AsClass();
+
+                context.GenerateSource($"{cls.GetNamespace()}_file", fileBuilder =>
+                {
+                    fileBuilder.WithNamespace($"{cls.GetNamespace()}", nsBuilder =>
+                    {
+                        nsBuilder.WithClass($"{cls.GetName()}_generated", clsBuilder =>
+                        {
+                            clsBuilder.AsPublic();
+
+                            clsBuilder.WithMethod("Hello", "void", mthBuilder =>
+                            {
+                                mthBuilder.AsPublic()
+                                .WithBody(@"Console.WriteLine($""Generator says: Hello"");");
+                            });
+                        });
+                    });
+                });
+            }
+        }
+    }
+}
+```
+
+- The `Initialize` is used to register the custom `ISyntaxReceiver` implementation containing the qualification rules - this is part of the Roslyn source generation processes
+- The `GeneratorExecutionContext` parameter passed to the `Execute` method contains a _ISyntaxReceiver_ implementation property - `PartialClassSyntaxReceiver` in this example, which contains the _Results_ property with the qualifying SyntaxNode. A number of checks are performed to ensure the _SyntaxReceiver_ is not null, and that the _Results_ property on it is not null.
+- The code then iterates over each `SyntaxReceiverResult` in the _Results_ property - effectively _iterating through each qualifying node_
+- The `AsClass` extension method (part of the `Source Generator Toolkit`) will convert the generic SyntaxNode to the specific syntax type ('ClassDeclarationSyntax' in this example)
+- The `GenerateSource` extension method (again, part of the `Source Generator Toolkit`) then allows for the building up of the required source code as described above. However, now, instead of explicitly supplying the values for the code (the _file name_,  _namespace_ and _class name_ in this example), the provided extension methods are used to extract the values from the qualifying syntax node.
+- In this example, the `GetNamespace` and `GetName` extension methods on `ClassDeclarationSyntax` are used to get the relevent details from the syntax to populate the generated source code
+
+---
+
+# Custom qualifiers and generation
+
+Coming soon
