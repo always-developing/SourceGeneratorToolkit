@@ -252,6 +252,32 @@ public class PartialMethodGenerator : ISourceGenerator
 
 ---
 
-# Custom qualifiers and generation
+# Custom syntax qualifiers 
 
-Coming soon
+The `Source Generator Toolkit` allows for custom qualification checks using the `WithQualifyingCheck` method:
+
+``` csharp
+syntaxNode.NodeQualifiesWhen(Results, node =>
+{
+    node.WithQualifyingCheck(customNode =>
+    {
+        // completely un-useful check
+        return customNode.ChildNodes().Count() == 10;
+    });
+});
+```
+
+Here instead of checking if the node is a _class or attribute_ for example, the qualification check is to see if the node contains 10 child nodes (a not very useful check)
+
+---
+
+# Future enhancements
+
+The initial version of the library was written with the most common syntax type checks, extension methods - there is still a lot to add depending on requirements:
+
+- [ ] SyntaxNode `AsAttribute` extension method
+- [ ] Additional extension methods to be used on _ClassDeclarationSyntax_ and _AttributeDeclarationSyntax_ to be leverage when doing code generation in a source generator
+- [ ] Ability to determine qualification with generics and generic types
+- [ ] Ability to determine qualification based on a code comment
+
+Feel free to log a request or bug if you have a specific requirement and I'll try to implement asap.
