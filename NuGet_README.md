@@ -2,6 +2,20 @@
 
 The `Source Generator Toolkit` provides functionality to easily generate c# code/files using a _fluent builder pattern_ - while initially designed to be used in conjunction with the .NET Roslyn Source Generator process, the functionality can be leveraged outside of process to generate c# sour code.
 
+## Installing AlwaysDeveloping.EntityFrameworkCore.DynamicContext
+
+AlwaysDeveloping.EntityFrameworkCore.DynamicContext is available on NuGet via:
+    
+    Install-Package SourceGeneratorToolkit
+    
+Or via the .NET CLI:
+    
+    dotnet add package SourceGeneratorToolkit
+
+Or via NuGet Packager Manager in Visual Studio    
+
+Direct link to SourceGeneratorToolkit on NuGet: [https://www.nuget.org/packages/SourceGeneratorToolkit/](https://www.nuget.org/packages/SourceGeneratorToolkit/) 
+
 
 # Generating Code - outside of the Roslyn Source Generator process
 

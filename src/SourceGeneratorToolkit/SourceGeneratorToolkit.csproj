@@ -7,7 +7,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<VersionPrefix>0.0.0.1</VersionPrefix>
 		<Version>$(VersionPrefix)-beta.1</Version>
-		<Title>SourceGenerator Toolkit</Title>
+		<Title>SourceGeneratorToolkit</Title>
 		<Authors>JP Seini</Authors>
 		<Company />
 		<Description>Simplifies the process of generating C# source code. The fluent builder pattern is leverage to assist determine if source code should be generated (in conjunction with Roslyn Source Generators), and also to generator the required c# output.</Description>
@@ -15,8 +15,10 @@
 		<RepositoryUrl>https://github.com/always-developing/SourceGeneratorToolkit.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>roslyn;sourcegenerator;sourcegeneration;toolkit;builder</PackageTags>
+		<AssemblyOriginatorKeyFile>..\..\SourceGeneratorToolkit.snk</AssemblyOriginatorKeyFile>
 		<FileVersion>$(VersionPrefix)</FileVersion>
 		<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+		<SignAssembly>True</SignAssembly>
 	</PropertyGroup>
 
 	<ItemGroup>

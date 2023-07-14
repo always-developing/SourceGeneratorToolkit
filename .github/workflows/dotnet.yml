@@ -4,10 +4,7 @@
 name: .NET
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,7 +19,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Pack
+      run: dotnet pack --configuration Release
+    - name: Push nupkg #snupkg automatically gets uploaded as well with the below command
+      run: dotnet nuget push ./src/SourceGeneratorToolkit/bin/Release/*.nupkg -k ${{ secrets.TOOLKITNUGET }} -s https://api.nuget.org/v3/index.json   
