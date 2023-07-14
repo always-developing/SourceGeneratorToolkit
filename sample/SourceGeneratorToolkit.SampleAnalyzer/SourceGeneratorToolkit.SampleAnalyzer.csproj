@@ -28,8 +28,11 @@
 	</PropertyGroup>
 
 	<Target Name="GetDependencyTargetPaths">
-		<ItemGroup>
+		<ItemGroup Condition="'$(Configuration)' == 'Debug'">
 			<TargetPathWithTargetPlatformMoniker Include="C:\Development\Projects\SourceGeneratorToolkit\src\SourceGeneratorToolkit\bin\Debug\netstandard2.0\SourceGeneratorToolkit.dll" IncludeRuntimeDependency="false" />
+		</ItemGroup>
+		<ItemGroup Condition="'$(Configuration)' == 'Release'">
+			<TargetPathWithTargetPlatformMoniker Include="C:\Development\Projects\SourceGeneratorToolkit\src\SourceGeneratorToolkit\bin\Release\netstandard2.0\SourceGeneratorToolkit.dll" IncludeRuntimeDependency="false" />
 		</ItemGroup>
 	</Target>
 
