@@ -1,6 +1,6 @@
 # Source Generator Toolkit
 
-The `Source Generator Toolkit` provides functionality to easily generate c# code/files using a _fluent builder pattern_ - while initially designed to be used in conjunction with the .NET Roslyn Source Generator process, the functionality can be leveraged outside of process to generate c# sour code.
+The `Source Generator Toolkit` provides functionality to easily generate c# code/files using a _fluent builder pattern_ - while initially designed to be used in conjunction with the .NET Roslyn Source Generator process, the functionality can be leveraged outside of process to generate c# source code.
 
 
 # Generating Code - outside of the Roslyn Source Generator process
