@@ -121,10 +121,10 @@ class SampleClassSyntaxReceiver : ISyntaxReceiver
 ```
 
 In the above example, if the qualification checks determines the node is:
-- a _class named `SampleClass` 
+- a class named `SampleClass` 
 - which is public
 - and not static
-- and also implements `ISerializable`_
+- and also implements `ISerializable`
 
 then the specific `SyntaxNode` qualifies, and the _Results_ list will be populated and passed to the _Execute_ method of the generator.
 
