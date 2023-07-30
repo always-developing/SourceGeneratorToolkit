@@ -6,6 +6,6 @@ Console.WriteLine("Hello, World!");
 
 GenClass.Hello();
 
-var x = new MyClass3();
-x.Hello();
+//var x = new MyClass3();
+//x.Hello();
 

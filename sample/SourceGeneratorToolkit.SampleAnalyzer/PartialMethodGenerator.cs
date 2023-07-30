@@ -28,7 +28,8 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
             {
                 foreach (var result in syntaxReceiver.Results)
                 {
-                    var cls = result.Node.AsClass();
+                    // var cls = result.Node.AsClass();
+                    var cls = result.Node.AsAttribute();
 
                     context.GenerateSource($"{cls.GetNamespace()}1", fileBuilder =>
                     {
@@ -66,41 +67,41 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
             syntaxNode.NodeQualifiesWhen(Results, node =>
             {
                 #region attribute example
-                //node.IsAttribute(att =>
-                //{
-                //    att.WithName("Obsolete")
-                //    .TargetsType(AttributeTargets.Class);
-                //});
+                node.IsAttribute(att =>
+                {
+                    att.WithName("Obsolete")
+                    .TargetsType(AttributeTargets.Class);
+                });
                 #endregion
 
-                #region class example
-                node.IsClass(c => c
-                    .WithName("MyClass")
-                    .IsNotStatic()
-                    .IsNotPrivateProtected()
-                    .IsPublic()
-                    .Implements("ISerializable")
-                    .WithAttribute(a =>
-                    {
-                        a.WithName("Obsolete");
-                    })
-                    .WithMethod(m =>
-                    {
-                        m.WithName("MyMethod")
-                        .IsAsync()
-                        .WithAttribute(a =>
-                        {
-                            a.WithName("Obsolete")
-                            .WithArgument(arg =>
-                            {
-                                arg.WithPosition(1);
-                                //.WithName("error");
-                            });
-                        })
-                        .WithReturnType(typeof(Task));
-                    })
-                );
-                #endregion
+                //#region class example
+                //node.IsClass(c => c
+                //    .WithName("MyClass")
+                //    .IsNotStatic()
+                //    .IsNotPrivateProtected()
+                //    .IsPublic()
+                //    .Implements("ISerializable")
+                //    .WithAttribute(a =>
+                //    {
+                //        a.WithName("Obsolete");
+                //    })
+                //    .WithMethod(m =>
+                //    {
+                //        m.WithName("MyMethod")
+                //        .IsAsync()
+                //        .WithAttribute(a =>
+                //        {
+                //            a.WithName("Obsolete")
+                //            .WithArgument(arg =>
+                //            {
+                //                arg.WithPosition(1);
+                //                //.WithName("error");
+                //            });
+                //        })
+                //        .WithReturnType(typeof(Task));
+                //    })
+                //);
+                //#endregion
             });
         }
     }

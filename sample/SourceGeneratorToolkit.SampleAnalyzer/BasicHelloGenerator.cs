@@ -21,7 +21,7 @@ namespace SourceGeneratorToolkit.SampleAnalyzer
                         clsBuilder.WithMethod("Hello", "void", mthBuilder =>
                         {
                             mthBuilder.AsStatic().AsPublic()
-                            .WithBody(@"Console.WriteLine($""Generator says: Hello!!!"");");
+                            .WithBody(@"Console.WriteLine($""Generator says: Hello!"");");
                         });
                     });
                 });

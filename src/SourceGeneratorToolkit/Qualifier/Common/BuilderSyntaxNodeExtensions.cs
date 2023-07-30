@@ -29,6 +29,21 @@ namespace SourceGeneratorToolkit
         }
 
         /// <summary>
+        /// Return the Syntax node as an attribute
+        /// </summary>
+        /// <param name="node">The node in question</param>
+        /// <returns>The node as a attribute syntax</returns>
+        public static AttributeSyntax AsAttribute(this SyntaxNode node)
+        {
+            if (node.IsKind(SyntaxKind.Attribute))
+            {
+                return (AttributeSyntax)node;
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Get the underlying name of the node type. E.g. for a ClassDeclarationSyntax, this will return the class name.
         /// </summary>
         /// <param name="node">The node</param>
